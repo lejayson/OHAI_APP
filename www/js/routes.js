@@ -63,7 +63,8 @@ angular.module('app.routes', [])
     templateUrl: 'pages/events.html',
     controller: 'eventsCtrl'
   })
-
+  
+ 
 $urlRouterProvider.otherwise('/side-menu21/home')
 
   
