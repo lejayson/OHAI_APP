@@ -10,7 +10,7 @@ body {
     font-size: 1.2em;
     text-transform: uppercase;
     font-weight: 700;
-    letter-spacing: .06em;
+    letter-spacing: .27em;
     text-align: center;
 }
 
@@ -103,7 +103,10 @@ body {
     padding-left: 35px;
 }
 
-
+.sidemenu-list > .item-content.activated {
+    background-color: #11323a;
+    border-bottom: 1px solid #11323a;
+}
 
 /* HOME PAGE - MAP BUTTON */
 
@@ -212,4 +215,86 @@ body {
 
 .navfour {
     background-color: #08767e;
+}
+
+
+/* REFER PAGE - CONTENT */
+
+.tabs-top.tabs-striped .tab-item.tab-item-active, .tabs-top.tabs-striped .tab-item.active, .tabs-top.tabs-striped .tab-item.activated {
+    border-color: transparent;
+}
+
+.refer-nav > .has-header {
+    top: 44px;
+    height: auto;
+}
+
+.tabs {
+    background-image: none;
+}
+
+.has-tabs,
+.has-tabs.pane {
+    bottom: 
+}
+
+.refer-nav > .tabs {
+    background-color: #00adb5;
+    color: #eee;
+    height: 66px;
+    border: none;
+}
+
+
+.refer-nav > .tabs .tab-item {
+    font-size: .75em;
+    line-height: 1.7em;
+    text-transform: uppercase;
+    letter-spacing: .15em;
+    font-family: 'lato', san-serif;
+    border: none;
+}
+
+.tab-item .icon {
+    height: 28px;
+    font-size: 28px;
+}
+
+a.tab-item {
+    padding-top: 10px;
+}
+
+.tabs-striped .tab-item.tab-item-active {
+    margin-top: 0;
+}
+
+.tab-item activated {
+    margin-top: 0 !important;
+}
+
+.tabsubmitbutton {
+    background-color: #42cc8a;
+    opacity: 1;
+}
+
+/* REFER PAGE - FORMS */
+
+
+
+.submitbutton {
+    height: 60px;
+    width: 100%;
+    background-color: #42cc8a;
+    color: #fff;
+    position: absolute;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    border-top: 1px solid #eee;
+}
+
+.submitbutton span {
+    line-height: 3.1em;
+    font-size: 1.3em;
+    letter-spacing: .1em;
 }
