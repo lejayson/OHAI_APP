@@ -241,6 +241,19 @@ ion-item#menu-list-contact > a.item-content {
     height: auto;
 }
 
+.scroll {
+    height: 100%;
+}
+ 
+#homemap {
+    width: 100%;
+    height: 100%;
+}
+#refermap {
+    width: 100%;
+    height: 100%;
+}
+
 .tabs {
     background-image: none;
 }

@@ -25,7 +25,7 @@ angular.module('app.routes', [])
     views: {
       'side-menu21': {
         templateUrl: 'pages/about.html',
-        controller: 'referCtrl'
+        controller: 'aboutCtrl'
       }
     }
   })
@@ -35,7 +35,7 @@ angular.module('app.routes', [])
     views: {
       'side-menu21': {
         templateUrl: 'pages/resources.html',
-        controller: 'kauhaleCtrl'
+        controller: 'resourcesCtrl'
       }
     }
   })
@@ -45,7 +45,7 @@ angular.module('app.routes', [])
     views: {
       'side-menu21': {
         templateUrl: 'pages/volunteer.html',
-        controller: 'kauhaleCtrl'
+        controller: 'volunteerCtrl'
       }
     }
   })
@@ -55,7 +55,7 @@ angular.module('app.routes', [])
     views: {
       'side-menu21': {
         templateUrl: 'pages/events.html',
-        controller: 'kauhaleCtrl'
+        controller: 'eventsCtrl'
       }
     }
   })
@@ -65,7 +65,7 @@ angular.module('app.routes', [])
     views: {
       'side-menu21': {
         templateUrl: 'pages/contact.html',
-        controller: 'kauhaleCtrl'
+        controller: 'contactCtrl'
       }
     }
   })
@@ -75,7 +75,7 @@ angular.module('app.routes', [])
     views: {
       'side-menu21': {
         templateUrl: 'pages/refer.html',
-        controller: 'kauhaleCtrl'
+        controller: 'referCtrl'
       }
     }
   })
