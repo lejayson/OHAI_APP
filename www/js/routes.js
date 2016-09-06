@@ -88,6 +88,12 @@ angular.module('app.routes', [])
     abstract:true
   })
   
+    .state('resource-menu', {
+    url: '/resources/menu',
+    templateUrl: 'pages/resources/resources/menu.html',
+    abstract:true
+  })
+  
   
   
  

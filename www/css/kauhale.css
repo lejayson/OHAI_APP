@@ -387,3 +387,28 @@ label.item.item-input.item-staced-label.refer-infofield {
 label.item.item-input.item-stacked-label:first-child {
     padding-top: 10px;
 }
+
+
+
+
+
+/* RESOURCES PAGE - SEARCH */
+
+.resource-button {
+    height:66px;
+    width: 100%;
+    background-color: #00adb5;
+    color: #fff !important;
+    position: relative;
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    letter-spacing: .05em;
+    margin-top: 0px;
+    border-radius: 0;
+    border: none;
+}
+
+.resource-button:active{
+    background-color: #11323a;
+}
