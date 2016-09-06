@@ -1,12 +1,12 @@
 <ion-view title="Refer" id="page2">
 <ion-view title="Refer" id="page2">
-<ion-tabs class="tabs-striped refer-nav tabs-icon-top" scroll="false">
+<ion-tabs class="tabs-striped refer-nav tabs-icon-top tabs-top" scroll="false">
     
     
 <!------------------------ TAB FOR THE MAP ------------------------>
 
   <ion-tab title="Location" icon-on="ion-ios-navigate" icon-off="ion-ios-navigate-outline">
-      <ion-content padding="true" class="has-header" scroll="false">
+      <ion-content padding="true" class="has-header has-tabs-top" scroll="false">
       
         <!-- EDIT CONTENT HERE -->
           
@@ -57,24 +57,35 @@
     
 
   <ion-tab title="Info" icon-on="ion-ios-list" icon-off="ion-ios-list-outline">
-      <ion-content padding="true" class="has-header" scroll="false">
+      <ion-content padding="true" class="has-header" scroll="true">
       
         <!-- EDIT CONTENT HERE -->
           
-        <div class="list">
-  <label class="item item-input item-stacked-label">
-    <span class="input-label">Their Name (if available)</span>
-    <input type="text" placeholder="John">
-  </label>
-  <label class="item item-input item-stacked-label">
-    <span class="input-label">Email</span>
-    <input type="text" placeholder="john@suhr.com">
-  </label>
-       <label class="item item-input">
-           <textarea placeholder="Comments"></textarea>
-  </label>
-</div>
-
+        <div class="list referform"> 
+            
+          <label class="item item-input item-stacked-label">
+              <span class="input-label">Their Name (if available)</span>
+            <input type="text" placeholder="John Doe">
+          </label>
+            
+            
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">Their Gender</span>
+            <ion-list>
+              <ion-radio ng-model="choice" ng-value="'A'">Female</ion-radio>
+              <ion-radio ng-model="choice" ng-value="'B'">Male</ion-radio>
+            </ion-list>
+          </label>
+            
+          <label class="item item-input item-stacked-label refer-infolabel">        
+          <span class="input-label">MORE INFORMATION</span>
+            </label>      
+              
+          <label class="item item-input item-staced-label refer-infofield">
+            <textarea rows="8" placeholder="Please describe the circumstance of the person."></textarea>
+          </label>
+            
+        </div>
 
         <!-- END CONTENT -->
     
@@ -86,7 +97,7 @@
 <!------------------------ TAB FOR THE SUBMIT ------------------------>
     
 
-  <ion-tab title="Submit" icon-on="ion-ios-list" icon-off="ion-ios-list-outline" class="tabsubmitbutton">
+  <ion-tab title="Submit" icon-on="ion-checkmark" icon-off="ion-checkmark" class="tabsubmitbutton">
       <ion-content padding="true" class="has-header" scroll="false">
       
         <!-- EDIT CONTENT HERE -->

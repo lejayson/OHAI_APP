@@ -10,7 +10,7 @@ angular.module('app.routes', [])
     
   
 
-      .state('menu.home', {
+  .state('menu.home', {
     url: '/home',
     views: {
       'side-menu21': {
@@ -20,52 +20,78 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('menu.refer', {
-    url: '/refer',
+  .state('menu.about', {
+    url: '/about',
     views: {
       'side-menu21': {
-        templateUrl: 'pages/refer.html',
+        templateUrl: 'pages/about.html',
         controller: 'referCtrl'
       }
     }
   })
 
-  .state('menu.kauhale', {
-    url: '/kauhale',
+  .state('menu.resources', {
+    url: '/resources',
     views: {
       'side-menu21': {
-        templateUrl: 'pages/kauhale.html',
+        templateUrl: 'pages/resources.html',
         controller: 'kauhaleCtrl'
       }
     }
   })
+  
+  .state('menu.volunteer', {
+    url: '/volunteer',
+    views: {
+      'side-menu21': {
+        templateUrl: 'pages/volunteer.html',
+        controller: 'kauhaleCtrl'
+      }
+    }
+  })
+  
+  .state('menu.events', {
+    url: '/events',
+    views: {
+      'side-menu21': {
+        templateUrl: 'pages/events.html',
+        controller: 'kauhaleCtrl'
+      }
+    }
+  })
+  
+  .state('menu.contact', {
+    url: '/contact',
+    views: {
+      'side-menu21': {
+        templateUrl: 'pages/contact.html',
+        controller: 'kauhaleCtrl'
+      }
+    }
+  })
+  
+  .state('menu.refer', {
+    url: '/refer',
+    views: {
+      'side-menu21': {
+        templateUrl: 'pages/refer.html',
+        controller: 'kauhaleCtrl'
+      }
+    }
+  })
+  
+  
 
   .state('menu', {
-    url: '/side-menu21',
+    url: '/kauhale',
     templateUrl: 'pages/menu.html',
     abstract:true
   })
-
-  .state('resources', {
-    url: '/resources',
-    templateUrl: 'pages/resources.html',
-    controller: 'resourcesCtrl'
-  })
-
-  .state('volunteer', {
-    url: '/volunteer',
-    templateUrl: 'pages/volunteer.html',
-    controller: 'volunteerCtrl'
-  })
-
-  .state('events', {
-    url: '/events',
-    templateUrl: 'pages/events.html',
-    controller: 'eventsCtrl'
-  })
+  
+  
   
  
-$urlRouterProvider.otherwise('/side-menu21/home')
+$urlRouterProvider.otherwise('/kauhale/home')
 
   
 

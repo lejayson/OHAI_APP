@@ -3,6 +3,12 @@ body {
     letter-spacing: .03em;
 }
 
+textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"] {
+    color: #304c53;
+}
+
+
+
 /* NAVIGATION CSS */
 
 .bar.bar-stable .title {
@@ -101,6 +107,12 @@ body {
     font-size: 1em;
     line-height: 2.2em;
     padding-left: 35px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+ion-item#menu-list-contact > a.item-content {
+    border-bottom: 0px;
 }
 
 .sidemenu-list > .item-content.activated {
@@ -225,7 +237,7 @@ body {
 }
 
 .refer-nav > .has-header {
-    top: 44px;
+    /*top: 44px;*/
     height: auto;
 }
 
@@ -243,6 +255,7 @@ body {
     color: #eee;
     height: 66px;
     border: none;
+    padding-top: 0;
 }
 
 
@@ -273,9 +286,11 @@ a.tab-item {
 }
 
 .tabsubmitbutton {
-    background-color: #42cc8a;
+    background-color: #42cc8a !important;
     opacity: 1;
+    margin-top: 0 !important;
 }
+
 
 /* REFER PAGE - FORMS */
 
@@ -297,4 +312,78 @@ a.tab-item {
     line-height: 3.1em;
     font-size: 1.3em;
     letter-spacing: .1em;
+}
+
+.referform > .item {
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    padding-top: 17px;
+    padding-bottom: 15px;
+}
+
+.referform > .item span {
+    font-size: .9em;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: #039ba3;
+}
+
+.referform {
+    padding:0px;
+}
+
+.refer-infolabel {
+    padding-bottom: 0px !important;
+}
+
+.refer-infofield {
+    padding-top: 8px !important;
+}
+
+.item-radio .radio-icon {
+    left: 0;
+    right:auto;
+    font-size: 15px;
+    color: #039ba3;
+    padding:0px;
+    padding-top: 6px;
+}
+
+.ng-valid {
+    border: none;
+}
+
+.item-content.disable-pointer-events {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.item-radio .item-content {
+    padding-top:5px;
+    padding-bottom: 5px;
+    padding-left:25px;
+}
+
+.item-radio input:checked + .radio-content .item-content {
+    background: transparent;
+}
+
+.item-radio .item-content span {
+    font-size: .9em;
+    color: #304c53;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.item-radio input:checked + .radio-content .item-content span{
+    color: #039ba3;
+}
+
+label.item.item-input.item-staced-label.refer-infofield {
+    border-bottom: 0px;
+}
+
+label.item.item-input.item-stacked-label:first-child {
+    padding-top: 10px;
 }

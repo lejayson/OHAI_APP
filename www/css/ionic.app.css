@@ -3518,7 +3518,7 @@ ion-infinite-scroll {
   top: 88px; }
 
 .has-tabs-top {
-  top: 93px; }
+  top: 112px; }
 
 .has-header.has-subheader.has-tabs-top {
   top: 137px; }
@@ -3556,7 +3556,7 @@ ion-infinite-scroll {
 .pane,
 .view {
   position: absolute;
-  top: 0;
+  /*top: 0;*/
   right: 0;
   bottom: 0;
   left: 0;
@@ -3798,7 +3798,7 @@ a.subdued {
   overflow: hidden; }
   .action-sheet-group .button {
     border-width: 1px 0px 0px 0px; }
-  .action-sheet-group .button:first-child:last-child {
+  .action-sheet-group .button:first-child:la-tast-child {
     border-width: 0; }
 
 .action-sheet-options {
@@ -5319,7 +5319,7 @@ ion-tabs.tabs-color-active-dark .tab-item {
   .platform-ios.platform-cordova .modal-wrapper .modal .has-subheader {
     top: 88px; }
   .platform-ios.platform-cordova .modal-wrapper .modal .has-header.has-tabs-top {
-    top: 93px; }
+    top: 123px; }
   .platform-ios.platform-cordova .modal-wrapper .modal .has-header.has-subheader.has-tabs-top {
     top: 137px; }
   .modal-backdrop-bg {
@@ -9514,6 +9514,10 @@ a.button {
  * --------------------------------------------------
  * Platform specific tweaks
  */
+
+
+
+
 .platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) {
   height: 64px; }
   .platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader).item-input-inset .item-input-wrapper {
@@ -9533,7 +9537,7 @@ a.button {
   top: 108px; }
 
 .platform-ios.platform-cordova:not(.fullscreen) .has-header.has-tabs-top {
-  top: 113px; }
+  top: 132px; }
 
 .platform-ios.platform-cordova:not(.fullscreen) .has-header.has-subheader.has-tabs-top {
   top: 157px; }
