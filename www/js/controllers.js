@@ -151,9 +151,6 @@ function ($scope, $stateParams) {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $cordovaGeolocation, Markers) {
-    $scope.hide = function() {
-    $scope.visible = !$scope.visible;
-    };
 	var gmarkers1 = [];
 	var apiKey = false;
 	  var map = null;
@@ -249,6 +246,17 @@ function ($scope, $stateParams, $cordovaGeolocation, Markers) {
         }
       }
       initMap();
+    $scope.animationbutt = "closedanimate";
+    $scope.hide = function () {
+        if ($scope.animationbutt === "openanimate") {
+            $scope.recolorbutton="hidden-resource-button";
+            $scope.animationbutt="closedanimate";
+        }
+        else {
+            $scope.recolorbutton="dark-resource-button";
+            $scope.animationbutt="openanimate";
+        }
+    }
 }])
 
 .factory('Markers', function($http) {
