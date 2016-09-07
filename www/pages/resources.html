@@ -2,18 +2,22 @@
     <ion-content padding="false" class="has-header" scroll="false">
    
          
-        <button ng-click="hide()" ng-class="recolorbutton" class="resource-button"><span></span>Click here to search</button>
+        <button ng-click="hide()" ng-class="recolorbutton" class="resource-button full-widthbutton"><span></span>Click here to search</button>
     
         
         <div id="resourcemap" data-tap-disabled="true"></div>
        
         <div class="resource-options" ng-class="animationbutt">
+            <div class="resource-row">
+            <button ng-click="hide()" class="resource-button rbutton1">All Categories</button>
+            <button ng-click="hide()" class="resource-button rbutton2"><i class="icon ion-coffee resourceicons"></i> Food Resources</button>
+            </div>
             
-            <button ng-click="hide()" class="resource-button"><span></span>All Categories</button>
-            <button ng-click="hide()" class="resource-button"><span></span><i class="icon ion-coffee resourceicons"></i> Food Resources</button>
-            <button  ng-click="hide()" class="resource-button"><span></span><i class="icon ion-medkit resourceicons"></i>Medical Care</button>
-            <button ng-click="hide()" class="resource-button"><span></span><i class="icon ion-home resourceicons"></i>Shelters</button>
+            <div class="resource-row">
+            <button  ng-click="hide()" class="resource-button rbutton3"><i class="icon ion-medkit resourceicons"></i>Medical Care</button>
+            <button ng-click="hide()" class="resource-button rbutton4"><i class="icon ion-home resourceicons"></i>Shelters</button>
+            </div>
+            
         </div>
-        
     </ion-content>
 </ion-view>
