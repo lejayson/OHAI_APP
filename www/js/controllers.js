@@ -52,6 +52,12 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties) {
   }, function(error){
     console.log("Could not get location");
   });
+    
+    $scope.animationbutt123 = "closedanimate123";
+        $scope.anything = function () {
+        $scope.animationbutt123 = "openanimate123";
+    }
+
 
 }])
    
@@ -138,6 +144,9 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
   $scope.saveInput = function(e){
 	  $infoProperties.setNm(e);
   }
+  
+  
+  
 }])
    
 .controller('kauhaleCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller

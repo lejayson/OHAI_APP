@@ -131,6 +131,30 @@ ion-item#menu-list-contact > a.item-content {
 
 .map-home {
     height: 50%;
+    
+}
+
+.mappin-div.activated {
+    background-color: #d18027;
+    border: 2px solid #ffc666;
+}
+
+.mappin-div {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    height: inherit;
+    width: 100%;
+    pointer-events: none;
+    text-align: center;
+}
+
+.pinhome {
+        width: 50px;
+    position: absolute;
+    top: 50%;
+    margin-left: -25px;
+    margin-top: -65px;
 }
 
 .map-home-button {
@@ -531,6 +555,15 @@ label.item.item-input.item-stacked-label:first-child {
     height: 20%;
 }
 
+
+
+.closedanimate123 {
+     visibility: hidden; /* hides sub-menu */
+}
+
+.openanimate123 {
+     visibility: visible; /* hides sub-menu */
+}
 
 /* RESOURCES PAGE - MENU */
 
