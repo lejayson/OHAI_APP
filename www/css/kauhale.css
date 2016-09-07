@@ -431,8 +431,77 @@ label.item.item-input.item-stacked-label:first-child {
 }
 
 
+/* REFER PAGE - SUBMIT */
 
+.submitform {
+    background-color: #11323a;
+}
 
+.finsubmitbutton {
+    background-color: #42cc8a;
+    color: #fff;
+}
+
+.bar-footer {
+    height: 55px;
+}
+
+.submitinfo {
+    padding: 16px;
+    line-height: 1.5em;
+    color: #eee;
+    font-size: .9em;
+}
+
+.submit-text {
+        display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 0;
+    overflow: hidden;
+    margin: 0 10px;
+    min-width: 30px;
+    height: 55px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 55px;
+    color: #fff;
+    letter-spacing: .05em;
+}
+
+.submitcomplete {
+    text-align: center;
+    font-size: 1em;
+    background-color: #00adb5;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    bottom: 0px;
+    width: 70%;
+    /* margin-top: 30px; */
+    margin: 0 auto;
+}
+
+.allowbut {
+    font-size: 1em;
+    border-radius: 6px;
+}
+
+.allowbut > .checkbox input:checked:before, .checkbox input:checked + .checkbox-icon:before {
+    background: #00adb5;
+    border-color: #00adb5;
+}
+
+.submitcomplete {
+    text-align: center;
+    font-size: 1.2em;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+}
 
 /* RESOURCES PAGE - SEARCH */
 
@@ -489,6 +558,7 @@ label.item.item-input.item-stacked-label:first-child {
 .rbutton1, .rbutton2, .rbutton3, .rbutton4 {
     padding-left: 20px;
     text-align: left;
+    letter-spacing: 0;
 }
 
 .rbutton1 {
