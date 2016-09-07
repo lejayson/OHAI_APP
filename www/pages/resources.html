@@ -9,10 +9,10 @@
        
         <div class="resource-options" ng-class="animationbutt">
             
-            <button ng-click="hide()" class="resource-button"><span></span>All Categories</button>
-            <button ng-click="hide()" class="resource-button"><span></span><i class="icon ion-coffee resourceicons"></i> Food Resources</button>
-            <button  ng-click="hide()" class="resource-button"><span></span><i class="icon ion-medkit resourceicons"></i>Medical Care</button>
-            <button ng-click="hide()" class="resource-button"><span></span><i class="icon ion-home resourceicons"></i>Shelters</button>
+            <button ng-click="hide()" onclick="filterMarkers('All');" class="resource-button"><span></span>All Categories</button>
+            <button ng-click="hide()" onclick="filterMarkers('Arun');" class="resource-button"><span></span><i class="icon ion-coffee resourceicons"></i> Food Resources</button>
+            <button ng-click="hide()" onclick="filterMarkers('Kylie');" class="resource-button"><span></span><i class="icon ion-medkit resourceicons"></i>Medical Care</button>
+            <button ng-click="hide()" onclick="filterMarkers('Reagan');" class="resource-button"><span></span><i class="icon ion-home resourceicons"></i>Shelters</button>
         </div>
         
     </ion-content>
