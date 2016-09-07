@@ -29,7 +29,8 @@ angular.module('app.routes', [])
       }
     }
   })
-
+  
+  
   .state('menu.resources', {
     url: '/resources',
     views: {
@@ -64,6 +65,7 @@ angular.module('app.routes', [])
       'side-menu21': {
         templateUrl: 'pages/resources.html',
         controller: 'shelterCtrl'
+
       }
     }
   })
@@ -118,7 +120,7 @@ angular.module('app.routes', [])
   
     .state('resource-menu', {
     url: '/resources/menu',
-    templateUrl: 'pages/resources/resources/menu.html',
+    templateUrl: 'pages/menu.html',
     abstract:true
   })
   

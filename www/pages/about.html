@@ -1,13 +1,27 @@
 <ion-view title="Kauhale" id="page3">
-    <ion-content padding="true" class="has-header">
-        <div style="margin: 0px; line-height: 250px; text-align: center; background-color: rgb(232, 235, 239);">
-            <i class="icon ion-image" style="font-size: 64px; color: rgb(136, 136, 136); vertical-align: middle;"></i>
-        </div>
-        <h1 id="kauhale-heading1" style="color:#000000;">Heading</h1>
-        <div id="kauhale-markdown2" style="color:#000000;">
-            <p>Some friendly
-                <strong>markdown</strong>
-            </p>
-        </div>
-    </ion-content>
+      <ion-content padding="false" ng-controller="aboutCtrl" ng-init="init()">
+    
+          
+          
+        <div class="newsfeed">
+      <div class="newsfeed-item" ng-repeat="entry in entries">
+            
+          <div class="news-containerBox">
+                <div class="news-text-box">
+                     <span class="newstype">{{entry.author}}</span>
+                    <span class="newstitle">{{entry.title}}</span>
+                </div>
+              <div class="imagecontainer"><img class="img-responsive" src="{{getPhoto(entry)}}"/></div>
+            </div>
+          
+          <div class="news-content">
+              
+            <span ng-bind-html="entry.contentSnippet"></span> <br>
+          
+              <a class="news-readbutton" ng-href="{{entry.link}}" ng-click="window.open(this.href, '_blank', 'location=yes'); return false;">Read on website.</a>
+          </div>
+          
+      </div>
+    </div>
+</ion-content>
 </ion-view>
