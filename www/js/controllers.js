@@ -13,7 +13,10 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties) {
     var mapOptions = {
       center: latLng,
       zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+	  disableDefaultUI: false,
+	  mapTypeControl: false,
+	  streetViewControl: false
     };
     $scope.map = new google.maps.Map(document.getElementById("homemap"), mapOptions);
 	$locationProperties.setLoc($scope.map.getCenter());
@@ -67,7 +70,10 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
     var mapOptions = {
       center: latLng,
       zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+	  disableDefaultUI: false,
+	  mapTypeControl: false,
+	  streetViewControl: false
     };
     $scope.map = new google.maps.Map(document.getElementById("refermap"), mapOptions);
 	
@@ -165,7 +171,10 @@ function ($scope, $stateParams, $cordovaGeolocation, Markers) {
 		  var mapOptions = {
 			center: latLng,
 			zoom: 15,
-			mapTypeId: google.maps.MapTypeId.ROADMAP
+			mapTypeId: google.maps.MapTypeId.ROADMAP,
+		  disableDefaultUI: false,
+		  mapTypeControl: false,
+		  streetViewControl: false
 		  };
 	 
 		  map = new google.maps.Map(document.getElementById("resourcemap"), mapOptions);
