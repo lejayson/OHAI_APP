@@ -147,12 +147,105 @@ function ($scope, $stateParams) {
  
 }])
       
-.controller('resourcesCtrl', ['$scope', '$stateParams', 'ResourceMaps',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('resourcesCtrl', ['$scope', '$stateParams', '$cordovaGeolocation', 'Markers',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, ResourceMaps) {
- 
-	ResourceMaps.init();
+function ($scope, $stateParams, $cordovaGeolocation, Markers) {
+	var gmarkers1 = [];
+	var apiKey = false;
+	  var map = null;
+	 
+	  function initMap(){
+		var options = {timeout: 10000, enableHighAccuracy: true};
+	 
+		$cordovaGeolocation.getCurrentPosition(options).then(function(position){
+	 
+		  var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	 
+		  var mapOptions = {
+			center: latLng,
+			zoom: 15,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		  };
+	 
+		  map = new google.maps.Map(document.getElementById("resourcemap"), mapOptions);
+	 
+		  //Wait until the map is loaded
+		  google.maps.event.addListenerOnce(map, 'idle', function(){
+	 
+			//Load the markers
+			loadMarkers();
+	 
+		  });
+	 
+		}, function(error){
+		  console.log("Could not get location");
+	 
+			//Load the markers
+			loadMarkers();
+		});
+	 
+	  }
+	 
+	  function loadMarkers(){
+		  //Get all of the markers from our Markers factory
+		  Markers.getMarkers().then(function(markers){
+			console.log("Markers: ", markers);
+			var records = markers.data.markers;
+			for (var i = 0; i < records.length; i++) {
+			  console.log("Length: ",records.length);
+			  var record = records[i];   
+			  var fltr = record.name;
+			  var markerPos = new google.maps.LatLng(record.lat, record.lng);
+			  // Add the markerto the map
+			  var marker = new google.maps.Marker({
+				  category: fltr,
+				  map: map,
+				  animation: google.maps.Animation.DROP,
+				  position: markerPos
+			  });
+	 
+			  var infoWindowContent = "<h4>" + record.name + "</h4>";          
+	          gmarkers1.push(marker);
+			  addInfoWindow(marker, infoWindowContent, record);
+	 
+			}
+	 
+		  }); 
+	  }
+	 
+	  function addInfoWindow(marker, message, record) {
+	 
+		  var infoWindow = new google.maps.InfoWindow({
+			  content: message
+		  });
+	 
+		  google.maps.event.addListener(marker, 'click', function() {
+			  infoWindow.open(map, marker);
+		  });
+	 
+	  }
+	  filterMarkers = function (e) {
+		   var category = e;
+           console.log(gmarkers1.length);
+		   for (i = 0; i < gmarkers1.length; i++) {
+			   if(category == "All"){
+				   marker = gmarkers1[i];
+				   marker.setVisible(true);
+			   }else{
+					marker = gmarkers1[i];
+					// If is same category or category not picked
+					if (marker.category.toLowerCase().indexOf(category.toLowerCase()) > -1 || category.length === 0) {
+						marker.setVisible(true);
+					}
+					// Categories don't match 
+					else {
+						marker.setVisible(false);
+					}
+			   }
+        }
+      }
+      initMap();
     $scope.animationbutt = "closedanimate";
     $scope.hide = function () {
         if ($scope.animationbutt === "openanimate") {
@@ -164,8 +257,22 @@ function ($scope, $stateParams, ResourceMaps) {
             $scope.animationbutt="openanimate";
         }
     }
-
 }])
+
+.factory('Markers', function($http) {
+	
+  var markers = [];
+ 
+  return {
+    getMarkers: function(){
+		
+      return $http.get("http://test.appkauhale.com/allmarkers.php").then(function(response){
+          markers = response;
+          return markers;
+      });
+    }
+  }
+})
 
 .controller('foodCtrl', ['$scope', '$stateParams', 'FoodMaps',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
