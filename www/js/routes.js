@@ -40,6 +40,34 @@ angular.module('app.routes', [])
     }
   })
   
+  .state('menu.food', {
+    url: '/resources',
+    views: {
+      'side-menu21': {
+        templateUrl: 'pages/resources.html',
+        controller: 'foodCtrl'
+      }
+    }
+  })
+  .state('menu.medical', {
+    url: '/resources',
+    views: {
+      'side-menu21': {
+        templateUrl: 'pages/resources.html',
+        controller: 'medicalCtrl'
+      }
+    }
+  })
+  .state('menu.shelter', {
+    url: '/resources',
+    views: {
+      'side-menu21': {
+        templateUrl: 'pages/resources.html',
+        controller: 'shelterCtrl'
+      }
+    }
+  })
+  
   .state('menu.volunteer', {
     url: '/volunteer',
     views: {

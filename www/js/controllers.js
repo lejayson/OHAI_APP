@@ -1,6 +1,6 @@
-angular.module('app.controllers', ['ionic', 'ngCordova'])
+angular.module('app.controllers', [])
 
-.controller('homeCtrl', ['$scope', '$state', '$cordovaGeolocation', '$locationProperties', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('homeCtrl', ['$scope', '$state', '$cordovaGeolocation', '$locationProperties',  // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 
@@ -55,10 +55,10 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties) {
 
 }])
    
-.controller('referCtrl', ['$scope', '$state', '$cordovaGeolocation', '$locationProperties', '$http',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('referCtrl', ['$scope', '$state', '$cordovaGeolocation', '$locationProperties', '$http', '$infoProperties',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $cordovaGeolocation, $locationProperties, $http) {
+function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $infoProperties) {
  var options = {timeout: 10000, enableHighAccuracy: true};
   var marker;
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
@@ -109,6 +109,7 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http) {
 
   $scope.submitForm = function(){
 	var latlng = $locationProperties.getLoc();
+	var nm = $infoProperties.getNm();
 	var lat = latlng.lat();
 	var lng = latlng.lng();
     console.log(lat);
@@ -118,7 +119,8 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http) {
 	  $scope.codeStatus = "";
 		var data = {
 		  lat: lat,
-		  lng: lng
+		  lng: lng,
+		  nm: nm
 		};
 		$http({
 		  method: method,
@@ -133,24 +135,53 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http) {
 			$scope.codeStatus = response || "Request failed";
 		});
   }
+  $scope.saveInput = function(e){
+	  $infoProperties.setNm(e);
+  }
 }])
    
 .controller('kauhaleCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
-
-
+ 
 }])
       
-.controller('resourcesCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('resourcesCtrl', ['$scope', '$stateParams', 'ResourceMaps',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
-
+function ($scope, $stateParams, ResourceMaps) {
+ 
+	ResourceMaps.init();
 
 }])
-   
+
+.controller('foodCtrl', ['$scope', '$stateParams', 'FoodMaps',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams, FoodMaps) {
+    FoodMaps.init();
+
+}])
+
+.controller('medicalCtrl', ['$scope', '$stateParams', 'MedicineMaps',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams, MedicineMaps) {
+    
+	 MedicineMaps.init();
+
+}])
+
+.controller('shelterCtrl', ['$scope', '$stateParams', 'shelMaps',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams, shelMaps) {
+    
+	 shelMaps.init();
+
+}])
+
 .controller('volunteerCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName

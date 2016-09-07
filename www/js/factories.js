@@ -1,6 +1,391 @@
-angular.module('your_app_name.factories', [])
+angular.module('app.factories', [])
 
-.factory('FeedLoader', function ($resource){
+.factory('ResourceMaps', function($cordovaGeolocation, Markers){
+  var apiKey = false;
+  var map = null;
+ 
+  function initMap(){
+    var options = {timeout: 10000, enableHighAccuracy: true};
+ 
+    $cordovaGeolocation.getCurrentPosition(options).then(function(position){
+ 
+      var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+ 
+      var mapOptions = {
+        center: latLng,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+ 
+      map = new google.maps.Map(document.getElementById("resourcemap"), mapOptions);
+ 
+      //Wait until the map is loaded
+      google.maps.event.addListenerOnce(map, 'idle', function(){
+ 
+        //Load the markers
+        loadMarkers();
+ 
+      });
+ 
+    }, function(error){
+      console.log("Could not get location");
+ 
+        //Load the markers
+        loadMarkers();
+    });
+ 
+  }
+ 
+  function loadMarkers(){
+      //Get all of the markers from our Markers factory
+      Markers.getMarkers().then(function(markers){
+        console.log("Markers: ", markers);
+        var records = markers.data.markers;
+        for (var i = 0; i < records.length; i++) {
+          console.log("Length: ",records.length);
+          var record = records[i];   
+          var markerPos = new google.maps.LatLng(record.lat, record.lng);
+          // Add the markerto the map
+          var marker = new google.maps.Marker({
+              map: map,
+              animation: google.maps.Animation.DROP,
+              position: markerPos
+          });
+ 
+          var infoWindowContent = "<h4>" + record.name + "</h4>";          
+ 
+          addInfoWindow(marker, infoWindowContent, record);
+ 
+        }
+ 
+      }); 
+  }
+ 
+  function addInfoWindow(marker, message, record) {
+ 
+      var infoWindow = new google.maps.InfoWindow({
+          content: message
+      });
+ 
+      google.maps.event.addListener(marker, 'click', function() {
+          infoWindow.open(map, marker);
+      });
+ 
+  }
+ 
+  return {
+    init: function(){
+      initMap();
+    }
+  }
+ 
+})
+
+.factory('Markers', function($http) {
+	
+  var markers = [];
+ 
+  return {
+    getMarkers: function(){
+		
+      return $http.get("http://test.appkauhale.com/allmarkers.php").then(function(response){
+          markers = response;
+          return markers;
+      });
+    }
+  }
+})
+
+.factory('FoodMaps', function($cordovaGeolocation, FoodMarkers){
+  var apiKey = false;
+  var map = null;
+ 
+  function initMap(){
+    var options = {timeout: 10000, enableHighAccuracy: true};
+ 
+    $cordovaGeolocation.getCurrentPosition(options).then(function(position){
+ 
+      var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+ 
+      var mapOptions = {
+        center: latLng,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+ 
+      map = new google.maps.Map(document.getElementById("resourcemap"), mapOptions);
+ 
+      //Wait until the map is loaded
+      google.maps.event.addListenerOnce(map, 'idle', function(){
+ 
+        //Load the markers
+        loadMarkers();
+ 
+      });
+ 
+    }, function(error){
+      console.log("Could not get location");
+ 
+        //Load the markers
+        loadMarkers();
+    });
+ 
+  }
+ 
+  function loadMarkers(){
+      //Get all of the markers from our Markers factory
+      FoodMarkers.getMarkers().then(function(markers){
+        console.log("Markers: ", markers);
+        var records = markers.data.markers;
+        for (var i = 0; i < records.length; i++) {
+          console.log("Length: ",records.length);
+          var record = records[i];   
+          var markerPos = new google.maps.LatLng(record.lat, record.lng);
+          // Add the markerto the map
+          var marker = new google.maps.Marker({
+              map: map,
+              animation: google.maps.Animation.DROP,
+              position: markerPos
+          });
+ 
+          var infoWindowContent = "<h4>" + record.name + "</h4>";          
+ 
+          addInfoWindow(marker, infoWindowContent, record);
+ 
+        }
+ 
+      }); 
+  }
+ 
+  function addInfoWindow(marker, message, record) {
+ 
+      var infoWindow = new google.maps.InfoWindow({
+          content: message
+      });
+ 
+      google.maps.event.addListener(marker, 'click', function() {
+          infoWindow.open(map, marker);
+      });
+ 
+  }
+ 
+  return {
+    init: function(){
+      initMap();
+    }
+  }
+ 
+})
+
+.factory('FoodMarkers', function($http) {
+	
+  var markers = [];
+ 
+  return {
+    getMarkers: function(){
+		
+      return $http.get("http://test.appkauhale.com/foodmarkers.php").then(function(response){
+          markers = response;
+          return markers;
+      });
+    }
+  }
+})
+
+.factory('MedicineMaps', function($cordovaGeolocation, MedMarkers){
+  var apiKey = false;
+  var map = null;
+ 
+  function initMap(){
+    var options = {timeout: 10000, enableHighAccuracy: true};
+ 
+    $cordovaGeolocation.getCurrentPosition(options).then(function(position){
+ 
+      var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+ 
+      var mapOptions = {
+        center: latLng,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+ 
+      map = new google.maps.Map(document.getElementById("resourcemap"), mapOptions);
+ 
+      //Wait until the map is loaded
+      google.maps.event.addListenerOnce(map, 'idle', function(){
+ 
+        //Load the markers
+        loadMarkers();
+ 
+      });
+ 
+    }, function(error){
+      console.log("Could not get location");
+ 
+        //Load the markers
+        loadMarkers();
+    });
+ 
+  }
+ 
+  function loadMarkers(){
+      //Get all of the markers from our Markers factory
+      MedMarkers.getMarkers().then(function(markers){
+        console.log("Markers: ", markers);
+        var records = markers.data.markers;
+        for (var i = 0; i < records.length; i++) {
+          console.log("Length: ",records.length);
+          var record = records[i];   
+          var markerPos = new google.maps.LatLng(record.lat, record.lng);
+          // Add the markerto the map
+          var marker = new google.maps.Marker({
+              map: map,
+              animation: google.maps.Animation.DROP,
+              position: markerPos
+          });
+ 
+          var infoWindowContent = "<h4>" + record.name + "</h4>";          
+ 
+          addInfoWindow(marker, infoWindowContent, record);
+ 
+        }
+ 
+      }); 
+  }
+ 
+  function addInfoWindow(marker, message, record) {
+ 
+      var infoWindow = new google.maps.InfoWindow({
+          content: message
+      });
+ 
+      google.maps.event.addListener(marker, 'click', function() {
+          infoWindow.open(map, marker);
+      });
+ 
+  }
+ 
+  return {
+    init: function(){
+      initMap();
+    }
+  }
+ 
+})
+
+.factory('MedMarkers', function($http) {
+	
+  var markers = [];
+ 
+  return {
+    getMarkers: function(){
+		
+      return $http.get("http://test.appkauhale.com/medmarkers.php").then(function(response){
+          markers = response;
+          return markers;
+      });
+    }
+  }
+})
+
+.factory('shelMaps', function($cordovaGeolocation, shelMarkers){
+  var apiKey = false;
+  var map = null;
+ 
+  function initMap(){
+    var options = {timeout: 10000, enableHighAccuracy: true};
+ 
+    $cordovaGeolocation.getCurrentPosition(options).then(function(position){
+ 
+      var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+ 
+      var mapOptions = {
+        center: latLng,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+ 
+      map = new google.maps.Map(document.getElementById("resourcemap"), mapOptions);
+ 
+      //Wait until the map is loaded
+      google.maps.event.addListenerOnce(map, 'idle', function(){
+ 
+        //Load the markers
+        loadMarkers();
+ 
+      });
+ 
+    }, function(error){
+      console.log("Could not get location");
+ 
+        //Load the markers
+        loadMarkers();
+    });
+ 
+  }
+ 
+  function loadMarkers(){
+      //Get all of the markers from our Markers factory
+      shelMarkers.getMarkers().then(function(markers){
+        console.log("Markers: ", markers);
+        var records = markers.data.markers;
+        for (var i = 0; i < records.length; i++) {
+          console.log("Length: ",records.length);
+          var record = records[i];   
+          var markerPos = new google.maps.LatLng(record.lat, record.lng);
+          // Add the markerto the map
+          var marker = new google.maps.Marker({
+              map: map,
+              animation: google.maps.Animation.DROP,
+              position: markerPos
+          });
+ 
+          var infoWindowContent = "<h4>" + record.name + "</h4>";          
+ 
+          addInfoWindow(marker, infoWindowContent, record);
+ 
+        }
+ 
+      }); 
+  }
+ 
+  function addInfoWindow(marker, message, record) {
+ 
+      var infoWindow = new google.maps.InfoWindow({
+          content: message
+      });
+ 
+      google.maps.event.addListener(marker, 'click', function() {
+          infoWindow.open(map, marker);
+      });
+ 
+  }
+ 
+  return {
+    init: function(){
+      initMap();
+    }
+  }
+ 
+})
+
+.factory('shelMarkers', function($http) {
+	
+  var markers = [];
+ 
+  return {
+    getMarkers: function(){
+		
+      return $http.get("http://test.appkauhale.com/shelmarkers.php").then(function(response){
+          markers = response;
+          return markers;
+      });
+    }
+  }
+})
+
+
+/**.factory('FeedLoader', function ($resource){
   return $resource('https://ajax.googleapis.com/ajax/services/feed/load', {}, {
     fetch: { method: 'JSONP', params: {v: '1.0', callback: 'JSON_CALLBACK'} }
   });
@@ -207,6 +592,8 @@ angular.module('your_app_name.factories', [])
       }
     }
   };
-})
+})*/
+
+
 
 ;

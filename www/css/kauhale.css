@@ -253,6 +253,10 @@ ion-item#menu-list-contact > a.item-content {
     width: 100%;
     height: 100%;
 }
+#resourcemap {
+    width: 100%;
+    height: 100%;
+}
 
 .tabs {
     background-image: none;
