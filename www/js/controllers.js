@@ -8,7 +8,8 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties) {
  var options = {timeout: 10000, enableHighAccuracy: true};
   var marker;
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
- 
+    $scope.checkMarker = "opencheck";
+	$scope.closeMarker = "closeclose";
     var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     var mapOptions = {
       center: latLng,
@@ -22,21 +23,22 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties) {
     };
     $scope.map = new google.maps.Map(document.getElementById("homemap"), mapOptions);
 	$locationProperties.setLoc($scope.map.getCenter());
-	google.maps.event.addListener($scope.map, 'click', function(event) {
+	google.maps.event.addListener($scope.map, 'dragstart', function(event) {
+	});
+	google.maps.event.addListener($scope.map, 'dragend', function(event) {
 		placeMarker($scope.map.getCenter());
 	});
 	function placeMarker(location) {
-	  if ( marker ) {
-		  marker.setPosition(location);
+	 //if ( marker ) {
 		  $locationProperties.setLoc(location);
-	  }else{
-	    marker = new google.maps.Marker({
-		position: location,
-		map: $scope.map,
-	  });
-	  }
+	 // }else{
+	   // marker = new google.maps.Marker({
+		//position: location,
+		//map: $scope.map,
+	  //});
+	  //}
 	}
-	google.maps.event.addListenerOnce($scope.map, 'idle', function(){
+	/**google.maps.event.addListenerOnce($scope.map, 'idle', function(){
  
 	      marker = new google.maps.Marker({
 		  map: $scope.map,
@@ -52,17 +54,11 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties) {
 		  infoWindow.open($scope.map, marker);
 	  });
 	 
-	});
+	});*/
  
   }, function(error){
     console.log("Could not get location");
   });
-    
-    $scope.animationbutt123 = "closedanimate123";
-        $scope.anything = function () {
-        $scope.animationbutt123 = "openanimate123";
-    }
-
 
 }])
    
@@ -123,7 +119,7 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
   }, function(error){
     console.log("Could not get location");
   });
-
+  $scope.submitPrompt = "submithidden";
   $scope.submitForm = function(){
 	var latlng = $locationProperties.getLoc();
 	var nm = $infoProperties.getNm();
@@ -147,6 +143,7 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 		}).
 		success(function(response) {
 			$scope.codeStatus = response.data;
+			$scope.submitPrompt = "submitprompt";
 		}).
 		error(function(response) {
 			$scope.codeStatus = response || "Request failed";

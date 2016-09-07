@@ -625,14 +625,34 @@ label.item.item-input.item-stacked-label:first-child {
     height: 20%;
 }
 
-
-
-.closedanimate123 {
-     visibility: hidden; /* hides sub-menu */
+.submithidden{
+	visibility: hidden;
+	opacity: 0;
+}
+.submitshow{
+	visibility: visible;
+	opacity: 1;
 }
 
-.openanimate123 {
-     visibility: visible; /* hides sub-menu */
+
+.closeclose {
+     visibility: hidden;
+	 opacity: 0;
+}
+
+.openclose {
+     visibility: visible;
+	 opacity: 1;
+}
+
+.closecheck {
+     visibility: hidden;
+	 opacity: 0;
+}
+
+.opencheck {
+     visibility: visible;
+	 opacity: 1;
 }
 
 /* RESOURCES PAGE - MENU */
