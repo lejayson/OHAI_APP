@@ -430,6 +430,19 @@ label.item.item-input.item-stacked-label:first-child {
     background-color: #11323a;
 }
 
+.resource-button:target{
+    background-color: #11323a;
+}
+
+
+.resource-options {
+    z-index: 9001;
+    position: absolute;
+    top: 66px;
+    display: block;
+    width: 100%;
+}
+
 
 /* RESOURCES PAGE - MENU */
 

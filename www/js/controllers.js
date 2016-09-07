@@ -153,6 +153,9 @@ function ($scope, $stateParams) {
 function ($scope, $stateParams, ResourceMaps) {
  
 	ResourceMaps.init();
+    $scope.hide = function() {
+    $scope.visible = !$scope.visible;
+    };
 
 }])
 
@@ -225,7 +228,5 @@ function ($scope, $stateParams) {
     $scope.getPhoto = function(entry) {
     return entry.content.match(/src="([^"]*)/)[1];
     }
-
-
 
 })
