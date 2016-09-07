@@ -250,6 +250,7 @@ ion-item#menu-list-contact > a.item-content {
     height: 100%;
 }
 #refermap {
+    margin-top: -4px;
     width: 100%;
     height: 100%;
 }
