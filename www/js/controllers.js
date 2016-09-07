@@ -153,9 +153,17 @@ function ($scope, $stateParams) {
 function ($scope, $stateParams, ResourceMaps) {
  
 	ResourceMaps.init();
-    $scope.hide = function() {
-    $scope.visible = !$scope.visible;
-    };
+    $scope.animationbutt = "closedanimate";
+    $scope.hide = function () {
+        if ($scope.animationbutt === "openanimate") {
+            $scope.recolorbutton="hidden-resource-button";
+            $scope.animationbutt="closedanimate";
+        }
+        else {
+            $scope.recolorbutton="dark-resource-button";
+            $scope.animationbutt="openanimate";
+        }
+    }
 
 }])
 

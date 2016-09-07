@@ -414,7 +414,6 @@ label.item.item-input.item-stacked-label:first-child {
 .resource-button {
     height:66px;
     width: 100%;
-    background-color: #00adb5;
     color: #fff !important;
     position: relative;
     display: block;
@@ -424,23 +423,69 @@ label.item.item-input.item-stacked-label:first-child {
     margin-top: 0px;
     border-radius: 0;
     border: 0px;
+    background-color: #00adb5;
+    z-index: 9001;
 }
 
-.resource-button:active{
+.hidden-resource-button {
+    background-color: #00adb5;
+                  -webkit-transition: all .25s ease;
+       -moz-transition: all .25s ease;
+        -ms-transition: all .25s ease;
+         -o-transition: all .25s ease;
+            transition: all .25s ease;
+}
+
+.dark-resource-button {
     background-color: #11323a;
+              -webkit-transition: all .25s ease;
+       -moz-transition: all .25s ease;
+        -ms-transition: all .25s ease;
+         -o-transition: all .25s ease;
+            transition: all .25s ease;
 }
-
-.resource-button:target{
-    background-color: #11323a;
-}
-
 
 .resource-options {
     z-index: 9001;
-    position: absolute;
-    top: 66px;
     display: block;
     width: 100%;
+    position: absolute;
+    /*
+    
+    top: 66px;
+    */
+}
+
+
+.closedanimate {
+     visibility: hidden; /* hides sub-menu */
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transform: translateY(-8em);
+  z-index: -1;
+          -webkit-transition: all .25s ease;
+       -moz-transition: all .25s ease;
+        -ms-transition: all .25s ease;
+         -o-transition: all .25s ease;
+            transition: all .25s ease;
+}
+
+.openanimate {
+      visibility: visible; /* shows sub-menu */
+  opacity: 1;
+  z-index: 8000;
+  transform: translateY(0%);
+  transition-delay: 0s, 0s, 0.3s; /* this removes the transition delay so the menu will be visible while the other styles transition */
+    position: absolute;
+    top: 66px;
+          -webkit-transition: all .25s ease;
+       -moz-transition: all .25s ease;
+        -ms-transition: all .25s ease;
+         -o-transition: all .25s ease;
+            transition: all .25s ease;
 }
 
 
