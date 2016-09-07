@@ -63,10 +63,11 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties) {
 
 }])
    
-.controller('referCtrl', ['$scope', '$state', '$cordovaGeolocation', '$locationProperties', '$http', '$infoProperties',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('referCtrl', ['$scope', '$state', '$cordovaGeolocation', '$locationProperties', '$http', '$infoProperties', 'Camera',
+// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $infoProperties) {
+function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $infoProperties, Camera) {
  var options = {timeout: 10000, enableHighAccuracy: true};
   var marker;
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
@@ -150,7 +151,26 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 	  $infoProperties.setNm(e);
   }
   
-  
+  // Camera Functions
+  $scope.takePic = function (options) {
+    var options = {
+      quality : 75,
+      targetWidth: 1024,
+      targetHeight: 1024,
+      sourceType: 1,
+      correctOrientation: true,
+      allowEdit: false
+    };
+    
+    Camera.getPicture(options).then(function(imagePath) {
+      $scope.picture = imagePath;
+      console.log(imagePath);
+    }, function(err) {
+      console.log("Camera Failed: " + err);
+    }
+    );
+    
+  };
   
 }])
    
