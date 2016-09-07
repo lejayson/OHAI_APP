@@ -153,6 +153,9 @@ function ($scope, $stateParams) {
 function ($scope, $stateParams, ResourceMaps) {
  
 	ResourceMaps.init();
+    $scope.hide = function() {
+    $scope.visible = !$scope.visible;
+    };
 
 }])
 
@@ -197,14 +200,33 @@ function ($scope, $stateParams) {
 
 
 }])
-
-.controller('aboutCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
-
-
-}]);
-
-
  
+
+.controller("aboutCtrl", function($http, $scope) {
+
+    $scope.init = function() {
+        $http.get("http://ajax.googleapis.com/ajax/services/feed/load", { params: { "v": "1.0", "num":"100", "q": "http://fetchrss.com/rss/57cf1b9e8a93f83b347b23c657313113082.xml" } })
+            .success(function(data) {
+                $scope.rssTitle = data.responseData.feed.title;
+                $scope.rssUrl = data.responseData.feed.feedUrl;
+                $scope.rssSiteUrl = data.responseData.feed.link;
+                $scope.entries = data.responseData.feed.entries;
+                window.localStorage["entries"] = JSON.stringify(data.responseData.feed.entries);
+            })
+            .error(function(data) {
+                console.log("ERROR: " + data);
+                if(window.localStorage["entries"] !== undefined) {
+                    $scope.entries = JSON.parse(window.localStorage["entries"]);
+                }
+            });
+    }
+
+    $scope.browse = function(v) {
+        window.open(v, "_system", "location=yes");
+    }
+    
+    $scope.getPhoto = function(entry) {
+    return entry.content.match(/src="([^"]*)/)[1];
+    }
+
+})
