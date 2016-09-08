@@ -88,17 +88,16 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 		placeMarker($scope.map.getCenter());
 	});
 	function placeMarker(location) {
-	  if ( marker ) {
-		  marker.setPosition(location);
+	  //if ( marker ) {
 		  $locationProperties.setLoc(location);
-	  }else{
-	    marker = new google.maps.Marker({
-		position: location,
-		map: $scope.map,
-	  });
-	  }
+	 // }else{
+	   // marker = new google.maps.Marker({
+		//position: location,
+		//map: $scope.map,
+	  //});
+	  //}
 	}
-	google.maps.event.addListenerOnce($scope.map, 'idle', function(){
+	/**google.maps.event.addListenerOnce($scope.map, 'idle', function(){
  
 	      marker = new google.maps.Marker({
 		  map: $scope.map,
@@ -114,7 +113,7 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 		  infoWindow.open($scope.map, marker);
 	  });
 	 
-	});
+	});*/
  
   }, function(error){
     console.log("Could not get location");
@@ -386,3 +385,5 @@ function ($scope, $stateParams) {
     }
 
 })
+
+

@@ -1,12 +1,41 @@
 <ion-view title="Resources" id="page4">
     <ion-content padding="false" class="has-header" scroll="false">
    
-         
-        <button ng-click="hide()" ng-class="recolorbutton" class="resource-button full-widthbutton"><span></span>Click here to search</button>
-    
+        <div class="resource-toolbar">
+        <button ng-click="hide()" ng-class="recolorbutton" class="r-resourcelist">List of Resources</button>
+        
+        <button ng-click="hide()" ng-class="recolorbutton" class="r-searchbutton"><i class="ion-ios-search"></i> Search</button>
+            
+        <button ng-click="hide()" ng-class="recolorbutton" class="r-mapview"><i class="ion-map"></i></button>
+        
+        <button ng-click="hide()" ng-class="recolorbutton" class="r-listview"><i class="ion-ios-list-outline"></i></button>
+        </div>
+        
+        <!-- MAP -->
+        
         
         <div id="resourcemap" data-tap-disabled="true"></div>
        
+        
+        
+        <!-- SEARCH BOX -->
+        
+
+        <div class="resource-options" ng-class="animationbutt">
+    
+            <div class="resource-row search-container">
+                
+            <div class="searchbox">
+              <label class="item item-input">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="text" placeholder="Search">
+              </label>
+            </div>
+            <button ng-click="hide()" onclick="filterMarkers('All');" class="r-searchbox-but">DONE</button>
+        
+        </div>
+            
+        <!-- RESOURCE BOX -->
         <div class="resource-options" ng-class="animationbutt">
            
             <div class="resource-row">
