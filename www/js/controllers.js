@@ -286,17 +286,35 @@ function ($scope, $stateParams, $cordovaGeolocation, Markers) {
         }
       }
       initMap();
-    $scope.animationbutt = "closedanimate";
-    $scope.hide = function () {
-        if ($scope.animationbutt === "openanimate") {
-            $scope.recolorbutton="hidden-resource-button";
-            $scope.animationbutt="closedanimate";
+    
+    // Instantiate map filter bars as hidden
+    $scope.resourceBar = "closedanimateresources";
+    $scope.searchBar = "closedanimatesearch";
+    
+    $scope.hideResources = function () {
+        
+        if ($scope.resourcesBar === "openanimate") {
+            $scope.resourcesButton="hidden-resource-button";
+            $scope.resourcesBar="closedanimate";
         }
         else {
-            $scope.recolorbutton="dark-resource-button";
-            $scope.animationbutt="openanimate";
+            $scope.resourcesButton="dark-resource-button";
+            $scope.resourcesBar="openanimate";
         }
     }
+    
+    $scope.hideSearch = function () {
+        
+        if ($scope.searchBar === "openanimate") {
+            $scope.searchButton="hidden-resource-button";
+            $scope.searchBar="closedanimate";
+        }
+        else {
+            $scope.searchButton="dark-resource-button";
+            $scope.searchBar="openanimate";
+        }
+    }
+    
 }])
 
 .factory('Markers', function($http) {
