@@ -291,29 +291,47 @@ function ($scope, $stateParams, $cordovaGeolocation, Markers) {
     $scope.resourceBar = "closedanimateresources";
     $scope.searchBar = "closedanimatesearch";
     
-    $scope.hideResources = function () {
-        
+    $scope.toggleResources = function () {
         if ($scope.resourcesBar === "openanimate") {
-            $scope.resourcesButton="hidden-resource-button";
-            $scope.resourcesBar="closedanimate";
+            hideResources();
         }
         else {
-            $scope.resourcesButton="dark-resource-button";
-            $scope.resourcesBar="openanimate";
+            showResources();
+            hideSearch();
         }
     }
     
-    $scope.hideSearch = function () {
+    hideResources = function () {
+      $scope.resourcesButton="hidden-resource-button";
+      $scope.resourcesBar="closedanimate";
+    }
+    
+    showResources = function () {
+      $scope.resourcesButton="dark-resource-button";
+      $scope.resourcesBar="openanimate";
+    }
+    
+    $scope.toggleSearch = function () {
         
         if ($scope.searchBar === "openanimate") {
-            $scope.searchButton="hidden-resource-button";
-            $scope.searchBar="closedanimate";
+            hideSearch();
         }
         else {
-            $scope.searchButton="dark-resource-button";
-            $scope.searchBar="openanimate";
+            showSearch();
+            hideResources();
         }
     }
+    
+    hideSearch = function () {
+      $scope.searchButton="hidden-resource-button";
+      $scope.searchBar="closedanimate";
+    }
+    
+    showSearch = function () {
+      $scope.searchButton="dark-resource-button";
+      $scope.searchBar="openanimate";
+    }
+
     
 }])
 

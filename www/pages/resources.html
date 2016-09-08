@@ -2,9 +2,9 @@
     <ion-content padding="false" class="has-header" scroll="false">
    
         <div class="resource-toolbar">
-        <button ng-click="hideResources()" ng-class="resourcesButton" class="r-resourcelist">List of Resources</button>
+        <button ng-click="toggleResources()" ng-class="resourcesButton" class="r-resourcelist">List of Resources</button>
         
-        <button ng-click="hideSearch()" ng-class="searchButton" class="r-searchbutton"><i class="ion-ios-search"></i> Search</button>
+        <button ng-click="toggleSearch()" ng-class="searchButton" class="r-searchbutton"><i class="ion-ios-search"></i> Search</button>
         
         <button ng-click="hide()" ng-class="recolorbutton" class="r-mapview"><i class="ion-map"></i></button>
         
@@ -17,15 +17,15 @@
         <!-- SEARCH BOX -->
         <div class="resource-options" ng-class="searchBar">
     
-            <div class="resource-row search-container">
-                
+          <div class="resource-row search-container">
+            
             <div class="searchbox">
               <label class="item item-input">
                 <i class="icon ion-search placeholder-icon"></i>
                 <input type="text" placeholder="Search">
               </label>
             </div>
-            <button ng-click="hideSearch()" onclick="filterMarkers('All');" class="r-searchbox-but">DONE</button>
+            <button ng-click="toggleSearch()" onclick="filterMarkers('All');" class="r-searchbox-but">DONE</button>
         
           </div>
         </div>
@@ -35,13 +35,13 @@
         <div class="resource-options" ng-class="resourcesBar">
            
             <div class="resource-row">
-            <button ng-click="hideResources()" onclick="filterMarkers('All');" class="resource-button rbutton1">All Categories</button>
-            <button ng-click="hideResources()" onclick="filterMarkers('Arun');" class="resource-button rbutton2"><i class="icon ion-coffee resourceicons"></i> Food Resources</button>
+            <button ng-click="toggleResources()" onclick="filterMarkers('All');" class="resource-button rbutton1">All Categories</button>
+            <button ng-click="toggleResources()" onclick="filterMarkers('Arun');" class="resource-button rbutton2"><i class="icon ion-coffee resourceicons"></i> Food Resources</button>
             </div>
         
             <div class="resource-row">
-            <button ng-click="hideResources()" onclick="filterMarkers('Kylie');" class="resource-button rbutton3"><i class="icon ion-medkit resourceicons"></i>Medical Care</button>
-            <button ng-click="hideResources()" onclick="filterMarkers('Reagan');" class="resource-button rbutton4"><i class="icon ion-home resourceicons"></i>Shelters</button>
+            <button ng-click="toggleResources()" onclick="filterMarkers('Kylie');" class="resource-button rbutton3"><i class="icon ion-medkit resourceicons"></i>Medical Care</button>
+            <button ng-click="toggleResources()" onclick="filterMarkers('Reagan');" class="resource-button rbutton4"><i class="icon ion-home resourceicons"></i>Shelters</button>
             </div>
             
         </div>
