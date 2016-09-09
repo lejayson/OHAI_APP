@@ -7,14 +7,13 @@
            
             
             <div id="homemap" data-tap-disabled="true"></div>
-            <div ng-class="animationbutt123" ng=click="showActionsheet()" class="mappin-div"><img class="pinhome" src="img/map/check.png" /></div>
-            <div ng-class="animationbutt123" ng=click="showActionsheet()" class="mappin-div"><img class="pinhome" src="img/map/close.png" /></div>
+            <div ng-class="checkMarker" ng-click="showActionsheet()" class="mappin-div"><img class="pinhome" src="img/map/check.png" /></div>
+            <div ng-class="closeMarker" ng-click="showActionsheet()" class="mappin-div"><img class="pinhome" src="img/map/close.png" /></div>
             
             
         </div>
         
         <!-- Button to REFER -->
-        <a ng-click="anything()" class="map-home-button"><span>test</span></a>
         <a ui-sref="menu.refer" id="home-button1" class="map-home-button"><span>CLICK HERE TO REFER SOMEONE</span></a>
         
         
@@ -25,7 +24,7 @@
         </div> -->
     
         <div class="home-buttons">
-          <a ui-sref="menu.about" id="home-button1" class="home-navbuttons navone"><span>Kauhale</span></a>
+          <a ui-sref="menu.about" id="home-button1" class="home-navbuttons navone"><span>News</span></a>
           <a ui-sref="menu.resources" id="home-button1" class="home-navbuttons navtwo"><span>Locate Help</span></a>
         </div>
         

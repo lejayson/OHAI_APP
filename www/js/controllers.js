@@ -8,7 +8,8 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties) {
  var options = {timeout: 10000, enableHighAccuracy: true};
   var marker;
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
- 
+    $scope.checkMarker = "opencheck";
+	$scope.closeMarker = "closeclose";
     var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     var mapOptions = {
       center: latLng,
@@ -22,21 +23,22 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties) {
     };
     $scope.map = new google.maps.Map(document.getElementById("homemap"), mapOptions);
 	$locationProperties.setLoc($scope.map.getCenter());
-	google.maps.event.addListener($scope.map, 'click', function(event) {
+	google.maps.event.addListener($scope.map, 'dragstart', function(event) {
+	});
+	google.maps.event.addListener($scope.map, 'dragend', function(event) {
 		placeMarker($scope.map.getCenter());
 	});
 	function placeMarker(location) {
-	  if ( marker ) {
-		  marker.setPosition(location);
+	 //if ( marker ) {
 		  $locationProperties.setLoc(location);
-	  }else{
-	    marker = new google.maps.Marker({
-		position: location,
-		map: $scope.map,
-	  });
-	  }
+	 // }else{
+	   // marker = new google.maps.Marker({
+		//position: location,
+		//map: $scope.map,
+	  //});
+	  //}
 	}
-	google.maps.event.addListenerOnce($scope.map, 'idle', function(){
+	/**google.maps.event.addListenerOnce($scope.map, 'idle', function(){
  
 	      marker = new google.maps.Marker({
 		  map: $scope.map,
@@ -52,17 +54,11 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties) {
 		  infoWindow.open($scope.map, marker);
 	  });
 	 
-	});
+	});*/
  
   }, function(error){
     console.log("Could not get location");
   });
-    
-    $scope.animationbutt123 = "closedanimate123";
-        $scope.anything = function () {
-        $scope.animationbutt123 = "openanimate123";
-    }
-
 
 }])
    
@@ -92,17 +88,16 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 		placeMarker($scope.map.getCenter());
 	});
 	function placeMarker(location) {
-	  if ( marker ) {
-		  marker.setPosition(location);
+	  //if ( marker ) {
 		  $locationProperties.setLoc(location);
-	  }else{
-	    marker = new google.maps.Marker({
-		position: location,
-		map: $scope.map,
-	  });
-	  }
+	 // }else{
+	   // marker = new google.maps.Marker({
+		//position: location,
+		//map: $scope.map,
+	  //});
+	  //}
 	}
-	google.maps.event.addListenerOnce($scope.map, 'idle', function(){
+	/**google.maps.event.addListenerOnce($scope.map, 'idle', function(){
  
 	      marker = new google.maps.Marker({
 		  map: $scope.map,
@@ -118,12 +113,12 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 		  infoWindow.open($scope.map, marker);
 	  });
 	 
-	});
+	});*/
  
   }, function(error){
     console.log("Could not get location");
   });
-
+  $scope.submitPrompt = "submithidden";
   $scope.submitForm = function(){
 	var latlng = $locationProperties.getLoc();
 	var nm = $infoProperties.getNm();
@@ -147,6 +142,7 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 		}).
 		success(function(response) {
 			$scope.codeStatus = response.data;
+			$scope.submitPrompt = "submitprompt";
 		}).
 		error(function(response) {
 			$scope.codeStatus = response || "Request failed";
@@ -290,17 +286,57 @@ function ($scope, $stateParams, $cordovaGeolocation, Markers) {
         }
       }
       initMap();
-    $scope.animationbutt = "closedanimate";
-    $scope.hide = function () {
-        if ($scope.animationbutt === "openanimate") {
-            $scope.recolorbutton="hidden-resource-button";
-            $scope.animationbutt="closedanimate";
+    
+    // Instantiate map filter bars as hidden
+    $scope.resourceBar = "closedanimateresources";
+    $scope.searchBar = "closedanimatesearch";
+    
+    $scope.toggleResources = function () {
+        if ($scope.resourcesBar === "openanimate") {
+            hideResources();
         }
         else {
-            $scope.recolorbutton="dark-resource-button";
-            $scope.animationbutt="openanimate";
+          if ($scope.searchBar === "openanimate") {
+            hideSearch();
+          }
+          showResources();
         }
     }
+    
+    hideResources = function () {
+      $scope.resourcesButton="hidden-resource-button";
+      $scope.resourcesBar="closedanimate";
+    }
+    
+    showResources = function () {
+      $scope.resourcesButton="dark-resource-button";
+      $scope.resourcesBar="openanimate";
+    }
+    
+    $scope.toggleSearch = function () {
+        
+        if ($scope.searchBar === "openanimate") {
+            hideSearch();
+        }
+        else {
+          if ($scope.resourcesBar === "openanimate") {
+            hideResources();
+          }
+          showSearch();
+        }
+    }
+    
+    hideSearch = function () {
+      $scope.searchButton="hidden-resource-button";
+      $scope.searchBar="closedanimate";
+    }
+    
+    showSearch = function () {
+      $scope.searchButton="dark-resource-button";
+      $scope.searchBar="openanimate";
+    }
+
+    
 }])
 
 .factory('Markers', function($http) {
@@ -389,3 +425,5 @@ function ($scope, $stateParams) {
     }
 
 })
+
+

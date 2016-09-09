@@ -141,7 +141,7 @@ ion-item#menu-list-contact > a.item-content {
 
 .mappin-div {
     position: absolute;
-    z-index: 1;
+    z-index: 100;
     top: 0;
     height: inherit;
     width: 100%;
@@ -154,7 +154,7 @@ ion-item#menu-list-contact > a.item-content {
     position: absolute;
     top: 50%;
     margin-left: -25px;
-    margin-top: -65px;
+    margin-top: -66px;
 }
 
 .map-home-button {
@@ -274,7 +274,6 @@ ion-item#menu-list-contact > a.item-content {
     height: 100%;
 }
 #refermap {
-    margin-top: -4px;
     width: 100%;
     height: 100%;
 }
@@ -333,6 +332,55 @@ a.tab-item {
     margin-top: 0 !important;
 }
 
+
+/* REFER PAGE - CAMERA */
+
+.camera-button {
+    height:55px;
+    width: 100%;
+    background-color: #11323a;
+    position: relative;
+    display: block;
+    text-align: center;
+    border-radius: 0;
+    text-transform: uppercase;
+    font-size: 17px;
+    line-height: 55px;
+    color: #fff !important;
+    letter-spacing: .05em;
+}
+
+.camera-button.activated {
+    color: #fff;
+    background-color: #42cc8a;
+}
+
+.cam-imagecontainer {
+    width: 100%;
+    height: 100%;
+}
+
+.cameraimage {
+    width: 100%;
+    height: auto;
+}
+
+.nophoto {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 55px;
+    text-align: center;
+    background-color: #e2e2e2;
+    vertical-align: middle;
+    z-index: -1;
+}
+
+.nophoto span {
+    top: 35%;
+    position: relative;
+    height: 100%;
+}
 
 /* REFER PAGE - FORMS */
 
@@ -431,6 +479,14 @@ label.item.item-input.item-stacked-label:first-child {
 }
 
 
+
+/* REFER PAGE - MAP */
+
+.map-refer-con {
+    height: 100%;
+}
+
+
 /* REFER PAGE - SUBMIT */
 
 .submitform {
@@ -505,6 +561,61 @@ label.item.item-input.item-stacked-label:first-child {
 
 /* RESOURCES PAGE - SEARCH */
 
+.resource-toolbar {
+    width: 100%;
+}
+
+.r-resourcelist {
+    height:66px;
+    width: 45%;
+    color: #fff !important;
+    position: relative;
+    display: block;
+    float: left;
+    text-align: center;
+    font-size: 16px;
+    letter-spacing: .05em;
+    margin-top: 0px;
+    border-radius: 0;
+    border: 0px;
+    background-color: #00adb5;
+    z-index: 9001;
+}
+
+.r-searchbutton {
+    height:66px;
+    width: 25%;
+    color: #fff !important;
+    position: relative;
+    display: block;
+    float: left;
+    text-align: center;
+    font-size: 16px;
+    letter-spacing: .05em;
+    margin-top: 0px;
+    border-radius: 0;
+    border: 0px;
+    background-color: #00adb5;
+    z-index: 9001;
+}
+
+.r-mapview, .r-listview {
+    height:66px;
+    width: 15%;
+    color: #fff !important;
+    position: relative;
+    display: block;
+    float: left;
+    text-align: center;
+    font-size: 16px;
+    letter-spacing: .05em;
+    margin-top: 0px;
+    border-radius: 0;
+    border: 0px;
+    background-color: #00adb5;
+    z-index: 9001;
+}
+
 .resource-button {
     height:66px;
     width: 50%;
@@ -520,6 +631,8 @@ label.item.item-input.item-stacked-label:first-child {
     background-color: #00adb5;
     z-index: 9001;
 }
+
+
 
 .full-widthbutton {
     width: 100% !important;
@@ -622,17 +735,50 @@ label.item.item-input.item-stacked-label:first-child {
     -ms-flex: 1;
     flex: 1;
     width: 100%;
-    height: 20%;
 }
 
 
-
-.closedanimate123 {
-     visibility: hidden; /* hides sub-menu */
+.searchbox {
+    width:85%;
 }
 
-.openanimate123 {
-     visibility: visible; /* hides sub-menu */
+.r-searchbox-but {
+    width: 15%;
+    height: 46px;
+    background-color: #00adb5;
+    padding: 0;
+    border:none;
+    color: #fff;
+}
+
+.submithidden{
+	visibility: hidden;
+	opacity: 0;
+}
+.submitshow{
+	visibility: visible;
+	opacity: 1;
+}
+
+
+.closeclose {
+     visibility: hidden;
+	 opacity: 0;
+}
+
+.openclose {
+     visibility: visible;
+	 opacity: 1;
+}
+
+.closecheck {
+     visibility: hidden;
+	 opacity: 0;
+}
+
+.opencheck {
+     visibility: visible;
+	 opacity: 1;
 }
 
 /* RESOURCES PAGE - MENU */
@@ -680,7 +826,7 @@ label.item.item-input.item-stacked-label:first-child {
 }
 
 .resource-search > textarea, input[type="text"] {
-    color: #acc4c6;
+    color: #304c53;
 }
 
 .resource-item {

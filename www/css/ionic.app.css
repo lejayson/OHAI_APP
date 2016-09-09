@@ -3360,8 +3360,7 @@ body.grade-c {
   bottom: 0;
   left: 0;
   overflow: hidden;
-  margin-top: -1px;
-  padding-top: 1px;
+  margin-top: -2px;
   margin-bottom: -1px;
   width: auto;
   height: auto; }
@@ -3518,7 +3517,7 @@ ion-infinite-scroll {
   top: 88px; }
 
 .has-tabs-top {
-  top: 111px; }
+  top: 110px; }
 
 .has-header.has-subheader.has-tabs-top {
   top: 137px; }
@@ -5016,7 +5015,7 @@ ion-tabs.tabs-color-active-dark .tab-item {
     transition: color .1s ease; }
     .tabs-top.tabs-striped .tab-item.tab-item-active, .tabs-top.tabs-striped .tab-item.active, .tabs-top.tabs-striped .tab-item.activated {
       margin-top: 1px;
-      border-width: 0px 0px 2px 0px !important;
+      border-width: 0px 0px 0px 0px !important;
       border-style: solid; }
       .tabs-top.tabs-striped .tab-item.tab-item-active > .badge, .tabs-top.tabs-striped .tab-item.tab-item-active > i, .tabs-top.tabs-striped .tab-item.active > .badge, .tabs-top.tabs-striped .tab-item.active > i, .tabs-top.tabs-striped .tab-item.activated > .badge, .tabs-top.tabs-striped .tab-item.activated > i {
         margin-top: -1px; }
@@ -5319,9 +5318,9 @@ ion-tabs.tabs-color-active-dark .tab-item {
   .platform-ios.platform-cordova .modal-wrapper .modal .has-subheader {
     top: 88px; }
   .platform-ios.platform-cordova .modal-wrapper .modal .has-header.has-tabs-top {
-    top: 123px; }
+    top: 120px; }
   .platform-ios.platform-cordova .modal-wrapper .modal .has-header.has-subheader.has-tabs-top {
-    top: 137px; }
+    top: 136px; }
   .modal-backdrop-bg {
     -webkit-transition: opacity 300ms ease-in-out;
     transition: opacity 300ms ease-in-out;

@@ -10,8 +10,15 @@
   <ion-tab title="Location" icon-on="ion-ios-navigate" icon-off="ion-ios-navigate-outline">
       <ion-content padding="false" class="has-header has-tabs-top" scroll="false">
       
-
+        <div class="map-refer-con">
           <div id="refermap" data-tap-disabled="true"></div>
+          
+                
+           
+            <div ng-class="animationbutt123" ng=click="showActionsheet()" class="mappin-div"><img class="pinhome" src="img/map/check.png" /></div>
+          
+          </div>
+          
 
           
       </ion-content>
@@ -22,15 +29,16 @@
     
 
   <ion-tab title="Images" icon-on="ion-ios-camera" icon-off="ion-ios-camera-outline">
-      <ion-content padding="true" class="has-header" scroll="false">
+      <ion-content padding="false" class="has-header" scroll="false">
       
         <!-- EDIT CONTENT HERE -->
         <div>
-          <button class="button button-positive  button-block" id="camera-button1" ng-click="takePic()">Take Picture</button>
+          <button class="button camera-button" id="camera-button1" ng-click="takePic()">Take a Picture</button>
         </div>
-        <br />
-        <div>
-          <img style="height:auto;width:auto;max-width:200px;max-height:200px;display:block;margin-left:auto;margin-right:auto" ng-src="{{picture}}">
+          
+        <div class="cam-imagecontainer">
+          <img class="cameraimage" ng-src="{{picture}}">
+          <div class="nophoto"><span>Take a photo using the button above <br> or leave this field blank.</span></div>
         </div>
           
         <!-- END CONTENT -->
@@ -101,7 +109,7 @@
           <!--
         <a ng-click='submitForm()' >Submit</a> -->
 		<br>
-          <div class="submitcomplete submitinfo">Thank you <br> your referral has been submitted.</div>
+          <div ng-class="submitPrompt" class="submitcomplete submitinfo">Thank you <br> your referral has been submitted.</div>
           
           <a ng-click='submitForm()'><div class="bar bar-footer finsubmitbutton">
 		  <div class="submit-text">SUBMIT INFORMATION</div></div></a>
