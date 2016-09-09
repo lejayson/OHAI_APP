@@ -296,8 +296,10 @@ function ($scope, $stateParams, $cordovaGeolocation, Markers) {
             hideResources();
         }
         else {
-            showResources();
+          if ($scope.searchBar === "openanimate") {
             hideSearch();
+          }
+          showResources();
         }
     }
     
@@ -317,8 +319,10 @@ function ($scope, $stateParams, $cordovaGeolocation, Markers) {
             hideSearch();
         }
         else {
-            showSearch();
+          if ($scope.resourcesBar === "openanimate") {
             hideResources();
+          }
+          showSearch();
         }
     }
     
