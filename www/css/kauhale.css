@@ -130,7 +130,7 @@ ion-item#menu-list-contact > a.item-content {
 }
 
 .map-home {
-    height: 50%;
+    height: 70%;
     
 }
 
@@ -157,16 +157,24 @@ ion-item#menu-list-contact > a.item-content {
     margin-top: -66px;
 }
 
+.map-home-button-div {
+    display: block;
+}
+
 .map-home-button {
-    height:10%;
-    width: 100%;
-    background-color: #11323a;
-    color: #fff;
-    position: relative;
+    height: 55px;
+    border-radius: 50px;
+    width: 80%;
+    background-color: #42cc8a;
+    position: absolute;
     display: block;
     text-align: center;
-    font-size: 16px;
-    letter-spacing: .05em;
+    font-size: 1em;
+    font-weight: 600;
+    z-index: 100;
+    bottom: 35%;
+    color: #fff;
+    left: 10%;
 }
 
 .map-home-button > span {
@@ -176,6 +184,7 @@ ion-item#menu-list-contact > a.item-content {
     bottom: 0;
     left: 0;
     right: 0;
+    padding-top: 2px;
     display: inline-block;
     vertical-align: middle;
   }
@@ -204,7 +213,7 @@ ion-item#menu-list-contact > a.item-content {
     -ms-flex: 1;
     flex: 1;
     width: 100%;
-    height: 20%;
+    height: 15%;
 }
 
 
