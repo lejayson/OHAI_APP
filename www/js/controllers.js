@@ -308,14 +308,29 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 		  Markers.getMarkers().then(function(markers){
 			console.log("Markers: ", markers);
 			var records = markers.data.markers;
+			var iconDir = "/img/map/";
+			var icons = {
+			  food: {
+				icon: iconDir + 'food.png'
+			  },
+			  medicine: {
+				icon: iconDir + 'medical.png'
+			  },
+			  shelter: {
+				icon: iconDir + 'shelters.png'
+			  },
+			  misc: {
+				icon: iconDir + ''
+			  }
+			};
 			for (var i = 0; i < records.length; i++) {
 			  var record = records[i];   
-			  var fltr = record.name;
 			  var markerPos = new google.maps.LatLng(record.lat, record.lng);
 			  // Add the markerto the map
 			  var marker = new google.maps.Marker({
-				  category: fltr,
+				  category: record.cat,
 				  map: map,
+				  icon: icons[record.cat].icon,
 				  animation: google.maps.Animation.DROP,
 				  position: markerPos
 			  });
@@ -447,7 +462,6 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 			hideList();
 		  }
     }
-
     
 }])
 
