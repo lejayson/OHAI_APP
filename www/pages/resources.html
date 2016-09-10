@@ -6,7 +6,6 @@
         
         <button ng-click="toggleSearch()" ng-class="searchButton" class="r-searchbutton"><i class="ion-ios-search"></i> Search</button>
         
-        <button ng-click="toggleMap()" ng-class="recolorbutton" class="r-mapview"><i class="ion-map"></i></button>
         
         <button ng-click="toggleList()" ng-class="listButton" class="r-listview"><i class="ion-ios-list-outline"></i></button>
         </div>
@@ -30,7 +29,7 @@
           </div>
         </div>
         <!-- RESOURCE BOX -->
-        <div class="resource-options" ng-class="resourcesBar">
+        <div class="resource-options fullheight" ng-class="resourcesBar">
            
             <div class="resource-row">
             <button ng-click="toggleResources()" onclick="filterMarkers('All');" class="resource-button rbutton1">All Categories</button>
@@ -44,12 +43,20 @@
             
         </div>
 		<!-- LIST VIEW BOX -->
-        <div class="resource-options" ng-class="listBar">
-			<div style="height:100%;overflow-y: scroll">
+        <div class="resource-options-list" ng-class="listBar">
+			<div class ="searchlistviewcontainer">
 					<ul id="listContainer">
+                        
+                        <li class="listviewstyle"><span>The Coconut Land</span>
+                            <p>1234 Coconut Water Honolulu Hi, 01238</p>
+                            <p>Hours of Operation: 9:00 - 10:00<br>Phone: (808) 23405678</p>
+                            <p><a href="#">Visit Website</a> <a href="#" class="listmapbutton">View on Map</a></p></li>
+                        
 					</ul>
 			</div>
         </div>
+        
+        
         
     </ion-content>
 </ion-view>
