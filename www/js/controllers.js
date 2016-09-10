@@ -262,9 +262,9 @@ function ($scope, $stateParams) {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
+    var options = {timeout: 10000, enableHighAccuracy: true};
 	var gmarkers1 = [];
 	var apiKey = false;
-	  var map = null;
 	 
 	  function initMap(){
 		var options = {timeout: 10000, enableHighAccuracy: true};
@@ -284,10 +284,10 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
             
           }
 	 
-		  map = new google.maps.Map(document.getElementById("resourcemap"), mapOptions);
+		  $scope.map = new google.maps.Map(document.getElementById("resourcemap"), mapOptions);
 	 
 		  //Wait until the map is loaded
-		  google.maps.event.addListenerOnce(map, 'idle', function(){
+		  google.maps.event.addListenerOnce($scope.map, 'idle', function(){
 	 
 			//Load the markers
 			loadMarkers();
@@ -300,7 +300,7 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 			//Load the markers
 			loadMarkers();
 		});
-	 
+          
 	  }
 	 
 	  function loadMarkers(){
@@ -315,7 +315,7 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 			  // Add the markerto the map
 			  var marker = new google.maps.Marker({
 				  category: fltr,
-				  map: map,
+				  map: $scope.map,
 				  animation: google.maps.Animation.DROP,
 				  position: markerPos
 			  });
@@ -328,6 +328,8 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 	 
 		  }); 
 	  }
+    
+    
 	 
 	  function addInfoWindow(marker, message, record) {
 	 
@@ -336,10 +338,12 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 		  });
 	 
 		  google.maps.event.addListener(marker, 'click', function() {
-			  infoWindow.open(map, marker);
+			  infoWindow.open($scope.map, marker);
 		  });
 	 
 	  }
+    
+    
 	  filterMarkers = function (e) {
 		   var category = e;
            console.log(gmarkers1.length);
@@ -431,6 +435,15 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
       $scope.listBar="closedanimate";
     }
     
+    myLocation = function(){
+	$cordovaGeolocation.getCurrentPosition(options).then(function(position){
+    coord = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    $scope.map.panTo(coord);
+  }, function(error){
+    console.log("Could not get location");
+  });
+  }
+    
     showList = function () {
       $scope.listButton="dark-resource-button";
       $scope.listBar="openanimate";
@@ -447,7 +460,6 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 			hideList();
 		  }
     }
-
     
 }])
 
