@@ -265,7 +265,7 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
     var options = {timeout: 10000, enableHighAccuracy: true};
 	var gmarkers1 = [];
 	var apiKey = false;
-	 
+    
 	  function initMap(){
 		var options = {timeout: 10000, enableHighAccuracy: true};
 	 
@@ -308,18 +308,35 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 		  Markers.getMarkers().then(function(markers){
 			console.log("Markers: ", markers);
 			var records = markers.data.markers;
+			var iconDir = "/img/map/";
+			var icons = {
+			  food: {
+				icon: iconDir + 'food.png'
+			  },
+			  medicine: {
+				icon: iconDir + 'medical.png'
+			  },
+			  shelter: {
+				icon: iconDir + 'shelters.png'
+			  },
+			  misc: {
+				icon: iconDir + ''
+			  }
+			};
 			for (var i = 0; i < records.length; i++) {
 			  var record = records[i];   
-			  var fltr = record.name;
 			  var markerPos = new google.maps.LatLng(record.lat, record.lng);
 			  // Add the markerto the map
 			  var marker = new google.maps.Marker({
 				  category: fltr,
 				  map: $scope.map,
+				  category: record.cat,
+				  map: $scope.map,
+				  icon: icons[record.cat].icon,
 				  animation: google.maps.Animation.DROP,
 				  position: markerPos
 			  });
-	          angular.element(document.getElementById('listContainer')).append($compile("<li><div>"+record.name+"</div></li>")($scope));
+	          angular.element(document.getElementById('listContainer')).append($compile("<li class='listviewstyle'><span>"+record.name+"</span><p>"+record.address+"</p><p>Hours of Operation:"+record.hour+"</p><p><a href='"+record.website+"'>Visit Website</a><button ng-click='toggleList()' onclick='gotoLocation("+record.lat+","+record.lng+")' class='listmapbutton'>View on Map</button></p></li>")($scope));
 			  var infoWindowContent = "<h4>" + record.name + "</h4>";          
 	          gmarkers1.push(marker);
 			  addInfoWindow(marker, infoWindowContent, record);
@@ -378,6 +395,9 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
           if ($scope.searchBar === "openanimate") {
             hideSearch();
           }
+		  if ($scope.listBar === "openanimate") {
+            hideList();
+          }
           showResources();
         }
     }
@@ -391,7 +411,10 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
       $scope.resourcesButton="dark-resource-button";
       $scope.resourcesBar="openanimate";
     }
-    
+    gotoLocation = function (lat,lng){
+		coord = new google.maps.LatLng(lat, lng);
+        $scope.map.panTo(coord);
+	}
     $scope.toggleSearch = function () {
         
         if ($scope.searchBar === "openanimate") {
@@ -400,6 +423,9 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
         else {
           if ($scope.resourcesBar === "openanimate") {
             hideResources();
+          }
+		  if ($scope.listBar === "openanimate") {
+            hideList();
           }
           showSearch();
         }
@@ -431,6 +457,7 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
     }
     
     hideList = function () {
+	  console.log($scope);
       $scope.listButton="hidden-resource-button";
       $scope.listBar="closedanimate";
     }
