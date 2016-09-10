@@ -80,6 +80,16 @@ angular.module('app.routes', [])
     }
   })
   
+    .state('menu.getinvolved', {
+    url: '/getinvolved',
+    views: {
+      'side-menu21': {
+        templateUrl: 'pages/getinvolved.html',
+        controller: 'getinvolvedCtrl'
+      }
+    }
+  })
+  
   .state('menu.events', {
     url: '/events',
     views: {

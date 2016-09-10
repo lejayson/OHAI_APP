@@ -1,7 +1,7 @@
 <ion-view title="Refer" id="page2">
-<ion-tabs class="tabs-striped refer-nav tabs-icon-top tabs-top" scroll="false">
-  
-  
+<ion-tabs class="tabs-striped refer-nav tabs-icon-top tabs-top" scroll="true">
+
+
   <!------------------------ TAB FOR THE MAP ------------------------>
 
   <ion-tab title="Location" icon-on="ion-ios-navigate" icon-off="ion-ios-navigate-outline">
@@ -59,6 +59,23 @@
       
         <!-- EDIT CONTENT HERE -->
           
+          
+              <span class="referpagetext">I am refering</span>
+         
+            <div class="refer-checkboxdiv">
+             <ion-list>
+            <ion-item class="refer-checkbox" ng-repeat="item in itens">
+                <label class="checkbox">
+                    <input type="checkbox" ng-model="item.checked" ng-click="updateSelection($index, itens, item.title)">
+                <span class="refer-cb">{{ item.title }}</span>
+                </label>
+            </ion-item>
+        </ion-list>
+        </div>
+          
+          
+          <!-- INDIVIDUAL'S FORM -->
+          
         <div class="list referform"> 
             
           <label class="item item-input item-stacked-label">
@@ -84,10 +101,37 @@
           </label>
           
         </div>
+          
+          
+        <!-- INDIVIDUAL'S FORM -->
+          
+        <div class="list referform"> 
+            
+          <label class="item item-input item-stacked-label">
+              <span class="input-label">Number of Adults</span>
+            <input ng-model='inputVal' ng-blur='saveInput(inputVal)' type="text" placeholder="123" />
+          </label>
+            
+            
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">Number of Children</span>
+            <input ng-model='inputVal' ng-blur='saveInput(inputVal)' type="text" placeholder="123" />
+            </label>
+            
+          <label class="item item-input item-stacked-label refer-infolabel">        
+          <span class="input-label">MORE INFORMATION</span>
+            </label>      
+              
+          <label class="item item-input item-staced-label refer-infofield">
+            <textarea rows="8" placeholder="Please describe the circumstance of the person."></textarea>
+          </label>
+            
+        </div>
 
         <!-- END CONTENT -->
     
     </ion-content>
+      
   </ion-tab>
   
   
