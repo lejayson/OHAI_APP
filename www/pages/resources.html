@@ -6,9 +6,9 @@
         
         <button ng-click="toggleSearch()" ng-class="searchButton" class="r-searchbutton"><i class="ion-ios-search"></i> Search</button>
         
-        <button ng-click="hide()" ng-class="recolorbutton" class="r-mapview"><i class="ion-map"></i></button>
+        <button ng-click="toggleMap()" ng-class="recolorbutton" class="r-mapview"><i class="ion-map"></i></button>
         
-        <button ng-click="hide()" ng-class="recolorbutton" class="r-listview"><i class="ion-ios-list-outline"></i></button>
+        <button ng-click="toggleList()" ng-class="listButton" class="r-listview"><i class="ion-ios-list-outline"></i></button>
         </div>
         
         <!-- MAP -->
@@ -29,8 +29,6 @@
         
           </div>
         </div>
-        
-        
         <!-- RESOURCE BOX -->
         <div class="resource-options" ng-class="resourcesBar">
            
@@ -44,6 +42,13 @@
             <button ng-click="toggleResources()" onclick="filterMarkers('Reagan');" class="resource-button rbutton4"><i class="icon ion-home resourceicons"></i>Shelters</button>
             </div>
             
+        </div>
+		<!-- LIST VIEW BOX -->
+        <div class="resource-options" ng-class="listBar">
+			<div style="height:100%;overflow-y: scroll">
+					<ul id="listContainer">
+					</ul>
+			</div>
         </div>
         
     </ion-content>
