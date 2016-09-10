@@ -64,11 +64,11 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties) {
 
 }])
    
-.controller('referCtrl', ['$scope', '$state', '$cordovaGeolocation', '$locationProperties', '$http', '$infoProperties', 'Camera',
+.controller('referCtrl', ['$scope', '$state', '$cordovaGeolocation', '$locationProperties', '$http', '$infoProperties', 'Camera', '$ionicPlatform',
 // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $infoProperties, Camera) {
+function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $infoProperties, Camera, $ionicPlatform) {
  var options = {timeout: 10000, enableHighAccuracy: true};
   var marker;
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
@@ -158,41 +158,84 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
   // Camera Functions
   $scope.takePic = function (options) {
     var options = {
-      quality : 75,
+      quality : 25,
       targetWidth: 1024,
       targetHeight: 1024,
-      sourceType: 1,
+      sourceType: 1, // 0:PHOTOLIBRARY, 1:CAMERA, 2:SAVEDPHOTOALBUM
       correctOrientation: true,
+      destinationType: 1, // 0:DATA_URL, 1:FILE_URI, 2:NATIVE_URI
+      encodingType: 0, // 0:JPEG, 1:PNG
       allowEdit: false
     };
     
-    Camera.getPicture(options).then(function(imagePath) {
-      $scope.picture = imagePath;
-      console.log(imagePath);
-    }, function(err) {
-      console.log("Camera Failed: " + err);
-    }
-    );
+    $ionicPlatform.ready(function() {
+      if (!navigator.camera) {
+        // Load image if unable to get camera
+        $scope.picture='http://community.wdfiles.com/local--files/404/404.jpg';
+      } else {
+        Camera.getPicture(options).then(function(imagePath) {
+          $scope.picture = imagePath;
+          console.log(imagePath);
+        }, function(err) {
+          console.log("Camera Failed: " + err);
+        });
+      }
+    });
+  };
+  
+  $scope.sendPic = function(imageName) {
+    
+    $ionicPlatform.ready(function() {
+      var uploadURI = "http://test.appkauhale.com/postimage.php";
+      
+      var filename = imageName;
+      
+      var options = {
+        fileKey: "file",
+        fileName: filename,
+        chunkedMode: false,
+        mimeType: "image/jpg",
+        params : {'directory':'images', 'fileName':filename}
+      };
+      
+      var ft = new FileTransfer();
+      ft.upload($scope.picture, encodeURI(uploadURI), uploadSuccess, uploadError, options);
+    });
+    
+    function uploadSuccess(r) {
+      /**
+      Object r {
+        bytesSent: NUMBER,
+        responseCode: HTTP_RESPONSE_CODE,
+        response: ECHO_STRING_RESPONSE,
+        objectId: "" }
+      **/
+      console.log(JSON.stringify(r));
+    };
+    
+    function uploadError(error) {
+      console.log("Error: " + error);
+    };
     
   };
   
-    $scope.itens = [
-        { title: "an Individual", checked: false },
-        { title: "a Group", checked: false },
-    ];
-    
-    $scope.updateSelection = function(position, itens, title) {
-        angular.forEach(itens, function(subscription, index) {
-            if (position != index)
-                subscription.checked = false;
-                $scope.selected = title;
-            }
-        );
-    }
-    
+  $scope.itens = [
+      { title: "an Individual", checked: false },
+      { title: "a Group", checked: false },
+  ];
   
+  $scope.updateSelection = function(position, itens, title) {
+      angular.forEach(itens, function(subscription, index) {
+          if (position != index)
+              subscription.checked = false;
+              $scope.selected = title;
+          }
+      );
+  }
+
+
 }])
-   
+
 .controller('kauhaleCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
