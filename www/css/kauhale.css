@@ -663,7 +663,7 @@ label.item.item-input.item-stacked-label:first-child {
 
 .r-searchbutton {
     height:66px;
-    width: 35%;
+    width: 45%;
     color: #fff !important;
     position: relative;
     display: block;
@@ -749,7 +749,59 @@ label.item.item-input.item-stacked-label:first-child {
     
     top: 66px;
     */
+}
 
+.resource-options-list {
+    z-index: 9001;
+    display: block;
+    width: 100%;
+    position: absolute;
+    height: 50%;
+}
+
+
+.resource-options.openanimate {
+    height: 50%;
+}
+
+.searchlistviewcontainer {
+    height: 100%;
+}
+
+ul#listContainer {
+    height: 100%;
+    overflow-y: scroll;
+    background-color: #f8f8f8;
+}
+
+
+.listviewstyle {
+    padding: 16px;
+    border-bottom: 1px solid #e3e3e3;
+    color: #5b5b5b;
+}
+
+.listviewstyle span {
+    display: block;
+    font-weight: 700;
+    font-size: 1.1em;
+    color: #00adb5;
+}
+
+.listviewstyle a {
+    padding: 3px 7px 4px 7px;
+    margin-right: 5px;
+    color: #5b5b5b;
+    text-decoration: none;
+    border: 1px solid #b9b9b9;
+    border-radius: 4px;
+    line-height: 2.8em;
+}
+
+.listmapbutton {
+    background-color: #00adb5;
+    color: #fff !important;
+    border: 1px solid #039ca3 !important;
 }
 
 .rbutton1, .rbutton2, .rbutton3, .rbutton4 {
