@@ -73,11 +73,11 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties) {
   }
 }])
    
-.controller('referCtrl', ['$scope', '$state', '$cordovaGeolocation', '$locationProperties', '$http', '$infoProperties', 'Camera',
+.controller('referCtrl', ['$scope', '$state', '$cordovaGeolocation', '$locationProperties', '$http', '$infoProperties', 'Camera', '$ionicPlatform',
 // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $infoProperties, Camera) {
+function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $infoProperties, Camera, $ionicPlatform) {
  var options = {timeout: 10000, enableHighAccuracy: true};
   var marker;
   var latLng;
@@ -173,26 +173,84 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
   // Camera Functions
   $scope.takePic = function (options) {
     var options = {
-      quality : 75,
+      quality : 25,
       targetWidth: 1024,
       targetHeight: 1024,
-      sourceType: 1,
+      sourceType: 1, // 0:PHOTOLIBRARY, 1:CAMERA, 2:SAVEDPHOTOALBUM
       correctOrientation: true,
+      destinationType: 1, // 0:DATA_URL, 1:FILE_URI, 2:NATIVE_URI
+      encodingType: 0, // 0:JPEG, 1:PNG
       allowEdit: false
     };
     
-    Camera.getPicture(options).then(function(imagePath) {
-      $scope.picture = imagePath;
-      console.log(imagePath);
-    }, function(err) {
-      console.log("Camera Failed: " + err);
-    }
-    );
+    $ionicPlatform.ready(function() {
+      if (!navigator.camera) {
+        // Load image if unable to get camera
+        $scope.picture='http://community.wdfiles.com/local--files/404/404.jpg';
+      } else {
+        Camera.getPicture(options).then(function(imagePath) {
+          $scope.picture = imagePath;
+          console.log(imagePath);
+        }, function(err) {
+          console.log("Camera Failed: " + err);
+        });
+      }
+    });
+  };
+  
+  $scope.sendPic = function(imageName) {
+    
+    $ionicPlatform.ready(function() {
+      var uploadURI = "http://test.appkauhale.com/postimage.php";
+      
+      var filename = imageName;
+      
+      var options = {
+        fileKey: "file",
+        fileName: filename,
+        chunkedMode: false,
+        mimeType: "image/jpg",
+        params : {'directory':'images', 'fileName':filename}
+      };
+      
+      var ft = new FileTransfer();
+      ft.upload($scope.picture, encodeURI(uploadURI), uploadSuccess, uploadError, options);
+    });
+    
+    function uploadSuccess(r) {
+      /**
+      Object r {
+        bytesSent: NUMBER,
+        responseCode: HTTP_RESPONSE_CODE,
+        response: ECHO_STRING_RESPONSE,
+        objectId: "" }
+      **/
+      console.log(JSON.stringify(r));
+    };
+    
+    function uploadError(error) {
+      console.log("Error: " + error);
+    };
     
   };
   
+  $scope.itens = [
+      { title: "an Individual", checked: false },
+      { title: "a Group", checked: false },
+  ];
+  
+  $scope.updateSelection = function(position, itens, title) {
+      angular.forEach(itens, function(subscription, index) {
+          if (position != index)
+              subscription.checked = false;
+              $scope.selected = title;
+          }
+      );
+  }
+
+
 }])
-   
+
 .controller('kauhaleCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
@@ -441,6 +499,14 @@ function ($scope, $stateParams) {
 
 
 }])
+
+.controller('getinvolvedCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams) {
+
+
+}])
    
 .controller('eventsCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
@@ -449,7 +515,71 @@ function ($scope, $stateParams) {
 
 
 }])
- 
+
+
+.controller('eventsCtrl', function($scope) {
+  $scope.items = [{
+      time: '9:30AM',
+      title: 'Summer Fun Events',
+      date: 'August 25, 2016',
+      location: 'Kaʻaahi Women & Family Shelter',
+      text: 'For the past five years, IHS has collaborated with local business and community members to host Summer Fun programs for homeless keiki, including a wide range of activities from working in a fish pond to learning how to surf.  Each event is an opportunity to teach life-long lessons and values, including responsibility, leadership, caring, collaboration, and the pursuit of excellence, giving keiki a break from the day-to-day stress of living in a shelter.'},{
+      time: '11:30AM',
+      title: 'Mens Bible Study',
+      date: 'August 25, 2016',
+      location: 'At this Shelter',
+      text: 'We host a mens only study from 11:30am to 1:00pm. The kitchen will be serving a hot meal.'},{
+      time: '2:30PM',
+      title: 'Serve with Us',
+      date: 'August 25, 2016',
+      location: 'At this Shelter',
+      text: 'We host a mens only study from 11:30am to 1:00pm. The kitchen will be serving a hot meal.'},{
+      time: '5:30PM',
+      title: 'Orientation',
+      date: 'August 25, 2016',
+      location: 'At this Shelter',
+      text: 'We host a mens only study from 11:30am to 1:00pm. The kitchen will be serving a hot meal.'},{
+      time: '11:30AM',
+      title: 'Mens Bible Study',
+      date: 'August 25, 2016',
+      location: 'At this Shelter',
+      text: 'We host a mens only study from 11:30am to 1:00pm. The kitchen will be serving a hot meal.'},{
+      time: '11:30AM',
+      title: 'Mens Bible Study',
+      date: 'August 25, 2016',
+      location: 'At this Shelter',
+      text: 'We host a mens only study from 11:30am to 1:00pm. The kitchen will be serving a hot meal.'},{
+      time: '11:30AM',
+      title: 'Mens Bible Study',
+      date: 'August 25, 2016',
+      location: 'At this Shelter',
+      text: 'We host a mens only study from 11:30am to 1:00pm. The kitchen will be serving a hot meal.'},{
+      time: '11:30AM',
+      title: 'Mens Bible Study',
+      date: 'August 25, 2016',
+      location: 'At this Shelter',
+      text: 'We host a mens only study from 11:30am to 1:00pm. The kitchen will be serving a hot meal.'
+          
+
+  }];
+
+  /*
+   * if given group is the selected group, deselect it
+   * else, select the given group
+   */
+  $scope.toggleItem= function(item) {
+    if ($scope.isItemShown(item)) {
+      $scope.shownItem = null;
+    } else {
+      $scope.shownItem = item;
+    }
+  };
+  $scope.isItemShown = function(item) {
+    return $scope.shownItem === item;
+  };
+    
+
+})
 
 .controller("aboutCtrl", function($http, $scope) {
 
