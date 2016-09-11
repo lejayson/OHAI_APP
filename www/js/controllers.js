@@ -455,6 +455,15 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
       $scope.listBar="closedanimate";
     };
     
+    myLocation = function(){
+	$cordovaGeolocation.getCurrentPosition(options).then(function(position){
+    coord = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    $scope.map.panTo(coord);
+  }, function(error){
+    console.log("Could not get location");
+  });
+  }
+    
     showList = function () {
       $scope.listButton="dark-resource-button";
       $scope.listBar="openanimate";
