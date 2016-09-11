@@ -262,10 +262,9 @@ function ($scope, $stateParams) {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
-    var options = {timeout: 10000, enableHighAccuracy: true};
 	var gmarkers1 = [];
 	var apiKey = false;
-    
+	
 	  function initMap(){
 		var options = {timeout: 10000, enableHighAccuracy: true};
 	 
@@ -300,7 +299,7 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 			//Load the markers
 			loadMarkers();
 		});
-          
+	 
 	  }
 	 
 	  function loadMarkers(){
@@ -328,8 +327,6 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 			  var markerPos = new google.maps.LatLng(record.lat, record.lng);
 			  // Add the markerto the map
 			  var marker = new google.maps.Marker({
-				  category: fltr,
-				  map: $scope.map,
 				  category: record.cat,
 				  map: $scope.map,
 				  icon: icons[record.cat].icon,
@@ -345,8 +342,6 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 	 
 		  }); 
 	  }
-    
-    
 	 
 	  function addInfoWindow(marker, message, record) {
 	 
@@ -359,8 +354,6 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 		  });
 	 
 	  }
-    
-    
 	  filterMarkers = function (e) {
 		   var category = e;
            console.log(gmarkers1.length);
@@ -475,6 +468,7 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
       $scope.listButton="dark-resource-button";
       $scope.listBar="openanimate";
     }
+    
 	
 	$scope.toggleMap = function () {
           if ($scope.searchBar === "openanimate") {
