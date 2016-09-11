@@ -10,7 +10,7 @@ angular.module('app.routes', [])
     
   
 
-      .state('menu.home', {
+  .state('menu.home', {
     url: '/home',
     views: {
       'side-menu21': {
@@ -20,6 +20,96 @@ angular.module('app.routes', [])
     }
   })
 
+  .state('menu.about', {
+    url: '/about',
+    views: {
+      'side-menu21': {
+        templateUrl: 'pages/about.html',
+        controller: 'aboutCtrl'
+      }
+    }
+  })
+  
+  
+  .state('menu.resources', {
+    url: '/resources',
+    views: {
+      'side-menu21': {
+        templateUrl: 'pages/resources.html',
+        controller: 'resourcesCtrl'
+      }
+    }
+  })
+  
+  .state('menu.food', {
+    url: '/resources',
+    views: {
+      'side-menu21': {
+        templateUrl: 'pages/resources.html',
+        controller: 'foodCtrl'
+      }
+    }
+  })
+  .state('menu.medical', {
+    url: '/resources',
+    views: {
+      'side-menu21': {
+        templateUrl: 'pages/resources.html',
+        controller: 'medicalCtrl'
+      }
+    }
+  })
+  .state('menu.shelter', {
+    url: '/resources',
+    views: {
+      'side-menu21': {
+        templateUrl: 'pages/resources.html',
+        controller: 'shelterCtrl'
+
+      }
+    }
+  })
+  
+  .state('menu.volunteer', {
+    url: '/volunteer',
+    views: {
+      'side-menu21': {
+        templateUrl: 'pages/volunteer.html',
+        controller: 'volunteerCtrl'
+      }
+    }
+  })
+  
+    .state('menu.getinvolved', {
+    url: '/getinvolved',
+    views: {
+      'side-menu21': {
+        templateUrl: 'pages/getinvolved.html',
+        controller: 'getinvolvedCtrl'
+      }
+    }
+  })
+  
+  .state('menu.events', {
+    url: '/events',
+    views: {
+      'side-menu21': {
+        templateUrl: 'pages/events.html',
+        controller: 'eventsCtrl'
+      }
+    }
+  })
+  
+  .state('menu.contact', {
+    url: '/contact',
+    views: {
+      'side-menu21': {
+        templateUrl: 'pages/contact.html',
+        controller: 'contactCtrl'
+      }
+    }
+  })
+  
   .state('menu.refer', {
     url: '/refer',
     views: {
@@ -29,42 +119,25 @@ angular.module('app.routes', [])
       }
     }
   })
-
-  .state('menu.kauhale', {
-    url: '/kauhale',
-    views: {
-      'side-menu21': {
-        templateUrl: 'pages/kauhale.html',
-        controller: 'kauhaleCtrl'
-      }
-    }
-  })
+  
+  
 
   .state('menu', {
-    url: '/side-menu21',
+    url: '/kauhale',
     templateUrl: 'pages/menu.html',
     abstract:true
   })
-
-  .state('resources', {
-    url: '/resources',
-    templateUrl: 'pages/resources.html',
-    controller: 'resourcesCtrl'
-  })
-
-  .state('volunteer', {
-    url: '/volunteer',
-    templateUrl: 'pages/volunteer.html',
-    controller: 'volunteerCtrl'
-  })
-
-  .state('events', {
-    url: '/events',
-    templateUrl: 'pages/events.html',
-    controller: 'eventsCtrl'
-  })
-
-$urlRouterProvider.otherwise('/side-menu21/home')
+  
+    .state('resource-menu', {
+    url: '/resources/menu',
+    templateUrl: 'pages/menu.html',
+    abstract:true
+  });
+  
+  
+  
+ 
+$urlRouterProvider.otherwise('/kauhale/home');
 
   
 

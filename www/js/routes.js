@@ -132,12 +132,12 @@ angular.module('app.routes', [])
     url: '/resources/menu',
     templateUrl: 'pages/menu.html',
     abstract:true
-  })
+  });
   
   
   
  
-$urlRouterProvider.otherwise('/kauhale/home')
+$urlRouterProvider.otherwise('/kauhale/home');
 
   
 
