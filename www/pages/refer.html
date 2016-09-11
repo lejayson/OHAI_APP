@@ -10,7 +10,7 @@
         <div class="map-refer-con">
           <div id="refermap" data-tap-disabled="true"></div>
            
-            <div ng-class="animationbutt123" ng=click="showActionsheet()" class="mappin-div"><img class="pinhome" src="img/map/check.png" /></div>
+            <div ng-class="animationbutt123" ng-click="showActionsheet()" class="mappin-div"><img class="pinhome" src="img/map/check.png" /></div>
         </div>
           
         <div onclick="myLocation();" class="mylocationbutton"><i class="ion-navigate locationicon"></i></div>
@@ -62,17 +62,10 @@
           
               <span class="referpagetext">I am refering</span>
          
-            <div class="refer-checkboxdiv">
-             <ion-list>
-            <ion-item class="refer-checkbox" ng-repeat="item in itens">
-                <label class="checkbox">
-                    <input type="checkbox" ng-model="item.checked" ng-click="updateSelection($index, itens, item.title)">
-                <span class="refer-cb">{{ item.title }}</span>
-                </label>
-            </ion-item>
-        </ion-list>
+         <div class="button-bar refer-people">
+          <a class="button refer-peoplebutton">An Individual</a>
+          <a class="button refer-peoplebutton">A Group</a>
         </div>
-          
           
           <!-- INDIVIDUAL'S FORM -->
           
@@ -100,7 +93,7 @@
             <textarea rows="8" placeholder="Please describe the circumstance of the person."></textarea>
           </label>
           
-        </div>
+        </div> 
           
           
         <!-- INDIVIDUAL'S FORM -->
