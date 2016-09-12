@@ -3,7 +3,8 @@ angular.module('app.controllers', [])
 .controller('homeCtrl', ['$scope', '$state', '$cordovaGeolocation', '$locationProperties',  // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-
+                         
+                       
 function ($scope, $state, $cordovaGeolocation, $locationProperties) {
  var options = {timeout: 10000, enableHighAccuracy: true};
   var marker;
@@ -72,6 +73,8 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties) {
   });
 		
   }
+
+$scope.hidebar = true;
 }])
    
 .controller('referCtrl', ['$scope', '$state', '$cordovaGeolocation', '$locationProperties', '$http', '$infoProperties', 'Camera', '$ionicPlatform',
@@ -336,15 +339,13 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 				  position: markerPos
 			  });
 	          angular.element(document.getElementById('listContainer')).append($compile("<li class='listviewstyle'><span>"+record.name+"</span><p>"+record.address+"</p><p>Hours of Operation:"+record.hour+"</p><p><a href='"+record.website+"'>Visit Website</a><button ng-click='toggleList()' onclick='gotoLocation("+record.lat+","+record.lng+")' class='listmapbutton'>View on Map</button></p></li>")($scope));
-			  var infoWindowContent = "<h4>" + record.name + "</h4>";          
+              var infoWindowContent = "<h4>" + record.name + "</h4>";          
 	          gmarkers1.push(marker);
 			  addInfoWindow(marker, infoWindowContent, record);
-	 
 			}
 	 
 		  }); 
 	  }
-	 
 	  function addInfoWindow(marker, message, record) {
 	 
 		  var infoWindow = new google.maps.InfoWindow({
@@ -539,11 +540,65 @@ function ($scope, $stateParams) {
 .controller('getinvolvedCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $ionicPopup, $timeout) {
 
 
 }])
-   
+
+
+.controller('getinvolvedCtrl',function($scope, $ionicPopup, $timeout) {
+
+// Triggered on a button click, or some other target
+$scope.showPopup = function() {
+  $scope.data = {};
+
+  myPopup.then(function(res) {
+    console.log('Tapped!', res);
+  });
+
+  $timeout(function() {
+     myPopup.close(); //close the popup after 3 seconds for some reason
+  }, 3000);
+ };
+
+ // Redirect to DONATE Dialog
+ $scope.showConfirm = function() {
+   var confirmPopup = $ionicPopup.confirm({
+     title: 'Redirect to IHS Donate',
+     template: 'Are you sure you want to Open IHS Donate page in a new window.'
+   });
+
+   confirmPopup.then(function(res) {
+     if(res) {
+       console.log('You are sure');
+     } else {
+       console.log('You are not sure');
+     }
+   });
+ };
+    
+    
+ // Redirect to Voluntter Dialog
+ $scope.showVolunteer = function() {
+   var confirmPopup = $ionicPopup.confirm({
+     title: 'Redirect to Volunteer Portal',
+     template: 'Are you sure you want to this in a new window.'
+   });
+
+   confirmPopup.then(function(res) {
+     if(res) {
+       console.log('You are sure');
+     } else {
+       console.log('You are not sure');
+     }
+   });
+ };
+
+
+})
+
+
+
 .controller('eventsCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
