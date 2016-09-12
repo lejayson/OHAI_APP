@@ -10,7 +10,7 @@ angular.module('app.services', [])
         setLoc: function(latlng) {
             Location = latlng;
         }
-    }
+    };
 })
 
 .service('$infoProperties', function() {
@@ -23,7 +23,7 @@ angular.module('app.services', [])
         setNm: function(nm) {
             name = nm;
         }
-    }
+    };
 });
 
 

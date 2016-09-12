@@ -3,16 +3,25 @@
         
         
         <!-- Place google maps within div -->
+        
+        
+        
+        
         <div class="map-home">
            
-            <div class="map-placeholder">
-            Place map here and remove this surrounding div.
-            </div>
+            
+            <div id="homemap" data-tap-disabled="true"></div>
+            <div ng-class="checkMarker" ng-click="showActionsheet()" class="mappin-div"><img class="pinhome" src="img/map/check.png" /></div>
+            <div ng-class="closeMarker" ng-click="showActionsheet()" class="mappin-div"><img class="pinhome" src="img/map/close.png" /></div>
+            
             
         </div>
         
-        <!-- Button to REFER -->
         <a ui-sref="menu.refer" id="home-button1" class="map-home-button"><span>CLICK HERE TO REFER SOMEONE</span></a>
+        
+        <div onclick="myLocation();" class="mylocationbutton"><i class="ion-navigate locationicon"></i></div>
+        
+        <!-- Button to REFER -->
         
         
         <!-- Place google maps within div -->
@@ -22,13 +31,13 @@
         </div> -->
     
         <div class="home-buttons">
-          <a ui-sref="menu.refer" id="home-button1" class="home-navbuttons navone"><span>Kauhale</span></a>
-          <a ui-sref="menu.refer" id="home-button1" class="home-navbuttons navtwo"><span>Locate Help</span></a>
+          <a ui-sref="menu.about" id="home-button1" class="home-navbuttons navone"><div class="homebutcent"><i class="ion-ios-paper homebuttonicon"></i><br><span>News</span></div></a>
+            <a ui-sref="menu.resources" id="home-button1" class="home-navbuttons navtwo"><div class="homebutcent"><i class="ion-ios-heart homebuttonicon"></i><br><span>Locate Help</span></div></a>
         </div>
         
         <div class="home-buttons">
-          <a ui-sref="menu.refer" id="home-button1" class="home-navbuttons navthree"><span>Volunteer</span></a>
-          <a ui-sref="menu.refer" id="home-button1" class="home-navbuttons navfour"><span>Events</span></a>
+            <a ui-sref="menu.getinvolved" id="home-button1" class="home-navbuttons navthree"><div class="homebutcent"><i class="ion-android-contacts homebuttonicon"></i><br><span>Get Involved</span></div></a>
+            <a ui-sref="menu.events" id="ome-button1" class="home-navbuttons navfour"><div class="homebutcent"><i class="ion-ios-calendar homebuttonicon"></i><br><span>Events</span></div></a>
         </div>
         
     </ion-content>

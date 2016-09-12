@@ -71,7 +71,7 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties) {
     console.log("Could not get location");
   });
 		
-  }
+  };
 }])
    
 .controller('referCtrl', ['$scope', '$state', '$cordovaGeolocation', '$locationProperties', '$http', '$infoProperties', 'Camera', '$ionicPlatform',
@@ -84,6 +84,9 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
   var latLng;
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
     latLng = $locationProperties.getLoc();
+	if(!latLng){
+		latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	}
     var mapOptions = {
       center: latLng,
       zoom: 15,
@@ -95,7 +98,7 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
         
     };
     $scope.map = new google.maps.Map(document.getElementById("refermap"), mapOptions);
-	google.maps.event.addListener($scope.map, 'click', function(event) {
+	google.maps.event.addListener($scope.map, 'idle', function(event) {
 		placeMarker($scope.map.getCenter());
 	});
 	function placeMarker(location) {
@@ -158,7 +161,7 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 		error(function(response) {
 			$scope.codeStatus = response || "Request failed";
 		});
-  }
+  };
   myLocation = function(){
     var options = {timeout: 10000, enableHighAccuracy: true};
 	$cordovaGeolocation.getCurrentPosition(options).then(function(position){
@@ -167,14 +170,14 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
   }, function(error){
     console.log("Could not get location");
   });
-  }
+  };
   $scope.saveInput = function(e){
 	  $infoProperties.setNm(e);
-  }
+  };
   
   // Camera Functions
   $scope.takePic = function (options) {
-    var options = {
+    options = {
       quality : 25,
       targetWidth: 1024,
       targetHeight: 1024,
@@ -228,11 +231,11 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
         objectId: "" }
       **/
       console.log(JSON.stringify(r));
-    };
+    }
     
     function uploadError(error) {
       console.log("Error: " + error);
-    };
+    }
     
   };
   
@@ -248,7 +251,7 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
               $scope.selected = title;
           }
       );
-  }
+  };
 
 
 }])
@@ -283,7 +286,7 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 		  streetViewControl: false,
           styles: [{"featureType":"all","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"all","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"administrative","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#1e7185"}]},{"featureType":"administrative.province","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"administrative.locality","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"labels.text","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"labels.icon","stylers":[{"visibility":"simplified"}]},{"featureType":"administrative.neighborhood","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"landscape.man_made","elementType":"geometry.fill","stylers":[{"lightness":"44"}]},{"featureType":"landscape.natural","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"landscape.natural.landcover","elementType":"all","stylers":[{"color":"#ff0000"}]},{"featureType":"landscape.natural.landcover","elementType":"geometry","stylers":[{"lightness":"-89"}]},{"featureType":"landscape.natural.terrain","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.park","elementType":"all","stylers":[{"visibility":"on"},{"hue":"#95ff00"}]},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.local","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#9cd7da"}]}]
             
-          }
+          };
 	 
 		  $scope.map = new google.maps.Map(document.getElementById("resourcemap"), mapOptions);
 	 
@@ -308,6 +311,7 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 		  //Get all of the markers from our Markers factory
 		  Markers.getMarkers().then(function(markers){
 			console.log("Markers: ", markers);
+			$scope.listMarkers = markers.data.markers;
 			var records = markers.data.markers;
 			var iconDir = "/img/map/";
 			var icons = {
@@ -335,7 +339,7 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 				  animation: google.maps.Animation.DROP,
 				  position: markerPos
 			  });
-	          angular.element(document.getElementById('listContainer')).append($compile("<li class='listviewstyle'><span>"+record.name+"</span><p>"+record.address+"</p><p>Hours of Operation:"+record.hour+"</p><p><a href='"+record.website+"'>Visit Website</a><button ng-click='toggleList()' onclick='gotoLocation("+record.lat+","+record.lng+")' class='listmapbutton'>View on Map</button></p></li>")($scope));
+	          //angular.element(document.getElementById('listContainer')).append($compile("<li class='listviewstyle'><span>"+record.name+"</span><p>"+record.address+"</p><p>Hours of Operation:"+record.hour+"</p><p><a href='"+record.website+"'>Visit Website</a><button ng-click='toggleList()' onclick='gotoLocation("+record.lat+","+record.lng+")' class='listmapbutton'>View on Map</button></p></li>")($scope));
 			  var infoWindowContent = "<h4>" + record.name + "</h4>";          
 	          gmarkers1.push(marker);
 			  addInfoWindow(marker, infoWindowContent, record);
@@ -356,9 +360,12 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 		  });
 	 
 	  }
-	  filterMarkers = function (e) {
-		   var category = e;
-           console.log(gmarkers1.length);
+	  $scope.filterMarkers = function (e) {
+		   if(e === "S"){
+		       category = document.getElementById("searchMarkervalue").value;
+		   }else{
+			   category = e;
+		   }
 		   for (i = 0; i < gmarkers1.length; i++) {
 			   if(category == "All"){
 				   marker = gmarkers1[i];
@@ -366,7 +373,7 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 			   }else{
 					marker = gmarkers1[i];
 					// If is same category or category not picked
-					if (marker.category.toLowerCase().indexOf(category.toLowerCase()) > -1 || category.length === 0) {
+					if (marker.category.toLowerCase().indexOf(category.toLowerCase()) !== -1) {
 						marker.setVisible(true);
 					}
 					// Categories don't match 
@@ -375,7 +382,8 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 					}
 			   }
         }
-      }
+      };
+	  
       initMap();
     
     // Instantiate map filter bars as hidden
@@ -395,21 +403,21 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
           }
           showResources();
         }
-    }
+    };
     
     hideResources = function () {
       $scope.resourcesButton="hidden-resource-button";
       $scope.resourcesBar="closedanimate";
-    }
+    };
     
     showResources = function () {
       $scope.resourcesButton="dark-resource-button";
       $scope.resourcesBar="openanimate";
-    }
-    gotoLocation = function (lat,lng){
+    };
+    $scope.gotoLocation = function (lat,lng){
 		coord = new google.maps.LatLng(lat, lng);
         $scope.map.panTo(coord);
-	}
+	};
     $scope.toggleSearch = function () {
         
         if ($scope.searchBar === "openanimate") {
@@ -424,17 +432,17 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
           }
           showSearch();
         }
-    }
+    };
     
     hideSearch = function () {
       $scope.searchButton="hidden-resource-button";
       $scope.searchBar="closedanimate";
-    }
+    };
     
     showSearch = function () {
       $scope.searchButton="dark-resource-button";
       $scope.searchBar="openanimate";
-    }
+    };
 	
 	$scope.toggleList = function () {
         if ($scope.listBar === "openanimate") {
@@ -449,13 +457,12 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
           }
           showList();
         }
-    }
+    };
     
     hideList = function () {
-	  console.log($scope);
       $scope.listButton="hidden-resource-button";
       $scope.listBar="closedanimate";
-    }
+    };
     
     myLocation = function(){
     var options = {timeout: 10000, enableHighAccuracy: true};
@@ -470,8 +477,7 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
     showList = function () {
       $scope.listButton="dark-resource-button";
       $scope.listBar="openanimate";
-    }
-    
+    };
 	
 	$scope.toggleMap = function () {
           if ($scope.searchBar === "openanimate") {
@@ -483,9 +489,25 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 		  if ($scope.listBar === "openanimate"){
 			hideList();
 		  }
-    }
+    };
     
 }])
+
+.filter('searchFor', function(){
+	return function(arr, searchString){
+		if(!searchString){
+			return arr;
+		}
+		var result = [];
+		searchString = searchString.toLowerCase();
+		angular.forEach(arr, function(marker){
+			if(marker.name.toLowerCase().indexOf(searchString) !== -1){
+			result.push(marker);
+		}
+		});
+		return result;
+	};
+})
 
 .factory('Markers', function($http) {
 	
@@ -499,7 +521,7 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
           return markers;
       });
     }
-  }
+  };
 })
 
 .controller('foodCtrl', ['$scope', '$stateParams', 'FoodMaps',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -634,16 +656,16 @@ function ($scope, $stateParams) {
                     $scope.entries = JSON.parse(window.localStorage["entries"]);
                 }
             });
-    }
+    };
 
     $scope.browse = function(v) {
         window.open(v, "_system", "location=yes");
-    }
+    };
     
     $scope.getPhoto = function(entry) {
     return entry.content.match(/src="([^"]*)/)[1];
-    }
+    };
 
-})
+});
 
 

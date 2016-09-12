@@ -26,10 +26,10 @@
             <div class="searchbox">
               <label class="item item-input rsearchcontainer">
                 <i class="icon ion-search placeholder-icon"></i>
-                <input type="text" placeholder="Search">
+                <input id="searchMarkervalue" ng-model="searchMarker" ng-change="filterMarkers('S')" type="text" placeholder="Search" />
               </label>
             </div>
-            <button ng-click="toggleSearch()" onclick="filterMarkers('All');" class="r-searchbox-but">DONE</button>
+            <button ng-click="toggleSearch()" ng-click="filterMarkers('All');" class="r-searchbox-but">DONE</button>
         
           </div>
         </div>
@@ -37,13 +37,13 @@
         <div class="resource-options fullheight" ng-class="resourcesBar">
            
             <div class="resource-row">
-            <button ng-click="toggleResources()" onclick="filterMarkers('All');" class="resource-button rbutton1">All Categories</button>
-            <button ng-click="toggleResources()" onclick="filterMarkers('food');" class="resource-button rbutton2"><i class="icon ion-coffee resourceicons"></i> Food Resources</button>
+            <button ng-click="toggleResources();filterMarkers('All')" class="resource-button rbutton1">All Categories</button>
+            <button ng-click="toggleResources();filterMarkers('food')"  class="resource-button rbutton2"><i class="icon ion-coffee resourceicons"></i> Food Resources</button>
             </div>
         
             <div class="resource-row">
-            <button ng-click="toggleResources()" onclick="filterMarkers('medicine');" class="resource-button rbutton3"><i class="icon ion-medkit resourceicons"></i>Medical Care</button>
-            <button ng-click="toggleResources()" onclick="filterMarkers('shelter');" class="resource-button rbutton4"><i class="icon ion-home resourceicons"></i>Shelters</button>
+            <button ng-click="toggleResources();filterMarkers('medicine')"  class="resource-button rbutton3"><i class="icon ion-medkit resourceicons"></i>Medical Care</button>
+            <button ng-click="toggleResources();filterMarkers('shelter')"  class="resource-button rbutton4"><i class="icon ion-home resourceicons"></i>Shelters</button>
             </div>
             
         </div>
@@ -58,7 +58,7 @@
             <div class="searchbox">
               <label class="item item-input rsearchcontainer">
                 <i class="icon ion-search placeholder-icon"></i>
-                <input type="text" placeholder="Search">
+				<input type="text" class="search" ng-model="searchString" placeholder="Enter your search terms" />
               </label>
             </div>
             <button ng-click="toggleSearch()" onclick="filterMarkers('All');" class="r-searchbox-but">DONE</button>
@@ -66,8 +66,16 @@
           </div>
         </div>
 					<ul id="listContainer">
+						<li class='listviewstyle' ng-repeat="marker in listMarkers | searchFor:searchString">
+							<span>{{marker.name}}</span>
+							<p>{{marker.address}}</p>
+							<p>{{marker.hour}}</p>
+							<p><a href="{{marker.website}}">Visit Website</a>
+							<button ng-click="toggleList(); gotoLocation({{marker.lat}},{{marker.lng}})" class="listmapbutton">View on Map</button>
+							</p>
+						</li>
 					</ul>
-			</div>
+	    </div>
             
             
         </div>
