@@ -456,6 +456,7 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
     };
     
     myLocation = function(){
+	options = {timeout: 10000, enableHighAccuracy: true};
 	$cordovaGeolocation.getCurrentPosition(options).then(function(position){
     coord = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     $scope.map.panTo(coord);
