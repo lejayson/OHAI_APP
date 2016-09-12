@@ -658,13 +658,13 @@ label.item.item-input.item-stacked-label:first-child {
 
 .r-searchbutton {
     height:66px;
-    width: 35%;
+    width: 33%;
     color: #fff !important;
     position: relative;
     display: block;
     float: left;
     text-align: right;
-    padding-right: 20px;
+    padding-right: 10px;
     font-size: 16px;
     letter-spacing: .05em;
     margin-top: 0px;
@@ -676,7 +676,7 @@ label.item.item-input.item-stacked-label:first-child {
 
 .r-mapview, .r-listview {
     height:66px;
-    width: 10%;
+    width: 12%;
     color: #fff !important;
     position: relative;
     display: block;
@@ -689,7 +689,7 @@ label.item.item-input.item-stacked-label:first-child {
     border: 0px;
     background-color: #42cc8a;
     z-index: 9001;
-    padding-right: 20px;
+    padding-right: 30px;
 }
 
 .resource-button {
@@ -748,6 +748,11 @@ label.item.item-input.item-stacked-label:first-child {
     */
 }
 
+.searchlist {
+    position: inherit !important;
+}
+
+
 .resource-options-list {
     z-index: 9001;
     display: block;
@@ -769,6 +774,10 @@ ul#listContainer {
     height: 100%;
     overflow-y: scroll;
     background-color: #f8f8f8;
+        -webkit-box-shadow: 0px 10px 67px -5px rgba(0,0,0,0.25);
+-moz-box-shadow: 0px 10px 67px -5px rgba(0,0,0,0.25);
+box-shadow: 0px 10px 67px -5px rgba(0,0,0,0.25);
+    border-bottom: 1px solid #e4e4e4;
 }
 
 
@@ -778,11 +787,22 @@ ul#listContainer {
     color: #5b5b5b;
 }
 
+.listbuttons {
+    float: right;
+    position: inherit;
+    display: flex;
+}
+
 .listviewstyle span {
     display: block;
-    font-weight: 700;
-    font-size: 1.1em;
+    letter-spacing: .06em;
+    font-size: 1.2em;
     color: #00adb5;
+}
+
+.indlistcontainer {
+    height: auto;
+    
 }
 
 .listviewstyle a {
@@ -797,6 +817,8 @@ ul#listContainer {
 
 .listmapbutton {
     background-color: #00adb5;
+    padding: 3px 8px;
+    border-radius: 4px;
     color: #fff !important;
     border: 1px solid #039ca3 !important;
 }
