@@ -84,6 +84,9 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
   var latLng;
   $cordovaGeolocation.getCurrentPosition(options).then(function(position){
     latLng = $locationProperties.getLoc();
+	if(!latLng){
+		latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	}
     var mapOptions = {
       center: latLng,
       zoom: 15,
@@ -95,7 +98,7 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
         
     };
     $scope.map = new google.maps.Map(document.getElementById("refermap"), mapOptions);
-	google.maps.event.addListener($scope.map, 'click', function(event) {
+	google.maps.event.addListener($scope.map, 'idle', function(event) {
 		placeMarker($scope.map.getCenter());
 	});
 	function placeMarker(location) {
@@ -308,6 +311,7 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 		  //Get all of the markers from our Markers factory
 		  Markers.getMarkers().then(function(markers){
 			console.log("Markers: ", markers);
+			$scope.listMarkers = markers.data.markers;
 			var records = markers.data.markers;
 			var iconDir = "/img/map/";
 			var icons = {
@@ -335,7 +339,7 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 				  animation: google.maps.Animation.DROP,
 				  position: markerPos
 			  });
-	          angular.element(document.getElementById('listContainer')).append($compile("<li class='listviewstyle'><span>"+record.name+"</span><p>"+record.address+"</p><p>Hours of Operation:"+record.hour+"</p><p><a href='"+record.website+"'>Visit Website</a><button ng-click='toggleList()' onclick='gotoLocation("+record.lat+","+record.lng+")' class='listmapbutton'>View on Map</button></p></li>")($scope));
+	          //angular.element(document.getElementById('listContainer')).append($compile("<li class='listviewstyle'><span>"+record.name+"</span><p>"+record.address+"</p><p>Hours of Operation:"+record.hour+"</p><p><a href='"+record.website+"'>Visit Website</a><button ng-click='toggleList()' onclick='gotoLocation("+record.lat+","+record.lng+")' class='listmapbutton'>View on Map</button></p></li>")($scope));
 			  var infoWindowContent = "<h4>" + record.name + "</h4>";          
 	          gmarkers1.push(marker);
 			  addInfoWindow(marker, infoWindowContent, record);
@@ -356,9 +360,12 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 		  });
 	 
 	  }
-	  filterMarkers = function (e) {
-		   var category = e;
-           console.log(gmarkers1.length);
+	  $scope.filterMarkers = function (e) {
+		   if(e === "S"){
+		       category = document.getElementById("searchMarkervalue").value;
+		   }else{
+			   category = e;
+		   }
 		   for (i = 0; i < gmarkers1.length; i++) {
 			   if(category == "All"){
 				   marker = gmarkers1[i];
@@ -366,7 +373,7 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 			   }else{
 					marker = gmarkers1[i];
 					// If is same category or category not picked
-					if (marker.category.toLowerCase().indexOf(category.toLowerCase()) > -1 || category.length === 0) {
+					if (marker.category.toLowerCase().indexOf(category.toLowerCase()) !== -1) {
 						marker.setVisible(true);
 					}
 					// Categories don't match 
@@ -376,6 +383,7 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 			   }
         }
       };
+	  
       initMap();
     
     // Instantiate map filter bars as hidden
@@ -406,7 +414,7 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
       $scope.resourcesButton="dark-resource-button";
       $scope.resourcesBar="openanimate";
     };
-    gotoLocation = function (lat,lng){
+    $scope.gotoLocation = function (lat,lng){
 		coord = new google.maps.LatLng(lat, lng);
         $scope.map.panTo(coord);
 	};
@@ -452,7 +460,6 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
     };
     
     hideList = function () {
-	  console.log($scope);
       $scope.listButton="hidden-resource-button";
       $scope.listBar="closedanimate";
     };
@@ -485,6 +492,22 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
     };
     
 }])
+
+.filter('searchFor', function(){
+	return function(arr, searchString){
+		if(!searchString){
+			return arr;
+		}
+		var result = [];
+		searchString = searchString.toLowerCase();
+		angular.forEach(arr, function(marker){
+			if(marker.name.toLowerCase().indexOf(searchString) !== -1){
+			result.push(marker);
+		}
+		});
+		return result;
+	};
+})
 
 .factory('Markers', function($http) {
 	
