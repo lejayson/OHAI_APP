@@ -69,7 +69,8 @@
 						<li class='listviewstyle' ng-repeat="marker in listMarkers | searchFor:searchString">
 							<span>{{marker.name}}</span>
 							<p>{{marker.address}}</p>
-							<p>{{marker.hour}}</p>
+							<p>{{marker.hours}}</p>
+							<p>{{marker.phone}}</p>
 							<p><a href="{{marker.website}}">Visit Website</a>
 							<button ng-click="toggleList(); gotoLocation({{marker.lat}},{{marker.lng}})" class="listmapbutton">View on Map</button>
 							</p>
