@@ -73,15 +73,22 @@
             
           <label class="item item-input item-stacked-label">
               <span class="input-label">Their Name (if available)</span>
-            <input ng-model="inputVal" ng-blue="saveInput(inputVal)" type="text" placeholder="John Doe" />
+            <input ng-model="inputName" ng-blur="saveName(inputName)" type="text" placeholder="John Doe" />
           </label>
             
             
           <label class="item item-input item-stacked-label">
             <span class="input-label">Their Gender</span>
             <ion-list>
-              <ion-radio ng-model="choice" ng-value="'A'">Female</ion-radio>
-              <ion-radio ng-model="choice" ng-value="'B'">Male</ion-radio>
+              <ion-radio name="gender" ng-model="gendChoice" ng-click="saveGender('F')">Female</ion-radio>
+              <ion-radio name="gender" ng-model="gendChoice" ng-click="saveGender('M')">Male</ion-radio>
+            </ion-list>
+          </label>
+		  <label class="item item-input item-stacked-label">
+            <span class="input-label">Environment</span>
+            <ion-list>
+              <ion-radio name="envir" ng-model="envChoice" ng-click="saveEnv('i')">Indoors</ion-radio>
+              <ion-radio name="envir" ng-model="envChoice" ng-click="saveEnv('o')">Outdoors</ion-radio>
             </ion-list>
           </label>
             
@@ -90,7 +97,7 @@
             </label>      
               
           <label class="item item-input item-staced-label refer-infofield">
-            <textarea rows="8" placeholder="Please describe the circumstance of the person."></textarea>
+            <textarea ng-model="inputDesc" ng-blur="saveDesc(inputDesc)" rows="8" placeholder="Please describe the circumstance of the person."></textarea>
           </label>
           
         </div> 
@@ -102,21 +109,27 @@
             
           <label class="item item-input item-stacked-label">
               <span class="input-label">Number of Adults</span>
-            <input type="text" placeholder="123" />
+            <input ng-model="inputAdult" ng-blur="saveAdult(inputAdult)" type="number" step="1" pattern="\d+" min="0" max="100" placeholder="123" />
           </label>
             
             
           <label class="item item-input item-stacked-label">
             <span class="input-label">Number of Children</span>
-            <input type="text" placeholder="123" />
+            <input ng-model="inputChild" ng-blur="saveChild(inputChild)" type="number" step="1" pattern="\d+" min="0" max="100" placeholder="123" />
             </label>
-            
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">Environment</span>
+            <ion-list>
+              <ion-radio name="envir2" ng-model="envGrpChoice" ng-click="saveEnv('i')">Indoors</ion-radio>
+              <ion-radio name="envir2" ng-model="envGrpChoice" ng-click="saveEnv('o')">Outdoors</ion-radio>
+            </ion-list>
+          </label>  
           <label class="item item-input item-stacked-label refer-infolabel">        
           <span class="input-label">MORE INFORMATION</span>
             </label>      
               
           <label class="item item-input item-staced-label refer-infofield">
-            <textarea rows="8" placeholder="Please describe the circumstance of the person."></textarea>
+            <textarea ng-model="inputDesc" ng-blur="saveDesc(inputDesc)" rows="8" placeholder="Please describe the circumstance of the person."></textarea>
           </label>
             
         </div>
