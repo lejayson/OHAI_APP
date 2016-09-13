@@ -177,6 +177,9 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 		success(function(response) {
 			$scope.codeStatus = response.data;
 			$scope.submitPrompt = "submitprompt";
+      //console.log(JSON.stringify(response));
+      $imageName = response.imageID;
+      $scope.sendPic($imageName);
 		}).
 		error(function(response) {
 			$scope.codeStatus = response || "Request failed";
@@ -250,7 +253,7 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
     $ionicPlatform.ready(function() {
       var uploadURI = "http://test.appkauhale.com/postimage.php";
       
-      var filename = imageName;
+      var filename = imageName + ".jpg";
       
       var options = {
         fileKey: "file",
