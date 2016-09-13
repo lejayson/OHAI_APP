@@ -339,13 +339,8 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 				  animation: google.maps.Animation.DROP,
 				  position: markerPos
 			  });
-<<<<<<< HEAD
 	          //angular.element(document.getElementById('listContainer')).append($compile("<li class='listviewstyle'><span>"+record.name+"</span><p>"+record.address+"</p><p>Hours of Operation:"+record.hour+"</p><p><a href='"+record.website+"'>Visit Website</a><button ng-click='toggleList()' onclick='gotoLocation("+record.lat+","+record.lng+")' class='listmapbutton'>View on Map</button></p></li>")($scope));
 			  var infoWindowContent = "<h4>" + record.name + "</h4>";          
-=======
-	          angular.element(document.getElementById('listContainer')).append($compile("<li class='listviewstyle'><span>"+record.name+"</span><p>"+record.address+"</p><p>Hours of Operation:"+record.hour+"</p><p><a href='"+record.website+"'>Visit Website</a><button ng-click='toggleList()' onclick='gotoLocation("+record.lat+","+record.lng+")' class='listmapbutton'>View on Map</button></p></li>")($scope));
-              var infoWindowContent = "<h4>" + record.name + "</h4>";          
->>>>>>> origin/master
 	          gmarkers1.push(marker);
 			  addInfoWindow(marker, infoWindowContent, record);
 			}
