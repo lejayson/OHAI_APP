@@ -562,7 +562,7 @@ a.tab-item {
     letter-spacing: .05em;
 }
 
-a.button.refer-peoplebutton.activated {
+.refer-peoplebutton-activated {
     background-color: #42cc8a;
     color: #fff;
 }

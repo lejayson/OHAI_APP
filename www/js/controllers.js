@@ -90,6 +90,7 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
     var mapOptions = {
       center: latLng,
       zoom: 15,
+	  scrollwheel:false,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
 	  disableDefaultUI: false,
 	  mapTypeControl: false,
@@ -101,6 +102,15 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 	google.maps.event.addListener($scope.map, 'idle', function(event) {
 		placeMarker($scope.map.getCenter());
 	});
+	fx = function(e) {
+			  console.log("called");
+			  e.preventDefault();
+			  var z = (e.wheelDelta > 0 || e.detail < 0) ? 3 : -3;
+			  $scope.map.setZoom(Math.max(0, Math.min(20, $scope.map.getZoom() + z)));
+			  return false;
+		  };
+		  google.maps.event.addDomListener($scope.map.getDiv(), 'mousewheel', fx);
+          google.maps.event.addDomListener($scope.map.getDiv(), 'DOMMouseScroll', fx);
 	function placeMarker(location) {
 	  /**if ( marker ) {*/
 		  $locationProperties.setLoc(location);
@@ -135,7 +145,12 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
   $scope.submitPrompt = "submithidden";
   $scope.submitForm = function(){
 	var latlng = $locationProperties.getLoc();
-	var nm = $infoProperties.getNm();
+	var name = $infoProperties.getName();
+	var gender = $infoProperties.getGender();
+	var description = $infoProperties.getDesc();
+	var environment = $infoProperties.getEnv();
+	var adult = $infoProperties.getAdult();
+	var child = $infoProperties.getChild();
 	var lat = latlng.lat();
 	var lng = latlng.lng();
     console.log(lat);
@@ -146,7 +161,12 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 		var data = {
 		  lat: lat,
 		  lng: lng,
-		  nm: nm
+		  name: name,
+		  gender: gender,
+		  description: description,
+		  environment: environment,
+		  adult: adult,
+		  child: child
 		};
 		$http({
 		  method: method,
@@ -171,9 +191,31 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
     console.log("Could not get location");
   });
   };
-  $scope.saveInput = function(e){
-	  $infoProperties.setNm(e);
+  $scope.saveName = function(e){
+	  console.log(e);
+	  $infoProperties.setName(e);
   };
+  $scope.saveGender = function(e){
+	  $infoProperties.setGender(e);
+	  console.log($infoProperties.getGender());
+  };
+  $scope.saveDesc = function(e){
+	  $infoProperties.setDesc(e);
+	  console.log($infoProperties.getDesc());
+  };
+  $scope.saveEnv = function(e){
+	  $infoProperties.setEnv(e);
+	  console.log($infoProperties.getEnv());
+  };
+  $scope.saveAdult = function(e){
+	  $infoProperties.setAdult(e);
+	  console.log($infoProperties.getAdult());
+  };
+  $scope.saveChild = function(e){
+	  $infoProperties.setChild(e);
+	  console.log($infoProperties.getChild());
+  };
+  
   
   // Camera Functions
   $scope.takePic = function (options) {
@@ -252,7 +294,21 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
           }
       );
   };
-
+  
+  $scope.showPersonPage = function() {
+    $scope.indform = true;
+    $scope.groupform = false;
+    
+    $scope.personButton="refer-peoplebutton-activated";
+    $scope.peopleButton="";
+  }
+  $scope.showPeoplePage = function() {
+    $scope.indform = false;
+    $scope.groupform = true;
+    
+    $scope.personButton="";
+    $scope.peopleButton="refer-peoplebutton-activated";
+  }
 
 }])
 
@@ -280,12 +336,12 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 		  var mapOptions = {
 			center: latLng,
 			zoom: 15,
+			scrollwheel: false,
 			mapTypeId: google.maps.MapTypeId.ROADMAP,
-		  disableDefaultUI: false,
-		  mapTypeControl: false,
-		  streetViewControl: false,
-          styles: [{"featureType":"all","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"all","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"administrative","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#1e7185"}]},{"featureType":"administrative.province","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"administrative.locality","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"labels.text","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"labels.icon","stylers":[{"visibility":"simplified"}]},{"featureType":"administrative.neighborhood","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"landscape.man_made","elementType":"geometry.fill","stylers":[{"lightness":"44"}]},{"featureType":"landscape.natural","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"landscape.natural.landcover","elementType":"all","stylers":[{"color":"#ff0000"}]},{"featureType":"landscape.natural.landcover","elementType":"geometry","stylers":[{"lightness":"-89"}]},{"featureType":"landscape.natural.terrain","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.park","elementType":"all","stylers":[{"visibility":"on"},{"hue":"#95ff00"}]},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.local","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#9cd7da"}]}]
-            
+		    disableDefaultUI: false,
+		    mapTypeControl: false,
+		    streetViewControl: false,
+            styles: [{"featureType":"all","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"all","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"administrative","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#1e7185"}]},{"featureType":"administrative.province","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"administrative.locality","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"labels.text","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"labels.icon","stylers":[{"visibility":"simplified"}]},{"featureType":"administrative.neighborhood","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"landscape.man_made","elementType":"geometry.fill","stylers":[{"lightness":"44"}]},{"featureType":"landscape.natural","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"landscape.natural.landcover","elementType":"all","stylers":[{"color":"#ff0000"}]},{"featureType":"landscape.natural.landcover","elementType":"geometry","stylers":[{"lightness":"-89"}]},{"featureType":"landscape.natural.terrain","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.park","elementType":"all","stylers":[{"visibility":"on"},{"hue":"#95ff00"}]},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.local","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#9cd7da"}]}]
           };
 	 
 		  $scope.map = new google.maps.Map(document.getElementById("resourcemap"), mapOptions);
@@ -297,6 +353,15 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 			loadMarkers();
 	 
 		  });
+		  fx = function(e) {
+			  console.log("called");
+			  e.preventDefault();
+			  var z = (e.wheelDelta > 0 || e.detail < 0) ? 3 : -3;
+			  $scope.map.setZoom(Math.max(0, Math.min(20, $scope.map.getZoom() + z)));
+			  return false;
+		  };
+		  google.maps.event.addDomListener($scope.map.getDiv(), 'mousewheel', fx);
+          google.maps.event.addDomListener($scope.map.getDiv(), 'DOMMouseScroll', fx);
 	 
 		}, function(error){
 		  console.log("Could not get location");
