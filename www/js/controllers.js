@@ -294,7 +294,21 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
           }
       );
   };
-
+  
+  $scope.showPersonPage = function() {
+    $scope.indform = true;
+    $scope.groupform = false;
+    
+    $scope.personButton="refer-peoplebutton-activated";
+    $scope.peopleButton="";
+  }
+  $scope.showPeoplePage = function() {
+    $scope.indform = false;
+    $scope.groupform = true;
+    
+    $scope.personButton="";
+    $scope.peopleButton="refer-peoplebutton-activated";
+  }
 
 }])
 
