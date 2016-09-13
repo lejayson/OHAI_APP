@@ -313,7 +313,7 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 			console.log("Markers: ", markers);
 			$scope.listMarkers = markers.data.markers;
 			var records = markers.data.markers;
-			var iconDir = "/img/map/";
+			var iconDir = "img/map/";
 			var icons = {
 			  food: {
 				icon: iconDir + 'food.png'
@@ -326,8 +326,9 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 			  },
 			  misc: {
 				icon: iconDir + ''
-			  }
-			};
+			  },
+			
+            };
 			for (var i = 0; i < records.length; i++) {
 			  var record = records[i];   
 			  var markerPos = new google.maps.LatLng(record.lat, record.lng);
