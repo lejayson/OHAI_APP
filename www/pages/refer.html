@@ -10,11 +10,13 @@
         <div class="map-refer-con">
           <div id="refermap" data-tap-disabled="true"></div>
            
-            <div ng-class="animationbutt123" ng-click="showActionsheet()" class="mappin-div"><img class="pinhome" src="img/map/check.png" /></div>
+            <div ng-class="animationbutt123" ng-click="showActionsheet()" class="mappin-div"><img class="pinhome2" src="img/map/theirlocation.png" /></div>
+            
         </div>
-          
+
+        
         <div onclick="myLocation();" class="mylocationbutton"><i class="ion-navigate locationicon"></i></div>
-          
+        
       </ion-content>
   </ion-tab>
   
@@ -58,25 +60,25 @@
       <ion-content padding="true" class="has-header" scroll="true">
       
         <!-- EDIT CONTENT HERE -->
-          
-          
-              <span class="referpagetext">I am refering</span>
-         
-         <div class="button-bar refer-people">
-          <a class="button refer-peoplebutton">An Individual</a>
-          <a class="button refer-peoplebutton">A Group</a>
+        
+        
+        <span class="referpagetext">I am refering</span>
+        
+        <div class="button-bar refer-people">
+          <a ng-class="personButton" class="button refer-peoplebutton" ng-click="showPersonPage()">An Individual</a>
+          <a ng-class="peopleButton" class="button refer-peoplebutton" ng-click="showPeoplePage()">A Group</a>
         </div>
           
           <!-- INDIVIDUAL'S FORM -->
           
-        <div class="list referform"> 
+        <div ng-show="indform" class="list referform"> 
             
           <label class="item item-input item-stacked-label">
               <span class="input-label">Their Name (if available)</span>
             <input ng-model="inputName" ng-blur="saveName(inputName)" type="text" placeholder="John Doe" />
           </label>
-            
-            
+          
+          
           <label class="item item-input item-stacked-label">
             <span class="input-label">Their Gender</span>
             <ion-list>
@@ -103,16 +105,16 @@
         </div> 
           
           
-        <!-- INDIVIDUAL'S FORM -->
+        <!-- GROUP FORM -->
           
-        <div class="list referform"> 
+        <div ng-show="groupform" class="list referform">
             
           <label class="item item-input item-stacked-label">
-              <span class="input-label">Number of Adults</span>
+            <span class="input-label">Number of Adults</span>
             <input ng-model="inputAdult" ng-blur="saveAdult(inputAdult)" type="number" step="1" pattern="\d+" min="0" max="100" placeholder="123" />
           </label>
-            
-            
+          
+          
           <label class="item item-input item-stacked-label">
             <span class="input-label">Number of Children</span>
             <input ng-model="inputChild" ng-blur="saveChild(inputChild)" type="number" step="1" pattern="\d+" min="0" max="100" placeholder="123" />
@@ -123,15 +125,15 @@
               <ion-radio name="envir2" ng-model="envGrpChoice" ng-click="saveEnv('i')">Indoors</ion-radio>
               <ion-radio name="envir2" ng-model="envGrpChoice" ng-click="saveEnv('o')">Outdoors</ion-radio>
             </ion-list>
-          </label>  
-          <label class="item item-input item-stacked-label refer-infolabel">        
-          <span class="input-label">MORE INFORMATION</span>
-            </label>      
-              
+          </label>
+          <label class="item item-input item-stacked-label refer-infolabel">
+            <span class="input-label">MORE INFORMATION</span>
+          </label>
+          
           <label class="item item-input item-staced-label refer-infofield">
             <textarea ng-model="inputDesc" ng-blur="saveDesc(inputDesc)" rows="8" placeholder="Please describe the circumstance of the person."></textarea>
           </label>
-            
+          
         </div>
 
         <!-- END CONTENT -->

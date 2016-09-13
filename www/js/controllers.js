@@ -294,7 +294,21 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
           }
       );
   };
-
+  
+  $scope.showPersonPage = function() {
+    $scope.indform = true;
+    $scope.groupform = false;
+    
+    $scope.personButton="refer-peoplebutton-activated";
+    $scope.peopleButton="";
+  }
+  $scope.showPeoplePage = function() {
+    $scope.indform = false;
+    $scope.groupform = true;
+    
+    $scope.personButton="";
+    $scope.peopleButton="refer-peoplebutton-activated";
+  }
 
 }])
 
@@ -377,8 +391,9 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 			  },
 			  misc: {
 				icon: iconDir + ''
-			  }
-			};
+			  },
+			
+            };
 			for (var i = 0; i < records.length; i++) {
 			  var record = records[i];   
 			  var markerPos = new google.maps.LatLng(record.lat, record.lng);
