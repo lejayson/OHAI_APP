@@ -81,16 +81,16 @@
           
           <label class="item item-input item-stacked-label">
             <span class="input-label">Their Gender</span>
-            <ion-list>
+            <ion-list ng-class="gend-valid">
               <ion-radio name="gender" ng-model="gendChoice" ng-click="saveGender('F')">Female</ion-radio>
               <ion-radio name="gender" ng-model="gendChoice" ng-click="saveGender('M')">Male</ion-radio>
             </ion-list>
           </label>
 		  <label class="item item-input item-stacked-label">
             <span class="input-label">Environment</span>
-            <ion-list>
-              <ion-radio name="envir" ng-model="envChoice" ng-click="saveEnv('i')">Indoors</ion-radio>
-              <ion-radio name="envir" ng-model="envChoice" ng-click="saveEnv('o')">Outdoors</ion-radio>
+            <ion-list ng-class="env1-valid">
+              <ion-radio name="envir" ng-model="envChoice" ng-click="saveEnv('Indoor')">Indoors</ion-radio>
+              <ion-radio name="envir" ng-model="envChoice" ng-click="saveEnv('Outdoor')">Outdoors</ion-radio>
             </ion-list>
           </label>
             
@@ -101,6 +101,8 @@
           <label class="item item-input item-staced-label refer-infofield">
             <textarea ng-model="inputDesc" ng-blur="saveDesc(inputDesc)" rows="8" placeholder="Please describe the circumstance of the person."></textarea>
           </label>
+		  
+		  <img ng-src="http://i.imgur.com/vkW3Lhe.jpg" class="img-responsive img-thumbnail" ng-show="inputName == 'cat'">
           
         </div> 
           
@@ -109,30 +111,39 @@
           
         <div ng-show="groupform" class="list referform">
             
-          <label class="item item-input item-stacked-label">
-            <span class="input-label">Number of Adults</span>
-            <input ng-model="inputAdult" ng-blur="saveAdult(inputAdult)" type="number" step="1" pattern="\d+" min="0" max="100" placeholder="123" />
-          </label>
-          
-          
-          <label class="item item-input item-stacked-label">
-            <span class="input-label">Number of Children</span>
-            <input ng-model="inputChild" ng-blur="saveChild(inputChild)" type="number" step="1" pattern="\d+" min="0" max="100" placeholder="123" />
-            </label>
-          <label class="item item-input item-stacked-label">
-            <span class="input-label">Environment</span>
-            <ion-list>
-              <ion-radio name="envir2" ng-model="envGrpChoice" ng-click="saveEnv('i')">Indoors</ion-radio>
-              <ion-radio name="envir2" ng-model="envGrpChoice" ng-click="saveEnv('o')">Outdoors</ion-radio>
-            </ion-list>
-          </label>
-          <label class="item item-input item-stacked-label refer-infolabel">
-            <span class="input-label">MORE INFORMATION</span>
-          </label>
-          
-          <label class="item item-input item-staced-label refer-infofield">
-            <textarea ng-model="inputDesc" ng-blur="saveDesc(inputDesc)" rows="8" placeholder="Please describe the circumstance of the person."></textarea>
-          </label>
+		<label class="item item-input item-stacked-label">
+		<span class="input-label">Number of Adults</span>
+		<input ng-class="na-valid" ng-model="inputAdult" type="number"/>
+		</label>
+
+
+		<label class="item item-input item-stacked-label">
+		<span class="input-label">Number of Children</span>
+		<input ng-class="nc-valid" ng-model="inputChild" type="number"/>
+		</label>
+		<label class="item item-input item-stacked-label">
+		<span class="input-label">Environment</span>
+		<ion-list ng-class="env-valid">
+		  <ion-radio name="envir2" ng-model="envGrpChoice" ng-click="saveEnv('Indoor')">Indoors</ion-radio>
+		  <ion-radio name="envir2" ng-model="envGrpChoice" ng-click="saveEnv('Outdoor')">Outdoors</ion-radio>
+		</ion-list>
+		</label>
+		<label class="item item-input item-stacked-label refer-infolabel">
+		<span class="input-label">MORE INFORMATION</span>
+		</label>
+
+		<label class="item item-input item-staced-label refer-infofield">
+		<textarea ng-model="inputDesc" ng-blur="saveDesc(inputDesc)" rows="8" placeholder="Please describe the circumstance of the person."></textarea>
+		</label>
+		
+		<!-- show if our function evaluates to false -->
+		<div ng-show="!isNumberChd(inputChild)">
+			<p style="color:red;" >*Child input is not a Number or is Empty, Please verify input</p>
+		</div>
+		<div ng-show="!isNumberAdl(inputAdult)">
+			<p style="color:red;">*Adult input is not a Number or is Empty, Please verify input</p>
+		</div>
+		  
           
         </div>
 
@@ -159,13 +170,18 @@
         </ion-list>
         
       </div>
-        
+      <div ng-show="!hasPop()">
+			<p style="color:red;">*Group selected without Number of population, Please verify before Submission</p>
+	  </div>
+	  <div ng-show="!hasLoc()">
+			<p style="color:red;">*Turn on your location in settings bro</p>
+	  </div>
       <!-- <a ng-click='submitForm()' >Submit</a> -->
       <br>
       
       <div ng-class="submitPrompt" class="submitcomplete submitinfo">Thank you <br> your referral has been submitted.</div>
       
-      <a ng-click='submitForm()'>
+      <a ng-show="isValid()" ng-click='submitForm()'>
         <div class="bar bar-footer finsubmitbutton">
           <div class="submit-text">SUBMIT INFORMATION</div>
         </div>
