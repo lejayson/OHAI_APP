@@ -6,10 +6,10 @@ angular.module('app.controllers', [])
                          
                        
 function ($scope, $state, $cordovaGeolocation, $locationProperties) {
- var options = {timeout: 10000, enableHighAccuracy: true};
-  var marker;
-  var latLng;
-  $cordovaGeolocation.getCurrentPosition(options).then(function(position){
+	var options = {timeout: 10000, enableHighAccuracy: true};
+	var marker;
+	var latLng;
+	$cordovaGeolocation.getCurrentPosition(options).then(function(position){
     $scope.checkMarker = "opencheck";
 	$scope.closeMarker = "closeclose";
     latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -103,9 +103,8 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 		placeMarker($scope.map.getCenter());
 	});
 	fx = function(e) {
-			  console.log("called");
 			  e.preventDefault();
-			  var z = (e.wheelDelta > 0 || e.detail < 0) ? 3 : -3;
+			  var z = (e.wheelDelta > 0 || e.detail < 0) ? .5 : -.5;
 			  $scope.map.setZoom(Math.max(0, Math.min(20, $scope.map.getZoom() + z)));
 			  return false;
 		  };
@@ -142,8 +141,10 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
   }, function(error){
     console.log("Could not get location");
   });
-  $scope.submitPrompt = "submithidden";
-  $scope.submitForm = function(){
+	$infoProperties.setGender('M');
+	$infoProperties.setEnv('Outdoors');
+	$scope.submitPrompt = "submithidden";
+	$scope.submitForm = function(){
 	var latlng = $locationProperties.getLoc();
 	var name = $infoProperties.getName();
 	var gender = $infoProperties.getGender();
@@ -151,10 +152,9 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 	var environment = $infoProperties.getEnv();
 	var adult = $infoProperties.getAdult();
 	var child = $infoProperties.getChild();
+	var isgroup = $infoProperties.getisGroup();
 	var lat = latlng.lat();
 	var lng = latlng.lng();
-    console.log(lat);
-	console.log(lng);
 	var method = 'POST';
 	  var url = 'http://test.appkauhale.com/postReferral.php';
 	  $scope.codeStatus = "";
@@ -166,7 +166,8 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 		  description: description,
 		  environment: environment,
 		  adult: adult,
-		  child: child
+		  child: child,
+		  isgroup: isgroup
 		};
 		$http({
 		  method: method,
@@ -218,7 +219,64 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 	  $infoProperties.setChild(e);
 	  console.log($infoProperties.getChild());
   };
-  
+  $scope.inputAdult = 0;
+  $scope.inputChild = 0;
+  $scope.isValid = function(e){
+	  if($infoProperties.getisGroup() == 1){
+		if($infoProperties.getAdult() == 0 && $infoProperties.getChild() == 0){
+			return false;
+		}else if($infoProperties.getAdult() == null || $infoProperties.getChild() == null || ($infoProperties.getAdult() == null && $infoProperties.getChild() == null)){
+			return false;
+		}else if($locationProperties.getLoc() == null){
+			return false;
+		}else{
+			return true;
+		}  
+	  }else if($infoProperties.getisGroup() == 0){
+		if($locationProperties.getLoc() == null){
+			return false;
+		}else{
+			return true;
+		}  
+	  }else{
+		return false;
+	  }
+  }
+    $scope.hasPop = function() {
+	    if($infoProperties.getisGroup() == 1){
+			var population = $infoProperties.getAdult() + $infoProperties.getChild();
+			if(($infoProperties.getAdult() + $infoProperties.getChild()) == 0){
+				return false;
+			}else{
+				return true;
+			}
+	    }else{
+			return true;
+		}
+    }
+	$scope.hasLoc = function() {
+		if($locationProperties == null){
+			return false;
+		}else{
+			return true;
+		}
+	}
+  $scope.isNumberChd = function(e) {
+	  $infoProperties.setChild(e);
+	  if (angular.isNumber(e) && e % 1 == 0){
+		  return true;
+	  }else{
+		  return false;
+	  }
+  }
+  $scope.isNumberAdl = function(e) {
+	  $infoProperties.setAdult(e);
+	  if (angular.isNumber(e) && e % 1 == 0){
+		  return true;
+	  }else{
+		  return false;
+	  }
+  }
   
   // Camera Functions
   $scope.takePic = function (options) {
@@ -299,6 +357,7 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
   };
   
   $scope.showPersonPage = function() {
+	$infoProperties.setisGroup(0);
     $scope.indform = true;
     $scope.groupform = false;
     
@@ -306,6 +365,7 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
     $scope.peopleButton="";
   }
   $scope.showPeoplePage = function() {
+	$infoProperties.setisGroup(1);
     $scope.indform = false;
     $scope.groupform = true;
     
@@ -328,6 +388,7 @@ function ($scope, $stateParams) {
 function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 	var gmarkers1 = [];
 	var apiKey = false;
+	var prev_infoWindow;
 	
 	  function initMap(){
 		var options = {timeout: 10000, enableHighAccuracy: true};
@@ -359,7 +420,7 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 		  fx = function(e) {
 			  console.log("called");
 			  e.preventDefault();
-			  var z = (e.wheelDelta > 0 || e.detail < 0) ? 3 : -3;
+			  var z = (e.wheelDelta > 0 || e.detail < 0) ? .5 : -.5;
 			  $scope.map.setZoom(Math.max(0, Math.min(20, $scope.map.getZoom() + z)));
 			  return false;
 		  };
@@ -375,83 +436,97 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 	 
 	  }
 	 
-	  function loadMarkers(){
-		  //Get all of the markers from our Markers factory
-		  Markers.getMarkers().then(function(markers){
-			console.log("Markers: ", markers);
-			$scope.listMarkers = markers.data.markers;
-			var records = markers.data.markers;
-			var iconDir = "img/map/";
-			var icons = {
-			  food: {
+	function loadMarkers(){
+		//Get all of the markers from our Markers factory
+		Markers.getMarkers().then(function(markers){
+		console.log("Markers: ", markers);
+		$scope.listMarkers = markers.data.markers;
+		var records = markers.data.markers;
+		var iconDir = "img/map/";
+		var icons = {
+			food: {
 				icon: iconDir + 'food.png'
-			  },
-			  medicine: {
+			},
+			medicine: {
 				icon: iconDir + 'medical.png'
-			  },
-			  shelter: {
+			},
+			shelter: {
 				icon: iconDir + 'shelters.png'
-			  },
-			  misc: {
+			},
+			misc: {
 				icon: iconDir + ''
-			  },
+			},
 			
-            };
-			for (var i = 0; i < records.length; i++) {
-			  var record = records[i];   
-			  var markerPos = new google.maps.LatLng(record.lat, record.lng);
-			  // Add the markerto the map
-			  var marker = new google.maps.Marker({
-				  category: record.cat,
-				  map: $scope.map,
-				  icon: icons[record.cat].icon,
-				  animation: google.maps.Animation.DROP,
-				  position: markerPos
-			  });
-	          //angular.element(document.getElementById('listContainer')).append($compile("<li class='listviewstyle'><span>"+record.name+"</span><p>"+record.address+"</p><p>Hours of Operation:"+record.hour+"</p><p><a href='"+record.website+"'>Visit Website</a><button ng-click='toggleList()' onclick='gotoLocation("+record.lat+","+record.lng+")' class='listmapbutton'>View on Map</button></p></li>")($scope));
-			  var infoWindowContent = "<h4>" + record.name + "</h4>";          
-	          gmarkers1.push(marker);
-			  addInfoWindow(marker, infoWindowContent, record);
-			}
+		};
+		for (var i = 0; i < records.length; i++) {
+			var record = records[i];
+			var markerimg = {
+			url: icons[record.cat].icon,
+			scaledSize: new google.maps.Size(44,66), // scaled size
+			origin: new google.maps.Point(0,0), // origin
+			anchor: new google.maps.Point(22,66) // anchor
+			};
+			var markerPos = new google.maps.LatLng(record.lat, record.lng);
+			// Add the markerto the map
+			var marker = new google.maps.Marker({
+				category: record.cat,
+				map: $scope.map,
+				icon: markerimg,
+				animation: google.maps.Animation.DROP,
+				position: markerPos
+			});
+			//angular.element(document.getElementById('listContainer')).append($compile("<li class='listviewstyle'><span>"+record.name+"</span><p>"+record.address+"</p><p>Hours of Operation:"+record.hour+"</p><p><a href='"+record.website+"'>Visit Website</a><button ng-click='toggleList()' onclick='gotoLocation("+record.lat+","+record.lng+")' class='listmapbutton'>View on Map</button></p></li>")($scope));
+			var infoWindowContent = "<h4>" + record.name + "</h4>";          
+			gmarkers1.push(marker);
+			addInfoWindow(marker, record, i);
+		}
 	 
-		  }); 
+		}); 
 	  }
-	  function addInfoWindow(marker, message, record) {
+	function addInfoWindow(marker, record, i) {
+		  
+		var contentString = "<div><h4><span>"+record.name+"</span></h4><p>"+record.address+"</p><p>Hours of Operation:"+record.hours+"</p><p><a href='"+record.website+"'>Visit Website</a></p></div>";
+
+		var compileContent = $compile(contentString)($scope);
 	 
-		  var infoWindow = new google.maps.InfoWindow({
-			  content: message
-		  });
+		var infoWindow = new google.maps.InfoWindow({
+			content: compileContent[0]
+		});
 	 
-		  google.maps.event.addListener(marker, 'click', function() {
+		google.maps.event.addListener(marker, 'click', function() {
+			  if(prev_infoWindow){
+				  prev_infoWindow.close();
+			  }
+			  prev_infoWindow = infoWindow;
 			  infoWindow.open($scope.map, marker);
 		  });
 	 
-	  }
-	  $scope.filterMarkers = function (e) {
-		   if(e === "S"){
-		       category = document.getElementById("searchMarkervalue").value;
-		   }else{
-			   category = e;
-		   }
-		   for (i = 0; i < gmarkers1.length; i++) {
-			   if(category == "All"){
-				   marker = gmarkers1[i];
-				   marker.setVisible(true);
-			   }else{
-					marker = gmarkers1[i];
-					// If is same category or category not picked
-					if (marker.category.toLowerCase().indexOf(category.toLowerCase()) !== -1) {
-						marker.setVisible(true);
-					}
-					// Categories don't match 
-					else {
-						marker.setVisible(false);
-					}
-			   }
+	}
+	$scope.filterMarkers = function (e) {
+		if(e === "S"){
+			category = document.getElementById("searchMarkervalue").value;
+		}else{
+			category = e;
+		}
+		for (i = 0; i < gmarkers1.length; i++) {
+			if(category == "All"){
+				marker = gmarkers1[i];
+				marker.setVisible(true);
+			}else{
+				marker = gmarkers1[i];
+				// If is same category or category not picked
+				if (marker.category.toLowerCase().indexOf(category.toLowerCase()) !== -1) {
+					marker.setVisible(true);
+				}
+				// Categories don't match 
+				else {
+					marker.setVisible(false);
+				}
+			}
         }
-      };
+	};
 	  
-      initMap();
+	initMap();
     
     // Instantiate map filter bars as hidden
     $scope.resourceBar = "closedanimateresources";
@@ -614,7 +689,6 @@ function ($scope, $stateParams, MedicineMaps) {
 function ($scope, $stateParams, shelMaps) {
     
 	 shelMaps.init();
-
 }])
 
 .controller('volunteerCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -627,10 +701,16 @@ function ($scope, $stateParams) {
 
 /**
 .controller('getinvolvedCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+>>>>>>> refs/remotes/origin/master
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $ionicPopup, $timeout) {
 
+<<<<<<< HEAD
+// Triggered on a button click, or some other target
+$scope.showPopup = function() {
+  $scope.data = {};
+=======
 
 }])
 **/
@@ -664,8 +744,21 @@ function ($scope, $stateParams, $ionicPopup, $timeout) {
       }
     });
   };
-    
-    
+ // Redirect to Voluntter Dialog
+ $scope.showVolunteer = function() {
+   var confirmPopup = $ionicPopup.confirm({
+     title: 'Redirect to Volunteer Portal',
+     template: 'Are you sure you want to this in a new window.'
+   });
+
+   confirmPopup.then(function(res) {
+     if(res) {
+       console.log('You are sure');
+     } else {
+       console.log('You are not sure');
+     }
+   });
+ };
   // Redirect to Voluntter Dialog
   $scope.showVolunteer = function() {
     var confirmPopup = $ionicPopup.confirm({
@@ -681,20 +774,47 @@ function ($scope, $stateParams, $ionicPopup, $timeout) {
   };
 
 }])
+.controller('aboutCtrl', ['$scope', '$stateParams', '$http',  // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 
-
-
-.controller('eventsCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
+function ($scope, $stateParams, $http) {
+	
+	$scope.init = function() {
+        $http.get("http://ajax.googleapis.com/ajax/services/feed/load", { params: { "v": "1.0", "num":"100", "q": "http://fetchrss.com/rss/57cf1b9e8a93f83b347b23c657313113082.xml" } })
+            .success(function(data) {
+                $scope.rssTitle = data.responseData.feed.title;
+                $scope.rssUrl = data.responseData.feed.feedUrl;
+                $scope.rssSiteUrl = data.responseData.feed.link;
+                $scope.entries = data.responseData.feed.entries;
+                window.localStorage["entries"] = JSON.stringify(data.responseData.feed.entries);
+            })
+            .error(function(data) {
+                console.log("ERROR: " + data);
+                if(window.localStorage["entries"] !== undefined) {
+                    $scope.entries = JSON.parse(window.localStorage["entries"]);
+                }
+            });
+    };
 
+    $scope.browse = function(v) {
+        window.open(v, "_system", "location=yes");
+    };
+    
+    $scope.getPhoto = function(entry) {
+    return entry.content.match(/src="([^"]*)/)[1];
+    };
 
 }])
 
-
-.controller('eventsCtrl', function($scope) {
-  $scope.items = [{
+.controller('eventsCtrl', ['$scope', '$state', '$http', 'Events', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $state, $http, Events) {
+	Events.getEvents().then(function(events){
+		$scope.items = events.data.events;
+	}); 
+	 /* $scope.items = [{
       time: '9:30AM',
       title: 'Summer Fun Events',
       date: 'August 25, 2016',
@@ -738,8 +858,7 @@ function ($scope, $stateParams) {
           
 
   }];
-
-  /*
+ 
    * if given group is the selected group, deselect it
    * else, select the given group
    */
@@ -753,37 +872,27 @@ function ($scope, $stateParams) {
   $scope.isItemShown = function(item) {
     return $scope.shownItem === item;
   };
-    
 
+
+}])
+
+.factory('Events', function($http) {
+	
+  var events = [];
+ 
+  return {
+    getEvents: function(){
+		
+      return $http.get("http://test.appkauhale.com/eventsCal.php").then(function(response){
+          events = response;
+          return events;
+      });
+    }
+  };
 })
 
-.controller("aboutCtrl", function($http, $scope) {
 
-    $scope.init = function() {
-        $http.get("http://ajax.googleapis.com/ajax/services/feed/load", { params: { "v": "1.0", "num":"100", "q": "http://fetchrss.com/rss/57cf1b9e8a93f83b347b23c657313113082.xml" } })
-            .success(function(data) {
-                $scope.rssTitle = data.responseData.feed.title;
-                $scope.rssUrl = data.responseData.feed.feedUrl;
-                $scope.rssSiteUrl = data.responseData.feed.link;
-                $scope.entries = data.responseData.feed.entries;
-                window.localStorage["entries"] = JSON.stringify(data.responseData.feed.entries);
-            })
-            .error(function(data) {
-                console.log("ERROR: " + data);
-                if(window.localStorage["entries"] !== undefined) {
-                    $scope.entries = JSON.parse(window.localStorage["entries"]);
-                }
-            });
-    };
 
-    $scope.browse = function(v) {
-        window.open(v, "_system", "location=yes");
-    };
-    
-    $scope.getPhoto = function(entry) {
-    return entry.content.match(/src="([^"]*)/)[1];
-    };
 
-});
 
 

@@ -18,6 +18,7 @@ angular.module('app.services', [])
 	var gender;
 	var description;
 	var environment;
+	var isGroup;
     
     return {
         getName: function() {
@@ -55,6 +56,12 @@ angular.module('app.services', [])
         },
         setChild: function(chd) {
             Children = chd;
+        },
+		getisGroup: function() {
+            return isGroup;
+        },
+        setisGroup: function(grp) {
+            isGroup = grp;
         }
     }
 });
