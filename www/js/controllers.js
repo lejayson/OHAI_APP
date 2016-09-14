@@ -178,6 +178,9 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 		success(function(response) {
 			$scope.codeStatus = response.data;
 			$scope.submitPrompt = "submitprompt";
+      //console.log(JSON.stringify(response));
+      $imageName = response.imageID;
+      $scope.sendPic($imageName);
 		}).
 		error(function(response) {
 			$scope.codeStatus = response || "Request failed";
@@ -308,7 +311,7 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
     $ionicPlatform.ready(function() {
       var uploadURI = "http://test.appkauhale.com/postimage.php";
       
-      var filename = imageName;
+      var filename = imageName + ".jpg";
       
       var options = {
         fileKey: "file",
@@ -686,7 +689,6 @@ function ($scope, $stateParams, MedicineMaps) {
 function ($scope, $stateParams, shelMaps) {
     
 	 shelMaps.init();
-
 }])
 
 .controller('volunteerCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -697,41 +699,51 @@ function ($scope, $stateParams) {
 
 }])
 
-.controller('getinvolvedCtrl', ['$scope', '$stateParams', '$ionicPopup', '$timeout',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+/**
+.controller('getinvolvedCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+>>>>>>> refs/remotes/origin/master
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $ionicPopup, $timeout) {
 
+<<<<<<< HEAD
 // Triggered on a button click, or some other target
 $scope.showPopup = function() {
   $scope.data = {};
+=======
 
-  myPopup.then(function(res) {
-    console.log('Tapped!', res);
-  });
+}])
+**/
 
-  $timeout(function() {
-     myPopup.close(); //close the popup after 3 seconds for some reason
-  }, 3000);
- };
 
- // Redirect to DONATE Dialog
- $scope.showConfirm = function() {
-   var confirmPopup = $ionicPopup.confirm({
-     title: 'Redirect to IHS Donate',
-     template: 'Are you sure you want to Open IHS Donate page in a new window.'
-   });
+.controller('getinvolvedCtrl', ['$scope', '$stateParams', '$ionicPopup',
+  function($scope, $stateParams, $ionicPopup, $timeout) {
+  // Triggered on a button click, or some other target
+  $scope.showPopup = function() {
+    $scope.data = {};
 
-   confirmPopup.then(function(res) {
-     if(res) {
-       console.log('You are sure');
-     } else {
-       console.log('You are not sure');
-     }
-   });
- };
-    
-    
+    myPopup.then(function(res) {
+      console.log('Tapped!', res);
+    });
+
+    $timeout(function() {
+      myPopup.close(); //close the popup after 3 seconds for some reason
+    }, 3000);
+  };
+
+  // Redirect to DONATE Dialog
+  $scope.showConfirm = function() {
+    var confirmPopup = $ionicPopup.confirm({
+      title: 'Redirect to IHS Donate',
+      template: 'Are you sure you want to Open IHS Donate page in a new window?'
+    });
+
+    confirmPopup.then(function(res) {
+      if(res) {
+        window.open('https://ihshawaii.org/get-involved/ways-to-give', '_system');
+      }
+    });
+  };
  // Redirect to Voluntter Dialog
  $scope.showVolunteer = function() {
    var confirmPopup = $ionicPopup.confirm({
@@ -747,10 +759,23 @@ $scope.showPopup = function() {
      }
    });
  };
+  // Redirect to Voluntter Dialog
+  $scope.showVolunteer = function() {
+    var confirmPopup = $ionicPopup.confirm({
+      title: 'Redirect to Volunteer Portal',
+      template: 'Are you sure you want to open the IHS Volunteer signup in a new window?'
+    });
+    
+    confirmPopup.then(function(res) {
+      if(res) {
+        window.open('https://app.betterimpact.com/Application/?OrganizationGuid=c52ab82e-dd72-43e2-95a5-af0337db83bb', '_system');
+      }
+    });
+  };
 
 }])
-
 .controller('aboutCtrl', ['$scope', '$stateParams', '$http',  // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams, $http) {
