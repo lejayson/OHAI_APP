@@ -699,23 +699,6 @@ function ($scope, $stateParams) {
 
 }])
 
-/**
-.controller('getinvolvedCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
->>>>>>> refs/remotes/origin/master
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $ionicPopup, $timeout) {
-
-<<<<<<< HEAD
-// Triggered on a button click, or some other target
-$scope.showPopup = function() {
-  $scope.data = {};
-=======
-
-}])
-**/
-
-
 .controller('getinvolvedCtrl', ['$scope', '$stateParams', '$ionicPopup',
   function($scope, $stateParams, $ionicPopup, $timeout) {
   // Triggered on a button click, or some other target
@@ -731,7 +714,7 @@ $scope.showPopup = function() {
     }, 3000);
   };
 
-  // Redirect to DONATE Dialog
+  // Redirect to DONATE Dialog and open browser
   $scope.showConfirm = function() {
     var confirmPopup = $ionicPopup.confirm({
       title: 'Redirect to IHS Donate',
@@ -744,22 +727,8 @@ $scope.showPopup = function() {
       }
     });
   };
- // Redirect to Voluntter Dialog
- $scope.showVolunteer = function() {
-   var confirmPopup = $ionicPopup.confirm({
-     title: 'Redirect to Volunteer Portal',
-     template: 'Are you sure you want to this in a new window.'
-   });
-
-   confirmPopup.then(function(res) {
-     if(res) {
-       console.log('You are sure');
-     } else {
-       console.log('You are not sure');
-     }
-   });
- };
-  // Redirect to Voluntter Dialog
+  
+  // Redirect to Volunteer Dialog and open browser
   $scope.showVolunteer = function() {
     var confirmPopup = $ionicPopup.confirm({
       title: 'Redirect to Volunteer Portal',
@@ -872,6 +841,29 @@ function ($scope, $state, $http, Events) {
   $scope.isItemShown = function(item) {
     return $scope.shownItem === item;
   };
+  
+  $scope.button0 = "activebutton"; $scope.date0 = true;
+  $scope.button1 = ""; $scope.date1 = false;
+  $scope.button2 = ""; $scope.date2 = false;
+  $scope.button3 = ""; $scope.date3 = false;
+  
+  $scope.showDate = function(num) {
+    var dateshow = [false, false, false, false];
+    dateshow[num] = true;
+    
+    // Show divs
+    $scope.date0 = dateshow[0];
+    $scope.date1 = dateshow[1];
+    $scope.date2 = dateshow[2];
+    $scope.date3 = dateshow[3];
+    
+    // Set button active
+    $scope.button0 = (dateshow[0] ? "activebutton":"");
+    $scope.button1 = (dateshow[1] ? "activebutton":"");
+    $scope.button2 = (dateshow[2] ? "activebutton":"");
+    $scope.button3 = (dateshow[3] ? "activebutton":"");
+    
+  }
 
 
 }])
@@ -890,9 +882,3 @@ function ($scope, $state, $http, Events) {
     }
   };
 })
-
-
-
-
-
-
