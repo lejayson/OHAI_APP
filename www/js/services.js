@@ -19,6 +19,8 @@ angular.module('app.services', [])
 	var description;
 	var environment;
 	var isGroup;
+  var subemail;
+  var subphone;
     
     return {
         getName: function() {
@@ -51,7 +53,7 @@ angular.module('app.services', [])
         setAdult: function(adl) {
             Adult = adl;
         },
-		getChild: function() {
+        getChild: function() {
             return Children;
         },
         setChild: function(chd) {
@@ -62,7 +64,20 @@ angular.module('app.services', [])
         },
         setisGroup: function(grp) {
             isGroup = grp;
+        },
+        getEmail: function() {
+            return subemail;
+        },
+        setEmail: function(eml) {
+            subemail = eml;
+        },
+        getPhone: function() {
+            return subphone;
+        },
+        setPhone: function(phn) {
+            subphone = phn;
         }
+        
     }
 });
 

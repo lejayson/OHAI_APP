@@ -156,6 +156,8 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 	var lat = latlng.lat();
 	var lng = latlng.lng();
 	var method = 'POST';
+  var subemail = $infoProperties.getEmail();
+  var subphone = $infoProperties.getPhone();
 	  var url = 'http://test.appkauhale.com/postReferral.php';
 	  $scope.codeStatus = "";
 		var data = {
@@ -167,7 +169,9 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 		  environment: environment,
 		  adult: adult,
 		  child: child,
-		  isgroup: isgroup
+		  isgroup: isgroup,
+      subemail: subemail,
+      subphone: subphone
 		};
 		$http({
 		  method: method,
@@ -180,7 +184,9 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 			$scope.submitPrompt = "submitprompt";
       //console.log(JSON.stringify(response));
       $imageName = response.imageID;
-      $scope.sendPic($imageName);
+      if ($scope.picture != null) {
+        $scope.sendPic($imageName);
+      }
 		}).
 		error(function(response) {
 			$scope.codeStatus = response || "Request failed";
@@ -218,6 +224,14 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
   $scope.saveChild = function(e){
 	  $infoProperties.setChild(e);
 	  console.log($infoProperties.getChild());
+  };
+  $scope.saveEmail = function(e){
+	  $infoProperties.setEmail(e);
+	  console.log($infoProperties.getEmail());
+  };
+  $scope.savePhone = function(e){
+	  $infoProperties.setPhone(e);
+	  console.log($infoProperties.getPhone());
   };
   $scope.inputAdult = 0;
   $scope.inputChild = 0;
@@ -357,7 +371,7 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
   };
   
   $scope.showPersonPage = function() {
-	$infoProperties.setisGroup(0);
+    $infoProperties.setisGroup(0);
     $scope.indform = true;
     $scope.groupform = false;
     
@@ -365,12 +379,17 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
     $scope.peopleButton="";
   }
   $scope.showPeoplePage = function() {
-	$infoProperties.setisGroup(1);
+    $infoProperties.setisGroup(1);
     $scope.indform = false;
     $scope.groupform = true;
     
     $scope.personButton="";
     $scope.peopleButton="refer-peoplebutton-activated";
+  }
+  
+  $scope.userWindow = false;
+  $scope.userInfoWindow = function() {
+    $scope.userWindow = !$scope.userWindow;
   }
 
 }])
