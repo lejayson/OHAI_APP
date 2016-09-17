@@ -308,7 +308,7 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
     $ionicPlatform.ready(function() {
       if (!navigator.camera) {
         // Load image if unable to get camera
-        $scope.picture='http://community.wdfiles.com/local--files/404/404.jpg';
+        $scope.picture=null;
       } else {
         Camera.getPicture(options).then(function(imagePath) {
           $scope.picture = imagePath;
