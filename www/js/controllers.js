@@ -7,6 +7,14 @@ angular.module('app.controllers', [])
                        
 function ($scope, $state, $cordovaGeolocation, $locationProperties) {
 	
+	$scope.stories = [
+    {name:'Terry Lauro', imgurl:'https://ihshawaii.org/images/success-stories/_promobox/IHS-terry-lauro.jpg', story:'Terry Lauro, who was homeless on and off for seven years, recently transitioned from Tutu Bert’s House into a long-term independent group home, where she is now stable. She is the first person to successfully transition from the facility, which opened in March 2016. After a lengthy hospital stay due to an infection in her leg that required immediate surgery and ongoing care, Terry lost her apartment and found herself with nowhere to go. She spent seven weeks at Tutu Bert’s House where nurses assisted with wound care and a case manager coordinated follow-up doctor visits and transportation, helped her obtain social security benefits, and more. Terry described Tutu Bert’s House as a blessing and the stepping stone she needed. She hopes to live in a home as beautiful as Tutu Bert’s someday.'},
+    {name:'Michelle Kupahu', imgurl:'https://ihshawaii.org/images/_promobox/success-michelle.jpg', story:'A close friend who was also getting back on her feet, Vivian Kin-Seu, had recently received housing support and encouraged Michelle to also seek assistance from IHS. Through the help of a housing specialist, Michelle found an apartment that fit her needs. That was more than six years ago. Today, Michelle resides in Palolo Valley Homes with her daughter and grandchildren. During the week, she works as a cafeteria attendant at Palolo Elementary School, where both of her grandchildren are enrolled. She is able to walk them to and from school, which is a short distance from her home. She works hard to maintain her housing in order to set a good example for her family and provide her daughter with a solid support system. Looking back on her IHS experience, Michelle reflected, "IHS is awesome. They really want to see you succeed." Michelle continues to recommend IHS to those in need and knows she can rely on the organization for more than just housing.  '},
+    {name:'Vivian Kim-Seu', imgurl:'https://ihshawaii.org/images/success-stories/_promobox/success-vivian.jpg', story:'Lacking a stable home for years, Vivian Kim-Seu, a mother of six, often obtained food through homeless service providers in Waianae and Honolulu. Her extended family, who was also homeless at the time, sought help and shelter at IHS and encouraged her to do the same. Vivian’s pride kept her from asking for individualized help for years, but she eventually reached out to IHS’ housing office. Vivian’s housing specialist was able to find a home for her and her family in Palolo Valley and that Christmas IHS delivered gifts for her and her children. It was the first time they had all lived under the same roof in years. She now works for the University of Hawaii as a SNAP Education Assistant, teaching healthy eating habits to low income families. She now refers her friends and family who need help to IHS.'},
+    {name:'Robert Binnie', imgurl:'https://ihshawaii.org/images/_promobox/success-robert.jpg', story:'Robert Binnie had a tumultuous past marked by divorce, abuse, and gang violence. By the time he was 13, he suffered from depression and anxiety, and began abusing drugs and alcohol. He became homeless when he lost his job, but his past kept him from moving forward. He didn’t believe in himself or trust anyone.Robert went to IHS for a free meal after local churches stopped providing food at Kapiʻolani Park. He was met with compassion and decided to take responsibility for his life. Now, he has a home and new friends, and is part of a welcoming community. He currently attends classes at Kapiʻolani Community College and volunteers at the Waikiki Aquarium. He is looking forward to starting a new career as a math teacher.'},
+    {name:'Deanna Josephine Weisman', imgurl:'https://ihshawaii.org/images/_promobox/banner-3.jpg', story:'Deanna moved to Hawaii with her three children expecting to live with her boyfriends parents. After her plans fell through, without shelter or a source of income, Deanna was forced to move her family to IHS emergency shelter. With the help of the IHS team, Deanna took quick action. She enrolled her children in a nearby school where they were able to take advantage of food assistance programs and sought employment at McDonalds in order to start saving money. With financial assistance from IHS covering half of her familys airfare, Deanna was able to purchase plane tickets to reconnect with her immediate family in Alaska. Back in their home state, her family has been able to regain stability and speed their recovery.'}
+  ];
+	
 }])
    
 .controller('referCtrl', ['$scope', '$state', '$cordovaGeolocation', '$locationProperties', '$http', '$infoProperties', 'Camera', '$ionicPlatform', '$ionicPopup',
@@ -316,6 +324,7 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
   
   $scope.showPersonPage = function() {
     $infoProperties.setisGroup(0);
+	console.log($infoProperties.getisGroup());
     $scope.indform = true;
     $scope.groupform = false;
     
@@ -324,6 +333,7 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
   }
   $scope.showPeoplePage = function() {
     $infoProperties.setisGroup(1);
+	console.log($infoProperties.getisGroup());
     $scope.indform = false;
     $scope.groupform = true;
     
@@ -352,7 +362,6 @@ function ($scope, $ionicPopup, $state, $cordovaGeolocation, $compile, Markers) {
 	var gmarkers1 = [];
 	var apiKey = false;
 	var prev_infoWindow;
-	var locmarker;
 	  function initMap(){
 		var options = {timeout: 10000, enableHighAccuracy: true};
 	 
@@ -390,7 +399,6 @@ function ($scope, $ionicPopup, $state, $cordovaGeolocation, $compile, Markers) {
 		  };
 		  google.maps.event.addDomListener($scope.map.getDiv(), 'mousewheel', fx);
           google.maps.event.addDomListener($scope.map.getDiv(), 'DOMMouseScroll', fx);
-	      loadMarkers();
 		}, function(error){
 		  $scope.showLocerror();
 		});
@@ -398,7 +406,7 @@ function ($scope, $ionicPopup, $state, $cordovaGeolocation, $compile, Markers) {
 	  }
 	  
 	function loadCurlocation(latLng){
-		        locmarker = new google.maps.Marker({
+		         var locmarker = new google.maps.Marker({
 				map: $scope.map,
 				icon: 'http://leadingagega.org/newsletters/images/blueDot.png',
 				position: latLng
@@ -438,6 +446,8 @@ function ($scope, $ionicPopup, $state, $cordovaGeolocation, $compile, Markers) {
 			var markerPos = new google.maps.LatLng(record.lat, record.lng);
 			// Add the markerto the map
 			var marker = new google.maps.Marker({
+				name: record.name,
+				address: record.address,
 				category: record.cat,
 				map: $scope.map,
 				icon: markerimg,
@@ -485,7 +495,7 @@ function ($scope, $ionicPopup, $state, $cordovaGeolocation, $compile, Markers) {
 			}else{
 				marker = gmarkers1[i];
 				// If is same category or category not picked
-				if (marker.category.toLowerCase().indexOf(category.toLowerCase()) !== -1) {
+				if (marker.category.toLowerCase().indexOf(category.toLowerCase()) !== -1 || marker.name.toLowerCase().indexOf(category.toLowerCase()) !== -1 || marker.address.toLowerCase().indexOf(category.toLowerCase()) !== -1) {
 					marker.setVisible(true);
 				}
 				// Categories don't match 
@@ -625,7 +635,7 @@ function ($scope, $ionicPopup, $state, $cordovaGeolocation, $compile, Markers) {
 		var result = [];
 		searchString = searchString.toLowerCase();
 		angular.forEach(arr, function(marker){
-			if(marker.name.toLowerCase().indexOf(searchString) !== -1){
+			if(marker.name.toLowerCase().indexOf(searchString) !== -1 || marker.address.toLowerCase().indexOf(searchString) !== -1){
 			result.push(marker);
 		}
 		});
@@ -796,6 +806,10 @@ function ($scope, $stateParams, $http) {
     $scope.browse = function(v) {
         window.open(v, "_system", "location=yes");
     };
+	
+	$scope.appRedirect = function(e){
+		 window.open(e, '_system');
+	}
     
     $scope.getPhoto = function(entry) {
     return entry.content.match(/src="([^"]*)/)[1];
@@ -831,7 +845,8 @@ function ($scope, $state, $http, $ionicPopup, Events ) {
 	  scope: $scope,
 	  buttons: [
 	  { text: 'Cancel' },
-	  { text: '<b>Submit</b>',
+	  {
+		text: '<b>Submit</b>',
 		type: 'button-positive',
 		onTap: function(e) {
 			if(!$scope.volunteer.email){
@@ -845,6 +860,7 @@ function ($scope, $state, $http, $ionicPopup, Events ) {
     });
     
     confirmPopup.then(function(res) {
+		if (res != null){ 
 		var method = 'POST';
 		var url = 'http://test.appkauhale.com/addEventVolunteer.php';
 		var contactinfo = res;
@@ -865,6 +881,7 @@ function ($scope, $state, $http, $ionicPopup, Events ) {
 		error(function(response) {
 			console.log(JSON.stringify(response));
 		});
+		}
     });
   };
 

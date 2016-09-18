@@ -15,7 +15,7 @@
         <div ng-class="button0" class="datebutton" ng-click="showDate(0)">TODAY <br> 9/14</div>
         <div ng-class="button1" class="datebutton" ng-click="showDate(1)">SAT<br> 9/15</div>
         <div ng-class="button2" class="datebutton" ng-click="showDate(2)">SUN<br> 9/16</div>
-        <div ng-class="button3" class="datebutton" ng-click="showDate(3)">MON<br> 9/12</div>
+        <div ng-class="button3" class="datebutton" ng-click="showDate(3)">MON<br> 9/17S</div>
       </ion-item>
     </ion-list>
   </div>
@@ -58,7 +58,7 @@
               <p><span>DATE </span>{{ item.eventdate }}</p>
               <p><span>LOCATION </span>{{ item.location }}</p>
               <p>{{ item.description }}</p>
-			   <button ng-show="{{item.volunteer}} == '1'" ng-click="showVolunteer('{{item.eventid}}')">VOLUNTEER</button>
+			   <button ng-show="{{item.volunteer}} == '1'" ng-click="showVolunteer('{{item.eventid}}')" class="volunteerBttn">VOLUNTEER</button>
             </div>
           </div>
         </ion-item>
@@ -84,7 +84,7 @@
               <p><span>DATE </span>{{ item.eventdate }}</p>
               <p><span>LOCATION </span>{{ item.location }}</p>
               <p>{{ item.description }}</p>
-			   <button ng-show="{{item.volunteer}} == '1'" ng-click="showVolunteer('{{item.eventid}}')">VOLUNTEER</button>
+			   <button ng-show="{{item.volunteer}} == '1'" ng-click="showVolunteer('{{item.eventid}}')" class="volunteerBttn">VOLUNTEER</button>
             </div>
           </div>
         </ion-item>
@@ -110,7 +110,7 @@
               <p><span>DATE </span>{{ item.eventdate }}</p>
               <p><span>LOCATION </span>{{ item.location }}</p>
               <p>{{ item.description }}</p>
-			  <button ng-show="{{item.volunteer}} == '1'" ng-click="showVolunteer('{{item.eventid}}')">VOLUNTEER</button>
+			  <button vng-show="{{item.volunteer}} == '1'" ng-click="showVolunteer('{{item.eventid}}')" class="volunteerBttn">VOLUNTEER</button>
             </div>
           </div>
         </ion-item>
