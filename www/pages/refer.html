@@ -169,10 +169,21 @@
         
         <p>By entering your details and location, our staff will be notified of the person in need and will arrange help. To ensure all requests for assistance are genuine please allow us to collect your contact information.</p><br>
         
+        <!-- Gather User Information -->
         <ion-list>
-          <ion-checkbox class="allowbut" ng-model="filter.red">Allow us to collect your information</ion-checkbox>
+          <ion-checkbox class="allowbut" ng-model="filter.red" ng-change="userInfoWindow()">Allow us to collect your information</ion-checkbox>
         </ion-list>
-        
+        <div ng-show="userWindow" class="list referform">
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">Your Email Address</span>
+            <input ng-model="inputEmail" ng-blur="saveEmail(inputEmail)" type="text" placeholder="example@example.com" />
+          </label>
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">Your Phone Number</span>
+            <input ng-model="inputPhone" ng-blur="savePhone(inputPhone)" type="text" placeholder="808-123-4567" />
+          </label>
+        </div>
+      <!-- Form validation warnings -->  
       </div>
       <div ng-show="!hasPop()">
 			<p style="color:red;">*Group selected without Number of population, Please verify before Submission</p>
