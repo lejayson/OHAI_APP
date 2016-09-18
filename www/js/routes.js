@@ -120,6 +120,15 @@ angular.module('app.routes', [])
     }
   })
   
+  .state('menu.storysubmission', {
+    url: '/storysubmission',
+    views: {
+      'side-menu21': {
+        templateUrl: 'pages/storysubmission.html',
+        controller: 'storysubmissionCtrl'
+      }
+    }
+  })
   
 
   .state('menu', {

@@ -887,6 +887,11 @@ function ($scope, $state, $http, Events) {
 
 }])
 
+.controller('storysubmissionCtrl', ['$scope', '$stateParams', 
+function ($scope, $stateParams) {
+  
+}])
+
 .factory('Events', function($http) {
 	
   var events = [];
