@@ -6,79 +6,14 @@ angular.module('app.controllers', [])
                          
                        
 function ($scope, $state, $cordovaGeolocation, $locationProperties) {
-	var options = {timeout: 10000, enableHighAccuracy: true};
-	var marker;
-	var latLng;
-	$cordovaGeolocation.getCurrentPosition(options).then(function(position){
-    $scope.checkMarker = "opencheck";
-	$scope.closeMarker = "closeclose";
-    latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    var mapOptions = {
-      center: latLng,
-      zoom: 15,
-      zoomControl: false,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-	  disableDefaultUI: false,
-	  mapTypeControl: false,
-	  streetViewControl: false,
-      styles:[{"featureType":"all","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"all","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"administrative","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#1e7185"}]},{"featureType":"administrative.province","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"administrative.locality","elementType":"labels","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"labels.text","stylers":[{"visibility":"on"}]},{"featureType":"administrative.locality","elementType":"labels.icon","stylers":[{"visibility":"simplified"}]},{"featureType":"administrative.neighborhood","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"landscape.man_made","elementType":"geometry.fill","stylers":[{"lightness":"44"}]},{"featureType":"landscape.natural","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"visibility":"on"}]},{"featureType":"landscape.natural","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"landscape.natural.landcover","elementType":"all","stylers":[{"color":"#ff0000"}]},{"featureType":"landscape.natural.landcover","elementType":"geometry","stylers":[{"lightness":"-89"}]},{"featureType":"landscape.natural.terrain","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.park","elementType":"all","stylers":[{"visibility":"on"},{"hue":"#95ff00"}]},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.local","elementType":"all","stylers":[{"visibility":"on"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#9cd7da"}]}]
-      
-    };
-    $scope.map = new google.maps.Map(document.getElementById("homemap"), mapOptions);
-	$locationProperties.setLoc($scope.map.getCenter());
-	google.maps.event.addListener($scope.map, 'dragstart', function(event) {
-	});
-	google.maps.event.addListener($scope.map, 'idle', function(event) {
-		placeMarker($scope.map.getCenter());
-	});
-	function placeMarker(location) {
-	 /**if ( marker ) {*/
-		  $locationProperties.setLoc(location);
-	 /**}else{
-	    marker = new google.maps.Marker({
-		position: location,
-		map: $scope.map,
-	  });
-	  }*/
-	}
-	/**google.maps.event.addListenerOnce($scope.map, 'idle', function(){
- 
-	      marker = new google.maps.Marker({
-		  map: $scope.map,
-		  animation: google.maps.Animation.DROP,
-		  position: latLng
-	  });      
-	 
-	  var infoWindow = new google.maps.InfoWindow({
-		  content: "Here I am!"
-	  });
-	 
-	  google.maps.event.addListener(marker, 'click', function () {
-		  infoWindow.open($scope.map, marker);
-	  });
-	 
-	});*/
- 
-  }, function(error){
-    console.log("Could not get location");
-  });
-  
-  myLocation = function(){
-    var options = {timeout: 10000, enableHighAccuracy: true};
-	$cordovaGeolocation.getCurrentPosition(options).then(function(position){
-    coord = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    $scope.map.panTo(coord);
-  }, function(error){
-    console.log("Could not get location");
-  });		
-  }
+	
 }])
    
-.controller('referCtrl', ['$scope', '$state', '$cordovaGeolocation', '$locationProperties', '$http', '$infoProperties', 'Camera', '$ionicPlatform',
+.controller('referCtrl', ['$scope', '$state', '$cordovaGeolocation', '$locationProperties', '$http', '$infoProperties', 'Camera', '$ionicPlatform', '$ionicPopup',
 // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $infoProperties, Camera, $ionicPlatform) {
+function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $infoProperties, Camera, $ionicPlatform, $ionicPopup) {
  var options = {timeout: 10000, enableHighAccuracy: true};
   var marker;
   var latLng;
@@ -111,39 +46,17 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 		  google.maps.event.addDomListener($scope.map.getDiv(), 'mousewheel', fx);
           google.maps.event.addDomListener($scope.map.getDiv(), 'DOMMouseScroll', fx);
 	function placeMarker(location) {
-	  /**if ( marker ) {*/
 		  $locationProperties.setLoc(location);
-	 /**}else{
-	   marker = new google.maps.Marker({
-		position: location,
-		map: $scope.map,
-	  });
-	  }*/
 	}
-	/**google.maps.event.addListenerOnce($scope.map, 'idle', function(){
- 
-	      marker = new google.maps.Marker({
-		  map: $scope.map,
-		  animation: google.maps.Animation.DROP,
-		  position: latLng
-	  });      
-	 
-	  var infoWindow = new google.maps.InfoWindow({
-		  content: "Here I am!"
-	  });
-	 
-	  google.maps.event.addListener(marker, 'click', function () {
-		  infoWindow.open($scope.map, marker);
-	  });
-	 
-	});*/
  
   }, function(error){
-    console.log("Could not get location");
+    $scope.showLocerror();
   });
 	$infoProperties.setGender('M');
-	$infoProperties.setEnv('Outdoors');
+	$infoProperties.setEnv('outdoor');
+	$infoProperties.setInv('adult');
 	$scope.submitPrompt = "submithidden";
+	$scope.formID;
 	$scope.submitForm = function(){
 	var latlng = $locationProperties.getLoc();
 	var name = $infoProperties.getName();
@@ -153,6 +66,7 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 	var adult = $infoProperties.getAdult();
 	var child = $infoProperties.getChild();
 	var isgroup = $infoProperties.getisGroup();
+	var agegroup = $infoProperties.getInv();
 	var lat = latlng.lat();
 	var lng = latlng.lng();
 	var method = 'POST';
@@ -160,19 +74,28 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
   var subphone = $infoProperties.getPhone();
 	  var url = 'http://test.appkauhale.com/postReferral.php';
 	  $scope.codeStatus = "";
-		var data = {
-		  lat: lat,
-		  lng: lng,
-		  name: name,
-		  gender: gender,
-		  description: description,
-		  environment: environment,
-		  adult: adult,
-		  child: child,
-		  isgroup: isgroup,
-      subemail: subemail,
-      subphone: subphone
-		};
+	    if (isgroup == 0){
+			var data = {
+			  lat: lat,
+			  lng: lng,
+			  name: name,
+			  gender: gender,
+			  description: description,
+			  environment: environment,
+			  isgroup: isgroup,
+			  agegroup: agegroup
+			};
+		}else{
+			var data = {
+			  lat: lat,
+			  lng: lng,
+			  description: description,
+			  environment: environment,
+			  adult: adult,
+			  child: child,
+			  isgroup: isgroup
+			};
+		}
 		$http({
 		  method: method,
 		  url: url,
@@ -180,10 +103,8 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 		  headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
 		}).
 		success(function(response) {
-			$scope.codeStatus = response.data;
-			$scope.submitPrompt = "submitprompt";
-      //console.log(JSON.stringify(response));
-      $imageName = response.imageID;
+		  $imageName = response.imageID;
+		  $scope.showSuccess($imageName);
       if ($scope.picture != null) {
         $scope.sendPic($imageName);
       }
@@ -191,14 +112,14 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 		error(function(response) {
 			$scope.codeStatus = response || "Request failed";
 		});
-  };
+	};
   myLocation = function(){
     var options = {timeout: 10000, enableHighAccuracy: true};
 	$cordovaGeolocation.getCurrentPosition(options).then(function(position){
     coord = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     $scope.map.panTo(coord);
   }, function(error){
-    console.log("Could not get location");
+    
   });
   };
   $scope.saveName = function(e){
@@ -216,6 +137,10 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
   $scope.saveEnv = function(e){
 	  $infoProperties.setEnv(e);
 	  console.log($infoProperties.getEnv());
+  };
+  $scope.saveInv = function(e){
+	  $infoProperties.setInv(e);
+	  console.log($infoProperties.getInv());
   };
   $scope.saveAdult = function(e){
 	  $infoProperties.setAdult(e);
@@ -239,7 +164,7 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 	  if($infoProperties.getisGroup() == 1){
 		if($infoProperties.getAdult() == 0 && $infoProperties.getChild() == 0){
 			return false;
-		}else if($infoProperties.getAdult() == null || $infoProperties.getChild() == null || ($infoProperties.getAdult() == null && $infoProperties.getChild() == null)){
+		}else if($infoProperties.getAdult() < 0 || $infoProperties.getChild() < 0 || $infoProperties.getAdult() == null || $infoProperties.getChild() == null || ($infoProperties.getAdult() == null && $infoProperties.getChild() == null)){
 			return false;
 		}else if($locationProperties.getLoc() == null){
 			return false;
@@ -277,7 +202,9 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 	}
   $scope.isNumberChd = function(e) {
 	  $infoProperties.setChild(e);
+	  if (e < 0) return false; 
 	  if (angular.isNumber(e) && e % 1 == 0){
+		  
 		  return true;
 	  }else{
 		  return false;
@@ -285,7 +212,9 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
   }
   $scope.isNumberAdl = function(e) {
 	  $infoProperties.setAdult(e);
+	  if (e < 0) return false; 
 	  if (angular.isNumber(e) && e % 1 == 0){
+		  
 		  return true;
 	  }else{
 		  return false;
@@ -293,9 +222,31 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
   }
   
   // Camera Functions
+   $scope.showSuccess = function(e) {
+		var alertPopup = $ionicPopup.alert({
+			title: 'Submit Successful',
+			template: '<div>Thank You!!! for your referral. For additional information contact us at (123)456-7890 </br> <b>'+e+'</b></div>'
+		});
+
+		alertPopup.then(function(res) {
+			$state.go('menu.home'); 
+		});
+	};
+	
+	$scope.showLocerror = function() {
+		var alertPopup = $ionicPopup.alert({
+			title: 'Location Not Found!',
+			template: 'To assist our responders please allow location access for OHAI in Settings. Thank You!'
+		});
+
+		alertPopup.then(function(res) {
+			$state.go('menu.home'); 
+		});
+	};
+  
   $scope.takePic = function (options) {
     options = {
-      quality : 25,
+      quality : 75,
       targetWidth: 1024,
       targetHeight: 1024,
       sourceType: 1, // 0:PHOTOLIBRARY, 1:CAMERA, 2:SAVEDPHOTOALBUM
@@ -340,13 +291,6 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
     });
     
     function uploadSuccess(r) {
-      /**
-      Object r {
-        bytesSent: NUMBER,
-        responseCode: HTTP_RESPONSE_CODE,
-        response: ECHO_STRING_RESPONSE,
-        objectId: "" }
-      **/
       console.log(JSON.stringify(r));
     }
     
@@ -401,14 +345,14 @@ function ($scope, $stateParams) {
  
 }])
       
-.controller('resourcesCtrl', ['$scope', '$stateParams', '$cordovaGeolocation','$compile', 'Markers',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('resourcesCtrl', ['$scope', '$ionicPopup', '$state', '$cordovaGeolocation','$compile', 'Markers',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
+function ($scope, $ionicPopup, $state, $cordovaGeolocation, $compile, Markers) {
 	var gmarkers1 = [];
 	var apiKey = false;
 	var prev_infoWindow;
-	
+	var locmarker;
 	  function initMap(){
 		var options = {timeout: 10000, enableHighAccuracy: true};
 	 
@@ -433,6 +377,7 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 		  google.maps.event.addListenerOnce($scope.map, 'idle', function(){
 	 
 			//Load the markers
+			loadCurlocation(latLng);
 			loadMarkers();
 	 
 		  });
@@ -445,15 +390,20 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 		  };
 		  google.maps.event.addDomListener($scope.map.getDiv(), 'mousewheel', fx);
           google.maps.event.addDomListener($scope.map.getDiv(), 'DOMMouseScroll', fx);
-	 
+	      loadMarkers();
 		}, function(error){
-		  console.log("Could not get location");
-	 
-			//Load the markers
-			loadMarkers();
+		  $scope.showLocerror();
 		});
 	 
 	  }
+	  
+	function loadCurlocation(latLng){
+		        locmarker = new google.maps.Marker({
+				map: $scope.map,
+				icon: 'http://leadingagega.org/newsletters/images/blueDot.png',
+				position: latLng
+			});
+	}
 	 
 	function loadMarkers(){
 		//Get all of the markers from our Markers factory
@@ -521,6 +471,7 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 		  });
 	 
 	}
+	
 	$scope.filterMarkers = function (e) {
 		if(e === "S"){
 			category = document.getElementById("searchMarkervalue").value;
@@ -550,6 +501,17 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
     // Instantiate map filter bars as hidden
     $scope.resourceBar = "closedanimateresources";
     $scope.searchBar = "closedanimatesearch";
+	
+	$scope.showLocerror = function() {
+		var alertPopup = $ionicPopup.alert({
+			title: 'Location Not Found!',
+			template: 'To assist our responders please allow location access for OHAI in Settings. Thank You!'
+		});
+
+		alertPopup.then(function(res) {
+			$state.go('menu.home'); 
+		});
+	};
     
     $scope.toggleResources = function () {
         if ($scope.resourcesBar === "openanimate") {
@@ -630,6 +592,7 @@ function ($scope, $stateParams, $cordovaGeolocation, $compile, Markers) {
 	$cordovaGeolocation.getCurrentPosition(options).then(function(position){
     coord = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     $scope.map.panTo(coord);
+	loadCurlocation(coord);
   }, function(error){
     console.log("Could not get location");
   });
@@ -718,8 +681,24 @@ function ($scope, $stateParams) {
 
 }])
 
-.controller('getinvolvedCtrl', ['$scope', '$stateParams', '$ionicPopup',
-  function($scope, $stateParams, $ionicPopup, $timeout) {
+/**
+.controller('getinvolvedCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+>>>>>>> refs/remotes/origin/master
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+function ($scope, $stateParams, $ionicPopup, $timeout) {
+
+<<<<<<< HEAD
+// Triggered on a button click, or some other target
+$scope.showPopup = function() {
+  $scope.data = {};
+=======
+
+}])
+**/
+
+.controller('getinvolvedCtrl', ['$scope', '$http', '$state', '$ionicPopup',
+  function($scope, $http, $state, $ionicPopup) {
   // Triggered on a button click, or some other target
   $scope.showPopup = function() {
     $scope.data = {};
@@ -746,18 +725,47 @@ function ($scope, $stateParams) {
       }
     });
   };
-  
-  // Redirect to Volunteer Dialog and open browser
-  $scope.showVolunteer = function() {
-    var confirmPopup = $ionicPopup.confirm({
-      title: 'Redirect to Volunteer Portal',
-      template: 'Are you sure you want to open the IHS Volunteer signup in a new window?'
+	$scope.volunteer = {};
+	$scope.showVolunteer = function() {
+    var confirmPopup = $ionicPopup.show({
+	  template: '<input type="email" ng-model="volunteer.email">',
+      title: 'Please Enter Contact Info.',
+      subTitle: 'For details regarding this event please enter your email address below or please give us a call at (123)456-7890',
+	  scope: $scope,
+	  buttons: [
+	  { text: 'Cancel' },
+	  { text: '<b>Submit</b>',
+		type: 'button-positive',
+		onTap: function(e) {
+			if(!$scope.volunteer.email){
+				e.preventDefault();
+			}else{
+				return $scope.volunteer.email;
+			}
+		}
+	  }
+	  ]
     });
     
     confirmPopup.then(function(res) {
-      if(res) {
-        window.open('https://app.betterimpact.com/Application/?OrganizationGuid=c52ab82e-dd72-43e2-95a5-af0337db83bb', '_system');
-      }
+		var method = 'POST';
+		var url = 'http://test.appkauhale.com/addVolunteer.php';
+		var contactinfo = res;
+		var data = {
+		  email: contactinfo
+		};
+		$http({
+		  method: method,
+		  url: url,
+		  data: data,
+		  headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+		}).
+		success(function(response) {
+			console.log(JSON.stringify(response));
+		}).
+		error(function(response) {
+			console.log(JSON.stringify(response));
+		});
     });
   };
 
@@ -795,61 +803,14 @@ function ($scope, $stateParams, $http) {
 
 }])
 
-.controller('eventsCtrl', ['$scope', '$state', '$http', 'Events', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('eventsCtrl', ['$scope', '$state', '$http', '$ionicPopup','Events', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $state, $http, Events) {
+function ($scope, $state, $http, $ionicPopup, Events ) {
+	$scope.volunteer = {};
 	Events.getEvents().then(function(events){
 		$scope.items = events.data.events;
 	}); 
-	 /* $scope.items = [{
-      time: '9:30AM',
-      title: 'Summer Fun Events',
-      date: 'August 25, 2016',
-      location: 'Kaʻaahi Women & Family Shelter',
-      text: 'For the past five years, IHS has collaborated with local business and community members to host Summer Fun programs for homeless keiki, including a wide range of activities from working in a fish pond to learning how to surf.  Each event is an opportunity to teach life-long lessons and values, including responsibility, leadership, caring, collaboration, and the pursuit of excellence, giving keiki a break from the day-to-day stress of living in a shelter.'},{
-      time: '11:30AM',
-      title: 'Mens Bible Study',
-      date: 'August 25, 2016',
-      location: 'At this Shelter',
-      text: 'We host a mens only study from 11:30am to 1:00pm. The kitchen will be serving a hot meal.'},{
-      time: '2:30PM',
-      title: 'Serve with Us',
-      date: 'August 25, 2016',
-      location: 'At this Shelter',
-      text: 'We host a mens only study from 11:30am to 1:00pm. The kitchen will be serving a hot meal.'},{
-      time: '5:30PM',
-      title: 'Orientation',
-      date: 'August 25, 2016',
-      location: 'At this Shelter',
-      text: 'We host a mens only study from 11:30am to 1:00pm. The kitchen will be serving a hot meal.'},{
-      time: '11:30AM',
-      title: 'Mens Bible Study',
-      date: 'August 25, 2016',
-      location: 'At this Shelter',
-      text: 'We host a mens only study from 11:30am to 1:00pm. The kitchen will be serving a hot meal.'},{
-      time: '11:30AM',
-      title: 'Mens Bible Study',
-      date: 'August 25, 2016',
-      location: 'At this Shelter',
-      text: 'We host a mens only study from 11:30am to 1:00pm. The kitchen will be serving a hot meal.'},{
-      time: '11:30AM',
-      title: 'Mens Bible Study',
-      date: 'August 25, 2016',
-      location: 'At this Shelter',
-      text: 'We host a mens only study from 11:30am to 1:00pm. The kitchen will be serving a hot meal.'},{
-      time: '11:30AM',
-      title: 'Mens Bible Study',
-      date: 'August 25, 2016',
-      location: 'At this Shelter',
-      text: 'We host a mens only study from 11:30am to 1:00pm. The kitchen will be serving a hot meal.'
-          
-
-  }];
- 
-   * if given group is the selected group, deselect it
-   * else, select the given group
-   */
   $scope.toggleItem= function(item) {
     if ($scope.isItemShown(item)) {
       $scope.shownItem = null;
@@ -861,6 +822,52 @@ function ($scope, $state, $http, Events) {
     return $scope.shownItem === item;
   };
   
+  $scope.showVolunteer = function(id) {
+    $scope.volunteer.id = id;
+    var confirmPopup = $ionicPopup.show({
+	  template: '<input type="email" ng-model="volunteer.email">',
+      title: 'Please Enter Contact Info.',
+      subTitle: 'For details regarding this event please enter your email address below or please give us a call at (123)456-7890',
+	  scope: $scope,
+	  buttons: [
+	  { text: 'Cancel' },
+	  { text: '<b>Submit</b>',
+		type: 'button-positive',
+		onTap: function(e) {
+			if(!$scope.volunteer.email){
+				e.preventDefault();
+			}else{
+				return $scope.volunteer.email;
+			}
+		}
+	  }
+	  ]
+    });
+    
+    confirmPopup.then(function(res) {
+		var method = 'POST';
+		var url = 'http://test.appkauhale.com/addEventVolunteer.php';
+		var contactinfo = res;
+		var eventid = $scope.volunteer.id;
+		var data = {
+		  email: contactinfo,
+		  eventid: eventid
+		};
+		$http({
+		  method: method,
+		  url: url,
+		  data: data,
+		  headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+		}).
+		success(function(response) {
+			console.log(JSON.stringify(response));
+		}).
+		error(function(response) {
+			console.log(JSON.stringify(response));
+		});
+    });
+  };
+
   $scope.button0 = "activebutton"; $scope.date0 = true;
   $scope.button1 = ""; $scope.date1 = false;
   $scope.button2 = ""; $scope.date2 = false;

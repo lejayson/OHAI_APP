@@ -74,7 +74,7 @@
         <div ng-show="indform" class="list referform"> 
             
           <label class="item item-input item-stacked-label">
-              <span class="input-label">Their Name (if available)</span>
+              <span class="input-label" >Their Name (if available)</span>
             <input ng-model="inputName" ng-blur="saveName(inputName)" type="text" placeholder="John Doe" />
           </label>
           
@@ -89,11 +89,17 @@
 		  <label class="item item-input item-stacked-label">
             <span class="input-label">Environment</span>
             <ion-list ng-class="env1-valid">
-              <ion-radio name="envir" ng-model="envChoice" ng-click="saveEnv('Indoor')">Indoors</ion-radio>
-              <ion-radio name="envir" ng-model="envChoice" ng-click="saveEnv('Outdoor')">Outdoors</ion-radio>
+              <ion-radio name="envir" ng-model="envChoice" ng-click="saveEnv('indoor')">Indoors</ion-radio>
+              <ion-radio name="envir" ng-model="envChoice" ng-click="saveEnv('outdoor')">Outdoors</ion-radio>
             </ion-list>
           </label>
-            
+          <label class="item item-input item-stacked-label">
+            <span class="input-label">Age Group</span>
+            <ion-list ng-class="inv1-valid">
+              <ion-radio name="agegrp" ng-model="invChoice" ng-click="saveInv('child')">Child</ion-radio>
+			  <ion-radio name="agegrp" ng-model="invChoice" ng-click="saveInv('adult')">Adult (18+)</ion-radio>
+            </ion-list>
+          </label>  
           <label class="item item-input item-stacked-label refer-infolabel">        
           <span class="input-label">MORE INFORMATION</span>
             </label>      
@@ -102,7 +108,7 @@
             <textarea ng-model="inputDesc" ng-blur="saveDesc(inputDesc)" rows="8" placeholder="Please describe the circumstance of the person."></textarea>
           </label>
 		  
-		  <img ng-src="http://i.imgur.com/vkW3Lhe.jpg" class="img-responsive img-thumbnail" ng-show="inputName == 'cat'">
+		  <img ng-src="http://ets.hawaii.gov/wp-content/uploads/2015/05/Todd-Nacapuy.jpg" class="img-responsive img-thumbnail" ng-show="inputName == 'Todd'">
           
         </div> 
           
@@ -110,17 +116,21 @@
         <!-- GROUP FORM -->
           
         <div ng-show="groupform" class="list referform">
-            
 		<label class="item item-input item-stacked-label">
 		<span class="input-label">Number of Adults</span>
 		<input ng-class="na-valid" ng-model="inputAdult" type="number"/>
 		</label>
-
-
+		<div ng-show="!isNumberAdl(inputAdult)">
+			<p style="color:red;">*Adult input is not a Number or is Empty, Please verify input</p>
+		</div>    
+        
 		<label class="item item-input item-stacked-label">
 		<span class="input-label">Number of Children</span>
 		<input ng-class="nc-valid" ng-model="inputChild" type="number"/>
 		</label>
+		<div ng-show="!isNumberChd(inputChild)">
+			<p style="color:red;" >*Child input is not a Number or is Empty, Please verify input</p>
+		</div> 
 		<label class="item item-input item-stacked-label">
 		<span class="input-label">Environment</span>
 		<ion-list ng-class="env-valid">
@@ -137,12 +147,6 @@
 		</label>
 		
 		<!-- show if our function evaluates to false -->
-		<div ng-show="!isNumberChd(inputChild)">
-			<p style="color:red;" >*Child input is not a Number or is Empty, Please verify input</p>
-		</div>
-		<div ng-show="!isNumberAdl(inputAdult)">
-			<p style="color:red;">*Adult input is not a Number or is Empty, Please verify input</p>
-		</div>
 		  
           
         </div>

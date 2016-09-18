@@ -19,6 +19,7 @@ angular.module('app.services', [])
 	var description;
 	var environment;
 	var isGroup;
+	var ageGroup;
   var subemail;
   var subphone;
     
@@ -65,6 +66,12 @@ angular.module('app.services', [])
         setisGroup: function(grp) {
             isGroup = grp;
         },
+		getInv: function() {
+            return ageGroup;
+        },
+        setInv: function(inv) {
+            ageGroup = inv;
+		},
         getEmail: function() {
             return subemail;
         },

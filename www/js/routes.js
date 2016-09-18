@@ -111,6 +111,7 @@ angular.module('app.routes', [])
   })
   
   .state('menu.refer', {
+	cache: false,
     url: '/refer',
     views: {
       'side-menu21': {
