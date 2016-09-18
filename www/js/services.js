@@ -19,6 +19,7 @@ angular.module('app.services', [])
 	var description;
 	var environment;
 	var isGroup;
+	var ageGroup;
     
     return {
         getName: function() {
@@ -62,6 +63,12 @@ angular.module('app.services', [])
         },
         setisGroup: function(grp) {
             isGroup = grp;
+        },
+		getInv: function() {
+            return ageGroup;
+        },
+        setInv: function(inv) {
+            ageGroup = inv;
         }
     }
 });
