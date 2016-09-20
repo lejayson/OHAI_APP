@@ -8,7 +8,11 @@ angular.module('app.routes', [])
   // Each state's controller can be found in controllers.js
   $stateProvider
     
-  
+	.state('intro', {
+		url: '/',
+		templateUrl: 'pages/intro.html',
+		controller: 'introCtrl'
+	})
 
   .state('menu.home', {
     url: '/home',
@@ -138,7 +142,7 @@ angular.module('app.routes', [])
   
   
  
-$urlRouterProvider.otherwise('/kauhale/home');
+$urlRouterProvider.otherwise('/');
 
   
 

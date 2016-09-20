@@ -1,5 +1,30 @@
 angular.module('app.controllers', [])
 
+.controller('introCtrl', ['$scope', '$state', '$ionicSlideBoxDelegate',  // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+// You can include any angular dependencies as parameters for this function
+// TIP: Access Route Parameters for your page via $stateParams.parameterName
+                         
+                       
+function ($scope, $state, $ionicSlideBoxDelegate) {
+	
+	 // Called to navigate to the main app
+  $scope.startApp = function() {
+    $state.go('menu.home');
+  };
+  $scope.next = function() {
+    $ionicSlideBoxDelegate.next();
+  };
+  $scope.previous = function() {
+    $ionicSlideBoxDelegate.previous();
+  };
+
+  // Called each time the slide changes
+  $scope.slideChanged = function(index) {
+    $scope.slideIndex = index;
+  };
+	
+}])
+
 .controller('homeCtrl', ['$scope', '$state', '$cordovaGeolocation', '$locationProperties',  // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
@@ -33,7 +58,6 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
     var mapOptions = {
       center: latLng,
       zoom: 15,
-	  scrollwheel:false,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
 	  disableDefaultUI: false,
 	  mapTypeControl: false,
@@ -45,14 +69,6 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 	google.maps.event.addListener($scope.map, 'idle', function(event) {
 		placeMarker($scope.map.getCenter());
 	});
-	fx = function(e) {
-			  e.preventDefault();
-			  var z = (e.wheelDelta > 0 || e.detail < 0) ? .5 : -.5;
-			  $scope.map.setZoom(Math.max(0, Math.min(20, $scope.map.getZoom() + z)));
-			  return false;
-		  };
-		  google.maps.event.addDomListener($scope.map.getDiv(), 'mousewheel', fx);
-          google.maps.event.addDomListener($scope.map.getDiv(), 'DOMMouseScroll', fx);
 	function placeMarker(location) {
 		  $locationProperties.setLoc(location);
 	}
@@ -80,7 +96,7 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
 	var method = 'POST';
   var subemail = $infoProperties.getEmail();
   var subphone = $infoProperties.getPhone();
-	  var url = 'http://test.appkauhale.com/postReferral.php';
+	  var url = 'http://test.ohai-app.com/postReferral.php';
 	  $scope.codeStatus = "";
 	    if (isgroup == 0){
 			var data = {
@@ -282,7 +298,7 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties, $http, $info
   $scope.sendPic = function(imageName) {
     
     $ionicPlatform.ready(function() {
-      var uploadURI = "http://test.appkauhale.com/postimage.php";
+      var uploadURI = "http://test.ohai-app.com/postimage.php";
       
       var filename = imageName + ".jpg";
       
@@ -650,7 +666,7 @@ function ($scope, $ionicPopup, $state, $cordovaGeolocation, $compile, Markers) {
   return {
     getMarkers: function(){
 		
-      return $http.get("http://test.appkauhale.com/allmarkers.php").then(function(response){
+      return $http.get("http://test.ohai-app.com/allmarkers.php").then(function(response){
           markers = response;
           return markers;
       });
@@ -759,7 +775,7 @@ $scope.showPopup = function() {
     
     confirmPopup.then(function(res) {
 		var method = 'POST';
-		var url = 'http://test.appkauhale.com/addVolunteer.php';
+		var url = 'http://test.ohai-app.com/addVolunteer.php';
 		var contactinfo = res;
 		var data = {
 		  email: contactinfo
@@ -862,7 +878,7 @@ function ($scope, $state, $http, $ionicPopup, Events ) {
     confirmPopup.then(function(res) {
 		if (res != null){ 
 		var method = 'POST';
-		var url = 'http://test.appkauhale.com/addEventVolunteer.php';
+		var url = 'http://test.ohai-app.com/addEventVolunteer.php';
 		var contactinfo = res;
 		var eventid = $scope.volunteer.id;
 		var data = {
@@ -918,7 +934,7 @@ function ($scope, $state, $http, $ionicPopup, Events ) {
   return {
     getEvents: function(){
 		
-      return $http.get("http://test.appkauhale.com/eventsCal.php").then(function(response){
+      return $http.get("http://test.ohai-app.com/eventsCal.php").then(function(response){
           events = response;
           return events;
       });
