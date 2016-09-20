@@ -221,12 +221,13 @@ ion-item#menu-list-contact > a.item-content {
     position: absolute;
     display: block;
     text-align: center;
-    font-size: 1em;
+    font-size: 1.3em;
     font-weight: 600;
     z-index: 100;
     bottom: 35%;
     color: #fff;
     left: 10%;
+    letter-spacing: .1em;
 }
 
 .map-home-button > span {
@@ -236,7 +237,7 @@ ion-item#menu-list-contact > a.item-content {
     bottom: 0;
     left: 0;
     right: 0;
-    padding-top: 2px;
+    padding-top: 4px;
     display: inline-block;
     vertical-align: middle;
   }
@@ -267,7 +268,7 @@ ion-item#menu-list-contact > a.item-content {
 
 .homeslider {
     height: 100%;
-    background-color: #e3e3e3;
+    background-color: #fff;
 }
 
 
@@ -276,6 +277,27 @@ ion-item#menu-list-contact > a.item-content {
     display: block;
     width: 100%;
     height: 100%;
+}
+
+p.storyname.ng-binding {
+    padding-top: 15px;
+    font-size: 1.3em;
+}
+
+p.storystory.ng-binding {
+    font-size: .9em;
+    text-align: justify;
+    margin-bottom: 0px;
+}
+
+.homesuccess {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.homesuccess-image {
+    width: 100%;
 }
 
 .homeslider-image:after {

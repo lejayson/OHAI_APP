@@ -17,7 +17,7 @@
                 <div class="slideheight">
                     
                     
-                    <div class="homeslider-image">
+        <div class="homeslider-image">
                 <div class="homeslider-text">
                     Make a <br>difference <span class="sliderinfo">Today.</span>
                 </div>
@@ -28,11 +28,15 @@
                   </div>
               </ion-slide>
               <ion-slide>
+                  <ion-content scroll="true">
+                      
 				<div class='listviewstyle' ng-repeat="story in stories">
-							<span>{{story.imgurl}}</span>
-							<p>{{story.name}}</p>
-							<p>{{story.story}}</p>
+							<div class="homesuccess"><img class="homesuccess-image" src="{{story.imgurl}}"></div>
+							<p class="storyname">{{story.name}}</p>
+							<p class="storystory">{{story.story}}</p>
+                    
 				</div>
+                </ion-content>
               </ion-slide>
             </ion-slide-box>
             
