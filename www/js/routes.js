@@ -8,8 +8,15 @@ angular.module('app.routes', [])
   // Each state's controller can be found in controllers.js
   $stateProvider
     
-	.state('intro', {
-		url: '/',
+	
+  .state('splash', {
+    url: '/',
+    templateUrl: 'pages/splash.html',
+    controller: 'splashCtrl'
+  })
+  
+  .state('intro', {
+		url: '/intro',
 		templateUrl: 'pages/intro.html',
 		controller: 'introCtrl'
 	})

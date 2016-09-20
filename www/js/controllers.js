@@ -1,13 +1,20 @@
 angular.module('app.controllers', [])
 
-.controller('introCtrl', ['$scope', '$state', '$ionicSlideBoxDelegate',  // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
-// You can include any angular dependencies as parameters for this function
-// TIP: Access Route Parameters for your page via $stateParams.parameterName
-                         
-                       
-function ($scope, $state, $ionicSlideBoxDelegate) {
+.controller('splashCtrl', ['$scope', '$state',
+function($scope, $state) {
+    
+  $scope.skipSplash = function() {
+    $state.go('intro');
+  }
+  
+}])
+
+.controller('introCtrl', ['$scope', '$state', '$ionicSlideBoxDelegate', '$ionicHistory',
+function ($scope, $state, $ionicSlideBoxDelegate, $ionicHistory) {
 	
-	 // Called to navigate to the main app
+  $ionicHistory.clearHistory();
+  
+	// Called to navigate to the main app
   $scope.startApp = function() {
     $state.go('menu.home');
   };
@@ -28,8 +35,6 @@ function ($scope, $state, $ionicSlideBoxDelegate) {
 .controller('homeCtrl', ['$scope', '$state', '$cordovaGeolocation', '$locationProperties',  // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-                         
-                       
 function ($scope, $state, $cordovaGeolocation, $locationProperties) {
 	
 	$scope.stories = [
@@ -41,7 +46,7 @@ function ($scope, $state, $cordovaGeolocation, $locationProperties) {
   ];
 	
 }])
-   
+
 .controller('referCtrl', ['$scope', '$state', '$cordovaGeolocation', '$locationProperties', '$http', '$infoProperties', 'Camera', '$ionicPlatform', '$ionicPopup',
 // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
