@@ -1552,7 +1552,7 @@ i.resourceicons {
 .intronav {
     position: absolute;
     bottom: 0;
-    z-index: 1;
+    z-index: 3;
     width:100%;
 }
 
@@ -1580,11 +1580,13 @@ i.resourceicons {
     float: left;
     padding-bottom:3px;
     padding-left:10px;
+    z-index: 1000;
 }
 
 .intronav-right {
     float:right;
     padding-right: 10px;
+    z-index: 1000;
 }
 
 .introheader {
@@ -1608,6 +1610,7 @@ i.resourceicons {
     font-size: .9em;
     text-transform: uppercase;
     letter-spacing: .16em;
+    z-index: 1000;
 }
 
 .enterbutton {
