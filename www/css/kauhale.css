@@ -1544,3 +1544,76 @@ i.resourceicons {
     background-color: #00adb5;
     color: #fff;
 }
+
+.introcolor {
+    background-color: #f6f6f6;
+}
+
+.intronav {
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+    width:100%;
+}
+
+.introslides {
+    width:100%;
+    height:100%;
+}
+
+.slidecontent {
+    text-align: center;
+    padding: 25px;
+    background-color: #f6f6f6;
+}
+
+.slidecenter {
+    vertical-align: middle;
+    height: auto;
+    display: block;
+    position: inherit;
+    top: 3%;
+    font-family: 'Lato,' sans-serif;
+}
+
+.intronav-left {
+    float: left;
+    padding-bottom:3px;
+    padding-left:10px;
+}
+
+.intronav-right {
+    float:right;
+    padding-right: 10px;
+}
+
+.introheader {
+    padding-top:45px;
+    font-size: 1.7em;
+    color: #3a3a3a;
+}
+
+.slidetext {
+    padding: 10px;
+    line-height: 1.9em;
+    color: #515151;
+}
+
+.introimg {
+    width: 200px;
+}
+
+.blue {
+    color: #5c5c5c !important;
+    font-size: .9em;
+    text-transform: uppercase;
+    letter-spacing: .16em;
+}
+
+.enterbutton {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border: 1px solid #515151 !important;
+}
